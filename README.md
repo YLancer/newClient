@@ -1,1 +1,1 @@
-# newClient
+# NewMajhongClient

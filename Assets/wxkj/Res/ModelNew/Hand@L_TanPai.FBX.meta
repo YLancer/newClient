@@ -1,0 +1,178 @@
+fileFormatVersion: 2
+guid: 7d46c33e10e1ff642a2d23b765ff6acc
+timeCreated: 1497661052
+licenseType: Pro
+ModelImporter:
+  serializedVersion: 19
+  fileIDToRecycleName:
+    100000: Bone_L_Finger02_END001
+    100002: Bone_L_Finger043
+    100004: Bone_L_Finger044
+    100006: Bone_L_Finger045
+    100008: Bone_L_Finger046
+    100010: Bone_L_Finger047
+    100012: Bone_L_Finger048
+    100014: Bone_L_Finger049
+    100016: Bone_L_Finger050
+    100018: Bone_L_Finger051
+    100020: Bone_L_Finger052
+    100022: Bone_L_Finger053
+    100024: Bone_L_Finger054
+    100026: Bone_L_Finger055
+    100028: Bone_L_Finger056
+    100030: Bone_L_Finger057
+    100032: Bone_L_Finger22_END001
+    100034: Bone_L_Finger32_END001
+    100036: Bone_L_Finger42_END001
+    100038: Bone_L_Forearm001
+    100040: Bone_L_Hand001
+    100042: Bone_R_Finger12_END001
+    100044: //RootNode
+    100046: L_Hand001
+    100048: Point_MJ001
+    100050: Point_Root001
+    100052: Bone_L_Finger0
+    100054: Bone_L_Finger01
+    100056: Bone_L_Finger02
+    100058: Bone_L_Finger02_END
+    100060: Bone_L_Finger1
+    100062: Bone_L_Finger11
+    100064: Bone_L_Finger12
+    100066: Bone_L_Finger12_END
+    100068: Bone_L_Finger2
+    100070: Bone_L_Finger21
+    100072: Bone_L_Finger22
+    100074: Bone_L_Finger22_END
+    100076: Bone_L_Finger3
+    100078: Bone_L_Finger31
+    100080: Bone_L_Finger32
+    100082: Bone_L_Finger32_END
+    100084: Bone_L_Finger4
+    100086: Bone_L_Finger41
+    100088: Bone_L_Finger42
+    100090: Bone_L_Finger42_END
+    100092: Bone_L_Forearm
+    100094: Bone_L_Hand
+    100096: L_Hand
+    100098: Point_Root
+    400000: Bone_L_Finger02_END001
+    400002: Bone_L_Finger043
+    400004: Bone_L_Finger044
+    400006: Bone_L_Finger045
+    400008: Bone_L_Finger046
+    400010: Bone_L_Finger047
+    400012: Bone_L_Finger048
+    400014: Bone_L_Finger049
+    400016: Bone_L_Finger050
+    400018: Bone_L_Finger051
+    400020: Bone_L_Finger052
+    400022: Bone_L_Finger053
+    400024: Bone_L_Finger054
+    400026: Bone_L_Finger055
+    400028: Bone_L_Finger056
+    400030: Bone_L_Finger057
+    400032: Bone_L_Finger22_END001
+    400034: Bone_L_Finger32_END001
+    400036: Bone_L_Finger42_END001
+    400038: Bone_L_Forearm001
+    400040: Bone_L_Hand001
+    400042: Bone_R_Finger12_END001
+    400044: //RootNode
+    400046: L_Hand001
+    400048: Point_MJ001
+    400050: Point_Root001
+    400052: Bone_L_Finger0
+    400054: Bone_L_Finger01
+    400056: Bone_L_Finger02
+    400058: Bone_L_Finger02_END
+    400060: Bone_L_Finger1
+    400062: Bone_L_Finger11
+    400064: Bone_L_Finger12
+    400066: Bone_L_Finger12_END
+    400068: Bone_L_Finger2
+    400070: Bone_L_Finger21
+    400072: Bone_L_Finger22
+    400074: Bone_L_Finger22_END
+    400076: Bone_L_Finger3
+    400078: Bone_L_Finger31
+    400080: Bone_L_Finger32
+    400082: Bone_L_Finger32_END
+    400084: Bone_L_Finger4
+    400086: Bone_L_Finger41
+    400088: Bone_L_Finger42
+    400090: Bone_L_Finger42_END
+    400092: Bone_L_Forearm
+    400094: Bone_L_Hand
+    400096: L_Hand
+    400098: Point_Root
+    4300000: L_Hand001
+    4300002: L_Hand
+    7400000: Take 001
+    9500000: //RootNode
+    11100000: //RootNode
+    13700000: L_Hand001
+    13700002: L_Hand
+  materials:
+    importMaterials: 1
+    materialName: 0
+    materialSearch: 1
+  animations:
+    legacyGenerateAnimations: 4
+    bakeSimulation: 0
+    resampleRotations: 1
+    optimizeGameObjects: 0
+    motionNodeName: 
+    animationImportErrors: 
+    animationImportWarnings: 
+    animationRetargetingWarnings: 
+    animationDoRetargetingWarnings: 0
+    animationCompression: 1
+    animationRotationError: 0.5
+    animationPositionError: 0.5
+    animationScaleError: 0.5
+    animationWrapMode: 0
+    extraExposedTransformPaths: []
+    clipAnimations: []
+    isReadable: 1
+  meshes:
+    lODScreenPercentages: []
+    globalScale: 0.1
+    meshCompression: 0
+    addColliders: 0
+    importBlendShapes: 1
+    swapUVChannels: 0
+    generateSecondaryUV: 0
+    useFileUnits: 1
+    optimizeMeshForGPU: 1
+    keepQuads: 0
+    weldVertices: 1
+    secondaryUVAngleDistortion: 8
+    secondaryUVAreaDistortion: 15.000001
+    secondaryUVHardAngle: 88
+    secondaryUVPackMargin: 4
+    useFileScale: 1
+  tangentSpace:
+    normalSmoothAngle: 60
+    normalImportMode: 0
+    tangentImportMode: 3
+  importAnimation: 1
+  copyAvatar: 0
+  humanDescription:
+    human: []
+    skeleton: []
+    armTwist: 0.5
+    foreArmTwist: 0.5
+    upperLegTwist: 0.5
+    legTwist: 0.5
+    armStretch: 0.05
+    legStretch: 0.05
+    feetSpacing: 0
+    rootMotionBoneName: 
+    hasTranslationDoF: 0
+  lastHumanDescriptionAvatarSource: {instanceID: 0}
+  animationType: 1
+  humanoidOversampling: 1
+  additionalBone: 0
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 

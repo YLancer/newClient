@@ -1,0 +1,80 @@
+using  UnityEngine;
+using System.Collections;
+using System.Collections.Generic;
+using ImangiUtilities;
+
+public class ScriptName : ConfigBase
+{
+AttrDefine
+    public static string jsonName = "ScriptName";
+    public static bool HasLoad = false;
+    private static Dictionary<KeyType, ScriptName> _map;
+    public static Dictionary<KeyType, ScriptName> map
+    {
+        get
+        {
+            if (!HasLoad)
+            {
+                Init();
+            }
+
+            return _map;
+        }
+    }
+    private static List<ScriptName> _datas;
+    public static List<ScriptName> datas
+    {
+        get
+        {
+            if (!HasLoad)
+            {
+                Init();
+            }
+
+            return _datas;
+        }
+    }
+
+	public static ScriptName GetByKey (KeyType key){
+        if (!HasLoad)
+        {
+            Init();
+        }
+
+		ScriptName data;
+		if (_map.TryGetValue (key, out data)) {
+			return data;
+		} else {
+			return null;
+		}
+	}
+
+    public static void Init()
+    {
+        FromJson(JsonStr(jsonName));
+
+        HasLoad = true;
+    }
+
+    public static void FromJson(string json)
+    {
+        List<object> list = json.listFromJson();
+        _map = new Dictionary<KeyType, ScriptName>(list.Count);
+        _datas = new List<ScriptName>(list.Count);
+
+        for (int i = 0; i < list.Count; i++)
+        {
+            Dictionary<string, object> inDict = list[i] as Dictionary<string, object>;
+            ScriptName data = FromJson(inDict);
+            _map.Add(data.KeyName, data);
+            _datas.Add(data);
+        }
+    }
+
+    static ScriptName FromJson(Dictionary<string, object> inDict)
+    {
+        ScriptName data = new ScriptName();
+TempletContent
+        return data;
+    }
+}

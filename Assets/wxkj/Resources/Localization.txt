@@ -1,0 +1,15 @@
+﻿KEY,中文
+Language,中文
+CS_LOADING_TEXT,【加载测试中。。。step({0})】
+CS_SweetyShop_loading,加载甜点社信息...
+CS_SweetyShop_loading_Err,加载甜点社信息错误。msg:{0}
+CS_SweetyShop_Order_taskTag,任务
+CS_SweetyShop_Order_Material,{0} <color=red>{1}</color>/{2}
+CS_SweetyShop_Equip_Upgrade,升级！
+CS_SweetyShop_Equip_Unlock,解锁
+CS_SweetyShop_Equip_Addtive1,生成速度+{0}%
+CS_SweetyShop_Equip_Addtive2,魅力获取+{0}/小时
+CS_SweetyShop_Make_title,制作{0}
+CS_SweetyShop_Make_Ing,制作中...
+CS_SweetyShop_Make_Finish,制作完成
+CS_SweetyShop_Make_Production_working,设备正在制作其他甜点！

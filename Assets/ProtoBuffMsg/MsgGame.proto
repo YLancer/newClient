@@ -1,0 +1,178 @@
+package packet.game;
+
+//本文件存放游戏通用协议，跟麻将无关哦
+
+//新建房间
+message CreateVipRoomRequest {
+	optional sint32 quanNum = 1; //圈数
+	optional int32 wangfa = 4; //(0x01:开牌炸)  (0x02:支对)  (0x04:37夹) (0x08:单调夹) (0x10:带大风) (0x20:红中满天飞) (0x40:带漏的) (0x80:不夹不胡)
+	optional sint32 vipRoomType = 5; // (2:2人房间) (4:4人房间) 
+}
+
+//更新vip房间列表
+message VipRoomListSyn {
+	repeated VipRoomModel roomList = 1; 
+}
+
+message VipRoomModel {
+	optional string code = 1; //桌子编号
+	optional string name = 2; //房间名称
+	optional sint32 roomType = 3; //房间类型  2:2人麻将 4：4人麻将
+	required sint32 quanNum = 4; //圈数
+	optional int32 wangfa = 5; //玩法
+	repeated PlayerModel players = 6; //玩家列表
+}
+
+message PlayerModel {
+	required int32 position = 1; //位置
+	required string nickName = 2; //昵称
+	required int32 playerId = 3; //id
+	required int32 coin = 4; //金币数
+	required int32 state = 5;//状态 0 取消准备，1准备
+	required int32 online = 6;//状态 0 离线，1在线 
+}
+
+//解散房间
+message DismissVipRoomRequest {
+	required string code = 1; //桌子编号
+}
+
+//vip房间玩家列表
+message VipRoomPlayersRequest {
+	required string code = 1; //桌子编号
+}
+
+//踢人
+message KickPlayerRequest {
+   optional string code = 1; //桌子编号
+   optional sint32 playerId = 2; //玩家id
+}
+
+//开始游戏
+message EnrollRequest {
+	optional string gameId = 1; //游戏id
+	optional string matchId = 2; //赛场id
+	repeated int32 cards = 3;//初始手牌，调试用
+	optional string roomCode = 4; //加入房间时用到
+}
+
+//空包, 报名成功后通过PlayerGamingSyn推送消息
+message EnrollResponse {
+   
+}
+
+//推送当前玩家正在游戏的消息, 报名成功或断线重连会推送此包
+message PlayerGamingSyn {
+	required string gameId = 1;
+	required string matchId = 2;
+	required string roomId = 3;
+	required string deskId = 4;
+	required int32 wanfa = 5; //玩法
+	optional sint32 roomType = 6; //房间类型  1:2人麻将 2：4人麻将
+	optional sint32 totalQuan = 7; //总圈数
+}
+
+//推送玩家进入桌子消息，报名成功/别的玩家进入桌子 会向当前玩家推送本消息
+message PlayerSitSyn {
+	required int32 position = 1; //位置
+	required string nickName = 2; //昵称
+	required int32 playerId = 3; //id
+	required int32 coin = 4; //金币数
+	required int32 state = 5;//状态 0 取消准备，1准备
+	required int32 online = 6;//状态 0 离线，1在线
+	optional string headImg = 7; //头像
+	optional sint32 sex = 8; //性别
+	optional sint32 score = 9; //积分
+	optional int32 away = 10; //1 离开 0非离开
+}
+
+//推送玩家离开桌子消息
+message PlayerAwaySyn {
+	required sint32 playerId = 1; //玩家id
+}
+
+//推送玩家掉线消息
+message PlayerOfflineSyn {
+   required sint32 playerId = 1; //玩家id
+}
+
+//推送玩家回来消息
+message PlayerComebackSyn {
+   required sint32 playerId = 1; //玩家id
+}
+
+//推送玩家重连消息
+message PlayerReconnectSyn {
+   required sint32 playerId = 1; //玩家id
+}
+
+//推送玩家重连消息
+message PlayerExitSyn {
+   required sint32 playerId = 1; //玩家id
+}
+
+//message ReadyReponse{
+//	required int32 position = 1; //位置
+//	required int32 state = 2;//状态 0 取消准备，1准备
+//}
+
+//同步玩家的准备状态
+message ReadySyn{
+	//required int32 position = 1; //位置
+	required sint32 playerId = 1; //玩家id
+	required int32 state = 2;//状态 0 取消准备，1准备
+}
+
+//换桌
+message ChangeDeskRequest {
+	required int32 playerId = 1; //id
+}
+
+message ChangeDeskResponse {
+
+}
+
+//游戏开始
+message GameStartSyn {
+   required string deskId = 1;//开赛的桌子id
+}
+
+//游戏消息同步-推送
+message GameMsgSyn {
+	required int32 flag = 1; //0 前往赛场 1只能返回大厅 2充值
+    required string gameId = 2; //忽略此字段
+    optional string matchId = 3; //游戏场,比如high_match（高分场）, 在flag=0时该字段有效
+    optional string msg = 4; //弹窗消息，比如:你的分数已经高于本场条件,是否前往高级场?
+}
+
+message GameChatMsgRequest {
+   optional bytes content = 1;
+   optional int32 contentType = 2; //类型 1 文字 2图片 3语音
+}
+
+//游戏聊天消息
+message GameChatMsgSyn {
+	optional string deskId = 1;
+	optional int32 position = 2;
+	optional bytes data = 3;
+	optional int32 contentType = 4; //类型 1 文字 2图片 3语音
+}
+
+message HangupSyn {
+	optional int32 position = 1; //位置
+	optional int32 status = 2; // 1 托管  2 正常
+}
+
+//桌子解散
+message DeskDestorySyn {
+	optional string deskId = 1;
+}
+
+message DissmissVoteSyn {
+	optional int32 position = 1;
+	optional bool agree = 2; //是否同意
+}
+
+message PlayerGamingSynInquire {
+	optional bool isGaming = 1; //是否在游戏中
+}

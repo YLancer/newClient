@@ -1,0 +1,122 @@
+package packet.game;
+
+//防沉迷-实名认证
+message AntiAddictionRequest {
+	optional string phoneNumber = 1; //手机号码
+	optional string playerIdentityNumber = 2; //身份证号
+	optional string playerRealName = 3;  //真实姓名
+	optional string playerAddress = 4;  //地址
+	optional string playerWeiXinID = 5;  //微信
+	optional string playerQQID = 6;  //QQ
+}
+
+message AntiAddictionResponse {
+
+}
+
+//注册新用户
+message RegisterRequest {
+	optional string account = 1; //帐号
+	optional string password = 2; //密码
+	optional string nickname = 3;  //昵称
+	optional sint32 deviceFlag = 4; //设备号 //设备号 1:ios 2:android 3:winphon 4:other
+}
+
+message RegisterResponse {
+	
+}
+
+//注册新用户
+message VistorRegisterRequest {
+	optional sint32 deviceFlag = 1; //设备号 1:ios 2:android 3:winphon 4:other
+	optional string deviceId = 2; //设备唯一id
+
+}
+
+message VistorRegisterResponse {
+	optional string account = 1; //帐号
+	optional string password = 2; //密码
+}
+
+message RoomResultRequest{
+	optional sint64 roomId = 1; //可选，如果有该参数，则查询某个房间的战绩明细，否则查询所有房间的总战绩。
+}
+
+message RoomResultResponse{
+	repeated RoomResultModel list = 1;
+}
+
+message RoomResultModel {
+    optional sint64 roomId = 1; //房间id
+	optional string roomName = 2; //房间名称
+	optional string roomCode = 3; //房间编号
+	optional string playerTime = 4;  //对战时间
+	repeated PlayerScoreModel playerScore = 5; //玩家战绩
+}
+
+message PlayerScoreModel{
+	optional string playerName = 1;//昵称
+	optional int64 playerId = 2; //id
+	optional int32 score = 3; //分数
+}
+
+message MallProductRequest { //空包
+	
+}
+
+message MallProductResponse {
+	repeated MallProductModel products = 1; //商品列表
+}
+
+message MallProductModel {
+   optional string id = 1; //商品id
+   optional string name = 2 ; //商品名称   
+   optional string image = 3; //商品图片
+   optional int32 category = 4; //分类0 金币 1 房卡
+   optional int32 price = 5 ; //价格
+   optional int32 itemCount = 6; //道具数量
+}
+
+message GenOrderRequest {
+	optional int32 platformId = 1; //1 微信 2支付宝 3测试
+	optional string productId = 2; //商品id
+}
+
+message GenOrderResponse {
+	optional string orderId = 1; //订单id
+	optional int32 platformId = 2; //1 微信 2支付宝 3测试
+	optional bytes data = 3; //签名数据，平台相关
+}
+
+message ConfirmOrderRequest{
+   optional string orderId = 1; //订单id
+   optional int32 platformId = 2; //1 微信 2支付宝 3测试
+   optional int32 result = 3; //结果 1 支付成功  2 支付失败 3 放弃
+   optional bytes data = 4; //平台相关数据
+}
+
+message RoomConfigResponse {
+	repeated RoomConfigModel roomList = 1;
+}
+
+message RoomConfigModel {
+	optional string roomId = 1;
+	optional string roomName = 2;
+	optional string roomType = 3;
+	optional string matchType = 4;
+	optional int32 baseScore = 5; //底分
+	optional int32 minCoinLimit = 6;
+	optional int32 maxCoinLimit = 7;
+	optional string icon = 8;
+	optional int32 fee = 9; //台费	
+}
+
+message ServerChangeSyn {
+	optional string msgServerAddr = 1; //消息服务器地址，格式 ip:port
+	optional string gameServerAddr = 2; //游戏服务器地址，格式 ip:port
+	optional string hallServerAddr = 3; //大厅服务器地址，格式 ip:port
+}
+
+message LogoutSyn {
+	optional string reason = 1; //比如：1.你已被管理员强制退出登录     2.你的帐号在另一个设备上登录。
+}

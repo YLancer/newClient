@@ -1,0 +1,208 @@
+fileFormatVersion: 2
+guid: 94c6b7aea252542429b225ae14b5d5ca
+timeCreated: 1497661052
+licenseType: Pro
+ModelImporter:
+  serializedVersion: 19
+  fileIDToRecycleName:
+    100000: Bone_R_Finger0
+    100002: Bone_R_Finger01
+    100004: Bone_R_Finger02
+    100006: Bone_R_Finger02_END
+    100008: Bone_R_Finger1
+    100010: Bone_R_Finger11
+    100012: Bone_R_Finger12
+    100014: Bone_R_Finger12_END
+    100016: Bone_R_Finger2
+    100018: Bone_R_Finger21
+    100020: Bone_R_Finger22
+    100022: Bone_R_Finger22_END
+    100024: Bone_R_Finger3
+    100026: Bone_R_Finger31
+    100028: Bone_R_Finger32
+    100030: Bone_R_Finger32_END
+    100032: Bone_R_Finger4
+    100034: Bone_R_Finger41
+    100036: Bone_R_Finger42
+    100038: Bone_R_Finger42_END
+    100040: Bone_R_Forearm
+    100042: Bone_R_Hand
+    100044: //RootNode
+    100046: Point_MJ001
+    100048: Point_Root
+    100050: R_Hand
+    400000: Bone_R_Finger0
+    400002: Bone_R_Finger01
+    400004: Bone_R_Finger02
+    400006: Bone_R_Finger02_END
+    400008: Bone_R_Finger1
+    400010: Bone_R_Finger11
+    400012: Bone_R_Finger12
+    400014: Bone_R_Finger12_END
+    400016: Bone_R_Finger2
+    400018: Bone_R_Finger21
+    400020: Bone_R_Finger22
+    400022: Bone_R_Finger22_END
+    400024: Bone_R_Finger3
+    400026: Bone_R_Finger31
+    400028: Bone_R_Finger32
+    400030: Bone_R_Finger32_END
+    400032: Bone_R_Finger4
+    400034: Bone_R_Finger41
+    400036: Bone_R_Finger42
+    400038: Bone_R_Finger42_END
+    400040: Bone_R_Forearm
+    400042: Bone_R_Hand
+    400044: //RootNode
+    400046: Point_MJ001
+    400048: Point_Root
+    400050: R_Hand
+    4300000: R_Hand
+    7400000: PutTable
+    9500000: //RootNode
+    11100000: //RootNode
+    13700000: R_Hand
+  materials:
+    importMaterials: 1
+    materialName: 0
+    materialSearch: 1
+  animations:
+    legacyGenerateAnimations: 4
+    bakeSimulation: 0
+    resampleRotations: 1
+    optimizeGameObjects: 0
+    motionNodeName: 
+    animationImportErrors: 
+    animationImportWarnings: 
+    animationRetargetingWarnings: 
+    animationDoRetargetingWarnings: 0
+    animationCompression: 1
+    animationRotationError: 0.5
+    animationPositionError: 0.5
+    animationScaleError: 0.5
+    animationWrapMode: 0
+    extraExposedTransformPaths: []
+    clipAnimations:
+    - serializedVersion: 16
+      name: PutTable
+      takeName: Take 001
+      firstFrame: 0
+      lastFrame: 26
+      wrapMode: 0
+      orientationOffsetY: 0
+      level: 0
+      cycleOffset: 0
+      loop: 0
+      hasAdditiveReferencePose: 0
+      loopTime: 0
+      loopBlend: 0
+      loopBlendOrientation: 0
+      loopBlendPositionY: 0
+      loopBlendPositionXZ: 0
+      keepOriginalOrientation: 0
+      keepOriginalPositionY: 1
+      keepOriginalPositionXZ: 0
+      heightFromFeet: 0
+      mirror: 0
+      bodyMask: 01000000010000000100000001000000010000000100000001000000010000000100000001000000010000000100000001000000
+      curves: []
+      events: []
+      transformMask:
+      - path: 
+        weight: 1
+      - path: Point_MJ001
+        weight: 1
+      - path: Point_Root
+        weight: 1
+      - path: Point_Root/Bone_R_Forearm
+        weight: 1
+      - path: Point_Root/Bone_R_Forearm/Bone_R_Hand
+        weight: 1
+      - path: Point_Root/Bone_R_Forearm/Bone_R_Hand/Bone_R_Finger0
+        weight: 1
+      - path: Point_Root/Bone_R_Forearm/Bone_R_Hand/Bone_R_Finger0/Bone_R_Finger01
+        weight: 1
+      - path: Point_Root/Bone_R_Forearm/Bone_R_Hand/Bone_R_Finger0/Bone_R_Finger01/Bone_R_Finger02
+        weight: 1
+      - path: Point_Root/Bone_R_Forearm/Bone_R_Hand/Bone_R_Finger0/Bone_R_Finger01/Bone_R_Finger02/Bone_R_Finger02_END
+        weight: 1
+      - path: Point_Root/Bone_R_Forearm/Bone_R_Hand/Bone_R_Finger1
+        weight: 1
+      - path: Point_Root/Bone_R_Forearm/Bone_R_Hand/Bone_R_Finger1/Bone_R_Finger11
+        weight: 1
+      - path: Point_Root/Bone_R_Forearm/Bone_R_Hand/Bone_R_Finger1/Bone_R_Finger11/Bone_R_Finger12
+        weight: 1
+      - path: Point_Root/Bone_R_Forearm/Bone_R_Hand/Bone_R_Finger1/Bone_R_Finger11/Bone_R_Finger12/Bone_R_Finger12_END
+        weight: 1
+      - path: Point_Root/Bone_R_Forearm/Bone_R_Hand/Bone_R_Finger2
+        weight: 1
+      - path: Point_Root/Bone_R_Forearm/Bone_R_Hand/Bone_R_Finger2/Bone_R_Finger21
+        weight: 1
+      - path: Point_Root/Bone_R_Forearm/Bone_R_Hand/Bone_R_Finger2/Bone_R_Finger21/Bone_R_Finger22
+        weight: 1
+      - path: Point_Root/Bone_R_Forearm/Bone_R_Hand/Bone_R_Finger2/Bone_R_Finger21/Bone_R_Finger22/Bone_R_Finger22_END
+        weight: 1
+      - path: Point_Root/Bone_R_Forearm/Bone_R_Hand/Bone_R_Finger3
+        weight: 1
+      - path: Point_Root/Bone_R_Forearm/Bone_R_Hand/Bone_R_Finger3/Bone_R_Finger31
+        weight: 1
+      - path: Point_Root/Bone_R_Forearm/Bone_R_Hand/Bone_R_Finger3/Bone_R_Finger31/Bone_R_Finger32
+        weight: 1
+      - path: Point_Root/Bone_R_Forearm/Bone_R_Hand/Bone_R_Finger3/Bone_R_Finger31/Bone_R_Finger32/Bone_R_Finger32_END
+        weight: 1
+      - path: Point_Root/Bone_R_Forearm/Bone_R_Hand/Bone_R_Finger4
+        weight: 1
+      - path: Point_Root/Bone_R_Forearm/Bone_R_Hand/Bone_R_Finger4/Bone_R_Finger41
+        weight: 1
+      - path: Point_Root/Bone_R_Forearm/Bone_R_Hand/Bone_R_Finger4/Bone_R_Finger41/Bone_R_Finger42
+        weight: 1
+      - path: Point_Root/Bone_R_Forearm/Bone_R_Hand/Bone_R_Finger4/Bone_R_Finger41/Bone_R_Finger42/Bone_R_Finger42_END
+        weight: 1
+      - path: R_Hand
+        weight: 1
+      maskType: 0
+      maskSource: {instanceID: 0}
+      additiveReferencePoseFrame: 0
+    isReadable: 1
+  meshes:
+    lODScreenPercentages: []
+    globalScale: 0.1
+    meshCompression: 0
+    addColliders: 0
+    importBlendShapes: 1
+    swapUVChannels: 0
+    generateSecondaryUV: 0
+    useFileUnits: 1
+    optimizeMeshForGPU: 1
+    keepQuads: 0
+    weldVertices: 1
+    secondaryUVAngleDistortion: 8
+    secondaryUVAreaDistortion: 15.000001
+    secondaryUVHardAngle: 88
+    secondaryUVPackMargin: 4
+    useFileScale: 1
+  tangentSpace:
+    normalSmoothAngle: 60
+    normalImportMode: 0
+    tangentImportMode: 3
+  importAnimation: 1
+  copyAvatar: 0
+  humanDescription:
+    human: []
+    skeleton: []
+    armTwist: 0.5
+    foreArmTwist: 0.5
+    upperLegTwist: 0.5
+    legTwist: 0.5
+    armStretch: 0.05
+    legStretch: 0.05
+    feetSpacing: 0
+    rootMotionBoneName: 
+    hasTranslationDoF: 0
+  lastHumanDescriptionAvatarSource: {instanceID: 0}
+  animationType: 1
+  humanoidOversampling: 1
+  additionalBone: 0
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 

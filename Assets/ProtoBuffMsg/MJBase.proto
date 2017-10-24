@@ -1,0 +1,19 @@
+package packet.mj;
+
+enum GameOperType{
+    GameOperStartSyn = 7001; //游戏开始
+	GameOperHandCardSyn = 7002;   //手牌
+	GameOperPublicInfoSyn = 7003; //公共信息
+	GameOperPlayerHuSyn = 7004; //公共信息
+	GameOperPlayerActionNotify = 7005; //通知玩家操作
+	GameOperActorSyn = 7006; //广播当前正在操作的玩家
+	GameOperPlayerActionSyn = 7007; //客户端请求服务器某个操作(吃、碰、听、出、吃听、碰听)，服务器向其他人同步玩家的这个操作也是用这个编码
+	GameOperBaoChangeSyn = 7008; //换宝 
+	GameOperReNofity = 7009; //重新提醒操作,调试用
+	GameOperFinalSettleSyn = 7010; //总结算
+}
+
+message GameOperation {
+	required GameOperType operType = 1; //业务类型
+	optional bytes content = 2;//业务数据,对应的是MJ.proto里面所有的GameOperXXX的数据结构之一
+}

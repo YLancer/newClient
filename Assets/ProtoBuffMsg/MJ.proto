@@ -1,0 +1,121 @@
+package packet.mj;
+
+//游戏开始 operType=GAMESTART
+message GameOperStartSyn {
+   optional sint32 bankerPos = 1; //庄家位置
+   required sint32 serviceGold = 2; //台费
+   repeated GameOperHandCardSyn playerHandCards = 3; //玩家手牌
+   optional sint32 quanNum = 4; //当前圈数   
+   optional bool bankerContinue = 5; //是否连庄
+   optional sint32 dice1 = 6; //骰子1（1-6的随机数）
+   optional sint32 dice2 = 7; //骰子2（1-6的随机数）
+   optional sint32 seq = 8; //序列号,每一场游戏有一个唯一的序列号，方便错误跟踪
+   optional bool reconnect = 9; //是否是断线重连
+   optional sint32 cardLeft = 12; //剩余牌数
+}
+
+//同步某个的玩家手牌, operType=HANDCARDS
+message GameOperHandCardSyn {
+    required sint32 position = 1; //玩家位置
+	repeated sint32 handCards = 2; //手中的牌,如果是其他玩家(即不是当前玩家),则列表里面存放的是-1而不是牌的真实值
+	repeated sint32 downCards = 3; //吃碰杠的牌
+	repeated sint32 cardsBefore = 4; //打出的牌
+}
+
+//同步公共信息, operType=PUBLICINFO
+message GameOperPublicInfoSyn {
+    required sint32 cardLeft = 1; //剩余牌数
+	//optional sint32 baoCard = 2; //宝牌, 如果不能查看，则返回-1
+	//required sint32 bankerPos = 3; //庄家位置
+}
+
+//同步行动者信息 operType=ACTSYN
+message GameOperActorSyn {
+	required sint32 position = 1; //玩家位置
+	required sint32 timeLeft = 2; //操作超时时间，比如：10，代表10秒内玩家不操作服务器将托管
+}
+
+//玩家操作同步operType=ACTIONSYN, 前端通过此包告诉后端玩家进行了什么操作，后端通过此包将操作告诉其它玩家
+message GameOperPlayerActionSyn {
+  required sint32 position = 1; //玩家位置
+  required sint32 action = 2; //操作编码 (0x01:吃) (0x02:碰) (0x04:暗杠) (0x08:明杠) (0x10:出牌) (0x40:听牌) (0x80:取消)  (0x40000000:摸牌)
+  repeated sint32 cardValue = 3;//出碰传一个牌, 吃和支对传2个牌
+  optional sint32 seq = 5; //序列号,调试用
+}
+
+//服务器提示玩家操作 operType=ACTNOTIFY
+message GameOperPlayerActionNotify {
+   required sint32 position = 1; //玩家位置
+   required sint32 actions = 2; // 可选操作列表(位与):(0x01:吃) (0x02:碰) (0x04:暗杠) (0x08:明杠) (0x10:出牌) (0x40:听牌) (0x80000:自动出) (0x8000:已出) (0x4000000:抢听) (0x40000:吃听) (0x2000000:碰听) (0x20000000:支对听 ) (0x40000000:摸牌)
+   optional sint32 newCard = 3; //刚摸到的牌
+   repeated sint32 tingList = 4; //打出其中任何一张牌就可以听
+   repeated sint32 tingDzs = 5; //支对提醒时，告诉客户端有哪些对子
+   repeated GameOperChiArg chiArg = 6; 
+   optional sint32 pengArg = 7; //可以碰的牌，这里只传一张牌
+   optional sint32 lastActionPosition = 8; //上一个行动的玩家位置
+   optional sint32 lastActionCard = 9; //上一个行动的牌值
+   //optional GameOperAutoChuArg autoChuArg = 14;
+   //optional sint32 huArg = 12;//胡的是哪张牌
+   
+   
+   optional sint32 seq = 100; //序列号,调试用
+}
+
+message GameOperAutoChuArg {
+	required sint32 card = 1; //上听或托管时，后端通知前端自动出牌
+}
+
+message GameOperChiArg {
+   required sint32 myCard1 = 1; //我的牌
+   required sint32 myCard2 = 2; //我的牌
+   required sint32 targetCard = 3; //吃的牌, 即别人打出让你吃的牌
+}
+
+//服务器通知客户端宝已换 operType=BAO_CHANGE_SYN
+message GameOperBaoChangeSyn {
+	required sint32 oldBao = 1; //旧的宝
+	optional sint32 position = 2; //换宝玩家
+	optional sint32 dice = 3; //随机数
+}
+
+//同步胡牌信息 operType=HU
+message GameOperPlayerHuSyn {
+	required sint32 position = 1; //胡牌玩家位置
+	optional sint32 card = 2; //胡的牌
+	optional sint32 bao = 3; //宝牌
+	repeated GameOperPlayerSettle detail = 4;//每个玩家的情况
+	optional sint32 resultType = 5; //0x100000:胡牌      0x200000:输了    0x400000:流局     0x0002:点炮    0x0080:宝中宝    0x0020:摸宝胡      0x0800:开牌炸      0x0400刮大风     0x2000:红中满天飞        0x4000:带漏胡
+	optional sint32 paoPosition = 6;
+	optional bool skipHuSettle = 7; //是否显示胡牌信息
+	optional sint32 winType = 8; //0x100000:胡牌  0x400000:流局  0x0080:宝中宝    0x0020:摸宝胡      0x0800:开牌炸      0x0400刮大风     0x2000:红中满天飞        0x4000:带漏胡  0x0008:自摸
+}
+
+message GameOperPlayerSettle {
+	optional sint32 position = 1; //位置
+	repeated sint32 handcard = 2; //手牌
+	optional sint32 fanType = 4; //番型 0x0010:夹胡  0x0020:摸宝 0x0080:宝中宝 0x0008:自摸 0x100000:赢  0x200000:输  0x0100:已上听 0x0002:点炮 0x0001:门清  0x0004:我是庄家 0x0200:对手是庄家
+	optional sint32 fanNum = 5; //番数	
+	repeated string fanDetail = 6; //番型描述
+	optional sint32 coin = 7; //金币 普通场
+	optional sint32 score = 8; //积分 vip场
+}
+
+message GameOperFinalSettleSyn {
+	optional string settleDate = 1;
+	repeated PlayerFinalResult detail = 2;
+}
+
+message PlayerFinalResult {
+  optional sint64 playerId = 1;
+  optional string playerName = 2;
+  optional sint32 position = 3;
+  optional string headImage = 4;
+  optional sint32 score = 5;
+  optional sint32 bankerCount = 6;
+  optional sint32 huCount = 7;
+  optional sint32 paoCount = 8;
+  optional sint32 moBaoCount = 9;
+  optional sint32 baoZhongBaoCount = 10;
+  optional sint32 kaiPaiZhaCount = 11;
+  optional bool roomOwner = 12; //是否是否房主
+}

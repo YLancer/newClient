@@ -1,0 +1,14 @@
+﻿using UnityEngine;
+using UnityEngine.UI;
+using System.Collections;
+using TMPro;
+
+public class ScriptNameBase : UIDialogBase
+{
+    public ScriptNameDetail detail;
+
+    public override void SetAllMemberValue()
+    {
+TempletMethod
+    }
+}

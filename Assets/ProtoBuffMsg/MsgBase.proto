@@ -1,0 +1,92 @@
+package packet.msgbase;
+enum PacketType
+{
+	Dump = 1;	   //存快照，调试用
+	 
+	//**********帐号相关*********//
+	HEARTBEAT = 1001;   //心跳包
+	LoginRequest = 1002;      //登录
+	AuthRequest = 1003;	   //会话认证
+	GlobalMsgSyn = 1004;	   //全局信息提示
+	VistorRegisterRequest = 1005; //游客注册
+	VistorRegisterResponse = 1006; 
+	RegisterRequest = 1007; //普通帐号注册
+	RegisterResponse = 1008;
+	UserInfoSyn = 1009; //用户属性发生变化
+	ModifyUserInfoRequest = 1010; //修改用户信息
+	
+	//**********游戏相关*********//
+	EnrollRequest = 2001;	   //报名
+	ReadyRequest = 2002; 	   //准备游戏
+	ChangeDeskRequest = 2003; //换桌
+	KickOutSyn = 2004;       //强制下线, 同一个帐号不能多处登录、房主踢人
+	ChatRequest = 2005;       //聊天
+	Back2HallRequest = 2006; //返回大厅
+	PlayerGamingSyn = 2007; //推送当前玩家正在游戏的消息
+	PlayerSitSyn = 2008; //有玩家进入桌子
+	AwayGameRequest = 2009; //离开房间
+	PlayerAwaySyn = 2010; //有玩家离开桌子
+	PlayerComebackSyn = 2011; //玩家回来
+	PlayerOfflineSyn = 2012; //有玩家掉线
+	PlayerReconnectSyn = 2013; //有玩家重连		
+	ExitGameRequest = 2014; //退出游戏
+	PlayerExitSyn = 2015;//有玩家退出游戏
+	ReadySyn = 2016; //告知客户端某玩家已经准备好
+	GameStartSyn = 2017; //告知客户端游戏已开始
+	CreateVipRoomRequest = 2018; //创建vip房间
+	EnterVipRoomRequest = 2019; //加入vip房间
+	KickPlayerRequest = 2020; //vip房间踢人
+	VipRoomListReuqest = 2021; //请求拉取vip房间列表
+	VipRoomListSyn = 2022; //推送vip房间列表
+	DismissVipRoomRequest = 2023; //解散vip房间	
+	GameChatMsgRequest = 2024; //聊天信息
+	GameChatMsgSyn = 2025;
+	HangupRequest = 2026;
+	HangupSyn = 2027;
+	CancelHangupRequest = 2028;
+	DeskDestorySyn = 2029;
+	LogoutSyn = 2030;
+	DissmissVoteSyn = 2031;
+	PlayerGamingSynInquire = 2032; //查询是否有进行中的游戏
+	BackGameRequest = 2033; //返回游戏
+	
+	//**********游戏逻辑相关*********//
+	GameOperation = 3001; //游戏模块前后端通讯专用数据包
+	
+	//**********消息相关*********//
+	ReadMailMsgRequest = 4001; //标记消息为已读	
+	MarqueeMsgSyn = 4002; //推送跑马灯消息	
+	NewMailMsgSyn = 4005;
+	ReceiveMailAttachRequest = 4006;
+	ActAndNoticeMsgSyn = 4008;//活动与公告
+	
+	//**********战绩相关*********//
+	RoomResultRequest = 5001; //战绩列表
+	RoomResultResponse = 5002; //战绩列表
+		
+	//**********商城相关*********//
+	GenOrderRequest = 6001; //生成订单
+	GenOrderResponse = 6002; //生成订单
+	ConfirmOrderRequest = 6003; //提交支付结果
+	ConfirmOrderReqsponse = 6004; //提交支付结果
+	MallProductRequest = 6005; //请求商品列表
+	MallProductResponse = 6006; //返回商品列表
+	
+	//**********排行榜*********//
+	RankRequest = 7001; //排行榜
+	RankSyn = 7002; //排行榜数据返回
+	
+	//**********配置相关************//
+	RoomConfigRequest = 8001;
+	RoomConfigResponse = 8002;
+	ServerChangeSyn = 8003;
+}
+ 
+//消息头固定4个字节 
+message PacketBase    //
+{  
+    required PacketType packetType = 1;	//协议编号 
+    optional sint32 code = 2;		//错误码 0 表示成功
+    optional string msg = 3;		//错误信息
+    optional bytes data = 4;                     
+}

@@ -1,0 +1,43 @@
+package packet.game;
+
+//跑马灯消息
+message MarqueeMsgSyn {
+	optional string content = 1;
+	optional string playerSetting = 2; //格式  10x4, 表示播放速率是10，播放4次
+}
+
+message MailMsgModel {
+	optional int64 mailId = 1; //邮件id
+	optional string title = 2; //标题
+	optional string content = 3; //邮件内容
+	optional int32 attachType = 4;//附件类型  无附件就是0，1金币 2房卡
+	optional int32 attachNum = 5; //附件数量
+	optional int32 state = 6; //0未读 1已读 2已经领取
+	optional int64 sendTime = 7; //发送时间
+}
+
+//标记消息为已读
+message ReadMailMsgRequest {
+	optional int64 msgId = 1; //消息id
+}
+
+//推送新邮件
+message NewMailMsgSyn {
+	repeated MailMsgModel mails = 1;
+}
+
+//领取附件
+message ReceiveMailAttachRequest {
+	optional int64 mailId = 1; //邮件id
+}
+
+//活动与公告
+message ActAndNoticeMsgSyn {
+	repeated ActMsgModel acts = 1; //活动列表
+	optional string notice = 2; //游戏公告
+}
+
+message ActMsgModel {
+	optional string title = 1;
+	optional string content = 2; //文字内容或链接地址(含[])
+}

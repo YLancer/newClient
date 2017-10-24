@@ -1,0 +1,19 @@
+package packet.rank;
+
+
+message RankRequest {
+	
+}
+
+message RankSyn {
+	repeated RankItem coinList = 2;
+	repeated RankItem gameCountList = 1;
+}
+
+message RankItem {
+   optional int32 rank = 1; //排名
+   optional int32 playerId = 2; //
+   optional string playerName = 3;
+   optional string playerHeadImg = 4;
+   optional int32 point = 5;
+}

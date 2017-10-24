@@ -1,0 +1,76 @@
+
+MJ-Login-Animation.png
+size: 1024,512
+format: RGBA8888
+filter: Linear,Linear
+repeat: none
+Black Hair
+  rotate: false
+  xy: 776, 252
+  size: 215, 253
+  orig: 215, 253
+  offset: 0, 0
+  index: -1
+Black Skirt
+  rotate: false
+  xy: 557, 207
+  size: 217, 298
+  orig: 217, 298
+  offset: 0, 0
+  index: -1
+Body
+  rotate: true
+  xy: 2, 116
+  size: 389, 553
+  orig: 389, 553
+  offset: 0, 0
+  index: -1
+Forearm
+  rotate: false
+  xy: 2, 2
+  size: 122, 112
+  orig: 122, 112
+  offset: 0, 0
+  index: -1
+Front Hair
+  rotate: true
+  xy: 360, 38
+  size: 76, 101
+  orig: 76, 101
+  offset: 0, 0
+  index: -1
+Front Skirt
+  rotate: false
+  xy: 557, 64
+  size: 157, 141
+  orig: 157, 141
+  offset: 0, 0
+  index: -1
+Hair Rope
+  rotate: true
+  xy: 993, 460
+  size: 45, 29
+  orig: 45, 29
+  offset: 0, 0
+  index: -1
+Middle Hair
+  rotate: false
+  xy: 253, 20
+  size: 105, 94
+  orig: 105, 94
+  offset: 0, 0
+  index: -1
+The dice
+  rotate: true
+  xy: 126, 38
+  size: 76, 125
+  orig: 76, 125
+  offset: 0, 0
+  index: -1
+UpperArm
+  rotate: true
+  xy: 716, 145
+  size: 60, 57
+  orig: 60, 57
+  offset: 0, 0
+  index: -1
