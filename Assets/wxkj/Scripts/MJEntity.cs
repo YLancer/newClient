@@ -42,7 +42,7 @@ public class MJEntity : MonoBehaviour {
         }
     }
 
-    bool IsMine()
+    public bool IsMine()
     {
         MJPlayer player = this.GetComponentInParent<MJPlayer>();
         if (null != player && player.index == 0)
@@ -52,7 +52,7 @@ public class MJEntity : MonoBehaviour {
         return false;
     }
 
-    bool IsHandCard()
+    public bool IsHandCard()
     {
         HandCardLayout layout = this.GetComponentInParent<HandCardLayout>();
         if (null != layout)
@@ -73,6 +73,18 @@ public class MJEntity : MonoBehaviour {
             Game.MaterialManager.TurnOnHandCard();
 
             EventDispatcher.DispatchEvent(MessageCommand.MJ_UpdatePlayPage);
+        }
+    }
+    //牌位置上升
+    public void SelectCardForJiuYao()
+    {
+        if (IsMine() && IsHandCard())
+        {
+            transform.localPosition = new Vector3(transform.localPosition.x, transform.localPosition.y, 0.01f);
+        }
+        else
+        {
+            transform.localPosition = new Vector3(transform.localPosition.x, transform.localPosition.y, transform.localPosition.z);
         }
     }
 }

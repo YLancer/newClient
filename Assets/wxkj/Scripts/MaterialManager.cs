@@ -58,7 +58,6 @@ public class MaterialManager : MonoBehaviour {
         {
             Renderer r = child.GetComponent<Renderer>();
             r.material = myCardMatOn;
-        }
-        
+        }        
     }
 }

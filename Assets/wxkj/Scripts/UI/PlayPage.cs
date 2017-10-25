@@ -28,9 +28,9 @@ public class PlayPage : PlayPageBase {
 		detail.PassButton_Button.onClick.AddListener (OnClickPassBtn);
 		detail.ChiButton_Button.onClick.AddListener (OnClickChiBtn);
 		detail.PengButton_Button.onClick.AddListener (OnClickPengBtn);
-        detail.TingButton_Button.onClick.AddListener(OnClickTingBtn);
-        detail.TingChiButton_Button.onClick.AddListener(OnClickTingChiBtn);
-        detail.TingPengButton_Button.onClick.AddListener(OnClickTingPengBtn);
+        detail.TingButton_Button.onClick.AddListener(OnClickTingBtn);           //听牌
+        detail.TingChiButton_Button.onClick.AddListener(OnClickTingChiBtn);     //碰听
+        detail.TingPengButton_Button.onClick.AddListener(OnClickTingPengBtn);   //吃听
         detail.ZhiduiButton_Button.onClick.AddListener(OnClickZhiduiBtn);
 
         detail.CancelButton_Button.onClick.AddListener (OnClickCancelBtn);
@@ -53,6 +53,9 @@ public class PlayPage : PlayPageBase {
         detail.WXButton_Button.onClick.AddListener(OnClickWXBtn);
         detail.DropButton_Button.gameObject.SetActive(false);
         detail.SelectPanel_UIItem.gameObject.SetActive(false);
+
+        //甩九幺界面,确定按钮处理
+        detail.marksure_Btn.onClick.AddListener(OnClickShuaiJiuYao_MakeSureBtn);
     }
 
     private void OnClickDumpBtn()
@@ -306,8 +309,11 @@ public class PlayPage : PlayPageBase {
         bool tingPeng = MJUtils.TingPeng();
         bool tingZhidui = MJUtils.TingZhidui();
 
+        //新增甩九幺判断
+        bool ShuaiJiuYao = MJUtils.ShuaiJiuYao();
+
         //bool showPanel = (!Game.Instance.Ting)&& (chi || peng || ting || tingChi || tingPeng || tingZhidui);
-        bool showPanel = (chi || peng || ting || tingChi || tingPeng || tingZhidui);
+        bool showPanel = (chi || peng || ting || tingChi || tingPeng || tingZhidui  || ShuaiJiuYao);
 
         detail.CtrlPanel_UIItem.gameObject.SetActive(showPanel);
         detail.ChiButton_Button.gameObject.SetActive(chi);
@@ -319,6 +325,8 @@ public class PlayPage : PlayPageBase {
         detail.TingChiButton_Button.gameObject.SetActive(tingChi);
         detail.TingPengButton_Button.gameObject.SetActive(tingPeng);
         detail.ZhiduiButton_Button.gameObject.SetActive(tingZhidui);
+        // 根据true和false 显示甩九幺界面的--测试  
+        detail.ShuaiJiuYao_panel.gameObject.SetActive(ShuaiJiuYao);
 
         if (chu)
         {
@@ -601,4 +609,46 @@ public class PlayPage : PlayPageBase {
         }
         Game.AndroidUtil.Share(deskId);
     }
+
+
+    // 幺九牌向上弹出
+    private void PopingCard()
+    {
+        MaterialManager cardMaterial = GetComponent<MaterialManager>();
+        var handlist = Game.MJMgr.MyPlayer.handCardLayout.list;
+        for(int i=0;i<handlist.Count;i++)
+        {
+            MJEntity cardObj = handlist[i].GetComponent<MJEntity>();
+            Renderer selectCard = cardObj.GetComponent<Renderer>();
+            int cardPoint = cardObj.Card;
+            if(cardPoint % 9 <2 || (cardPoint >16 && cardPoint<26||cardPoint % 9 >=7) || (cardPoint> 32 && cardPoint<42||cardPoint %9==5||cardPoint %9==6 )||cardPoint>63 )
+            {
+                handlist[i].transform.position = new Vector3(handlist[i].transform.localPosition.x, handlist[i].transform.localPosition.y, 0.01f);
+                selectCard.material = cardMaterial.myCardMatOn;
+            }
+            else
+            {
+                handlist[i].transform.position = handlist[i].transform.localPosition;
+                selectCard.material = cardMaterial.myCardMatOff;
+            }
+        }
+    }
+
+    private void OnClickShuaiCard()
+    {
+
+    }
+
+    // 甩九幺按钮触发的事件
+    private void  OnClickShuaiJiuYao_MakeSureBtn()
+    {  
+    
+        detail.ShuaiJiuYao_panel.gameObject.SetActive(false);
+    }
+
+
+
+
+
+
 }

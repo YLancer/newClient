@@ -33,12 +33,13 @@ public class MJUtils
     public const int MODE_DAILOU = 0x40;      // 带漏的
     public const int MODE_JIAHU = 0x80;      // 不夹不胡
 
-    //新增玩法 FOR 西凉麻将（七小对，报听，风牌，带会，自摸胡，清一色一条龙） 
-    public const int MODE_SEVENPAIR = 0x100;  //七小对
-    public const int MODE_FENGPAI = 0x110;    //风牌
-    public const int MODE_DAIHUI = 0x120;     //带会
-    public const int MODE_ZIMOHU = 0x130;     //自摸胡
-    public const int MODE_ONECOLORTRAIN = 0x140;  // 清一色一条龙
+    //新增玩法 FOR 西凉/金昌麻将（七小对，报听，风牌，带会，自摸胡，清一色一条龙） 
+    public const int ACT_SHUAIJIUYAO = 0x100; //甩九幺
+    public const int MODE_SEVENPAIR = 0x110;  //七小对
+    public const int MODE_FENGPAI = 0x120;    //风牌
+    public const int MODE_DAIHUI = 0x130;     //带会
+    public const int MODE_ZIMOHU = 0x140;     //自摸胡
+    public const int MODE_ONECOLORTRAIN = 0x150;  // 清一色一条龙
 
     //0x100000:胡牌      0x200000:输了    0x400000:流局     0x0002:点炮    0x0080:宝中宝    0x0020:摸宝胡      0x0800:开牌炸      0x0400刮大风     0x2000:红中满天飞        0x4000:带漏胡
     public const int HU_Hu = 0x100000;// 胡牌
@@ -117,6 +118,11 @@ public class MJUtils
     public static bool TingZhidui(int actions = -1)
     {
         return CanAct(ACT_TING_ZHIDUI, actions);
+    }
+    // 甩九幺 
+    public static bool ShuaiJiuYao(int actions=-1)
+    {
+        return CanAct(ACT_SHUAIJIUYAO, actions);
     }
 
     public static bool HasWanfa(int act)
