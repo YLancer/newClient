@@ -48,7 +48,7 @@ public class MJMgr : MonoBehaviour {
 
     public int ActivePosition;
     
-    public int CardLeft = 112;
+    public int CardLeft = 112;   //136
     public int BaoDize = -1;
     public bool HangUp = false;
 

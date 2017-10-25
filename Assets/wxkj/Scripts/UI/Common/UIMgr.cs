@@ -4,7 +4,7 @@ using System.Collections.Generic;
 using System.ComponentModel;
 using System.Reflection;
 
-public enum UIPage
+public enum UIPage  // 加载UI界面
 {
     [Description("Prefabs/UI/Null")]
     Null = 0,
