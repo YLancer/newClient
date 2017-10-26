@@ -642,9 +642,9 @@ public class PlayPage : PlayPageBase
     // 幺九牌向上弹出            有问题!!!!
     private void PopingCard()
     {
-        print(">>>>> ++++++Game.MJMgr.MyPlayer.handCardLayout.HandCards  <<<<" + Game.MJMgr.MyPlayer.handCardLayout.HandCards);
         MaterialManager cardMaterial = GetComponent<MaterialManager>();
-        var handlist = Game.MJMgr.MyPlayer.handCardLayout.list;  
+        var handlist = Game.MJMgr.MyPlayer.handCardLayout.list;
+        print(">>>>> ++++++Game.MJMgr.MyPlayer.handCardLayout.HandCards  <<<<" + handlist.Count);
         for (int i = 0; i < handlist.Count; i++)
         {            
             MJEntity cardObj = handlist[i].GetComponent<MJEntity>();
