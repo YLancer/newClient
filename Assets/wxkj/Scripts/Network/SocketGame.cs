@@ -508,7 +508,7 @@ public partial class SocketGame : MonoBehaviour {
         }
     }
 
-    string[] cardTypes = new string[] { "万", "条", "筒" };
+    string[] cardTypes = new string[] { "万", "条", "筒", "风", "花" };
     string GetCardStr(int c)
     {
         if (c <= 0)
@@ -518,10 +518,6 @@ public partial class SocketGame : MonoBehaviour {
         else if (c == 69)
         {
             return "中";
-        }
-        else if (c >=64)   //  ???? 有趣
-        {
-            return c.ToString();
         }
 
         int type = (c >> 4);
