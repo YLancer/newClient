@@ -85,7 +85,7 @@ public class PlayPage : PlayPageBase
         //EventDispatcher.AddEventListener(MessageCommand.OnEnterRoom, SetupUI);
         EventDispatcher.AddEventListener(MessageCommand.MJ_UpdateCtrlPanel, OnUpdateCtrlPanel);
         EventDispatcher.AddEventListener(MessageCommand.Chat, OnChat);
-        EventDispatcher.AddEventListener(MessageCommand.PlayEffect, OnPlayEffect);
+        EventDispatcher.AddEventListener(MessageCommand.PlayEffect, OnPlayEffect);      
     }
 
     public override void OnSceneClosed()
@@ -329,9 +329,10 @@ public class PlayPage : PlayPageBase
         detail.TingChiButton_Button.gameObject.SetActive(tingChi);
         detail.TingPengButton_Button.gameObject.SetActive(tingPeng);
         detail.ZhiduiButton_Button.gameObject.SetActive(tingZhidui);
+
         // 根据true和false 显示甩九幺界面的--测试  
         detail.ShuaiJiuYao_panel.gameObject.SetActive(ShuaiJiuYao);
-
+        //PopingCard(); //测试牌是否上弹
         if (chu)
         {
             Game.MaterialManager.TurnOffHandCard();
@@ -635,22 +636,26 @@ public class PlayPage : PlayPageBase
     private void Start()
     {
         CardList = new List<MJEntity>();
+        PopingCard();
     }
 
-    // 幺九牌向上弹出
+    // 幺九牌向上弹出            有问题!!!!
     private void PopingCard()
     {
+        print(">>>>> ++++++Game.MJMgr.MyPlayer.handCardLayout.HandCards  <<<<" + Game.MJMgr.MyPlayer.handCardLayout.HandCards);
         MaterialManager cardMaterial = GetComponent<MaterialManager>();
-        var handlist = Game.MJMgr.MyPlayer.handCardLayout.list;  //手牌
+        var handlist = Game.MJMgr.MyPlayer.handCardLayout.list;  
         for (int i = 0; i < handlist.Count; i++)
-        {
+        {            
             MJEntity cardObj = handlist[i].GetComponent<MJEntity>();
-            Renderer selectCard = cardObj.GetComponent<Renderer>();
+            print(" >>>>>  handlist[i]  TO cardObj  <<<<< "    +   cardObj);
+            Renderer selectCard = cardObj.GetComponent<Renderer>();          
             int cardPoint = cardObj.Card;
-            if (cardPoint % 9 < 2 || (cardPoint > 16 && cardPoint < 26 || cardPoint % 9 >= 7) || (cardPoint > 32 && cardPoint < 42 || cardPoint % 9 == 5 || cardPoint % 9 == 6) || cardPoint > 63)
+            print(" >>>>>> +++ cardPoint +++ <<<<<<<" + cardPoint);
+            if (cardPoint % 9 < 2 || cardPoint % 9 >= 7 || cardPoint % 9 == 5 || cardPoint % 9 == 6 || cardPoint > 63)
             {
+                print(" >>>>>> +++ handlist[i]的坐标是： +++ <<<<<<<" + handlist[i].transform.localPosition);
                 OnClickShuaiCard(true,handlist[i]);
-                //cardObj.OnClickDrop += OnClickShuaiCard; //????
                 selectCard.material = cardMaterial.myCardMatOn;
             }
             else
@@ -663,7 +668,7 @@ public class PlayPage : PlayPageBase
     private void OnClickShuaiCard(bool selectCard, MJEntity throwCard)
     {
         MJEntity throwObj = throwCard.GetComponent<MJEntity>();
-        selectCard = MJUtils.ShuaiJiuYao();
+        selectCard = true;//MJUtils.ShuaiJiuYao();
         if (selectCard == true)
         {
             throwObj.transform.localPosition = new Vector3(throwObj.transform.localPosition.x, throwObj.transform.localPosition.y, 0.015f);
@@ -688,7 +693,7 @@ public class PlayPage : PlayPageBase
                 return;
             }       
         }
-        // VO怎么做  TODO
+        // VO怎么做  TODO？
 
         detail.ShuaiJiuYao_panel.gameObject.SetActive(false);
         AfterSelect();
@@ -696,26 +701,26 @@ public class PlayPage : PlayPageBase
     private void AfterSelect()
     {
         MaterialManager cardMaterial = GetComponent<MaterialManager>();
-        var handlist = Game.MJMgr.MyPlayer.handCardLayout.list;  //手牌
+        var handlist = Game.MJMgr.MyPlayer.handCardLayout.list;  
         for (int i = 0; i < handlist.Count; i++)
         {
             MJEntity cardObj = handlist[i].GetComponent<MJEntity>() ;
             Renderer selectCard = cardObj.GetComponent<Renderer>();
             int cardPoint = cardObj.Card;
-            if (cardPoint % 9 < 2 || (cardPoint > 16 && cardPoint < 26 || cardPoint % 9 >= 7) || (cardPoint > 32 && cardPoint < 42 || cardPoint % 9 == 5 || cardPoint % 9 == 6) || cardPoint > 63)
+            if (cardPoint % 9 < 2 || cardPoint % 9 >= 7|| cardPoint % 9 == 5 || cardPoint % 9 == 6 || cardPoint > 63)
             {
                 OnClickShuaiCard(false, handlist[i]);
             }
             else
                 selectCard.material = cardMaterial.myCardMatOn;
-
-            Game.MJMgr.MyPlayer.handCardLayout.DragCard(cardPoint,null);   //?????
+         
         }
         foreach( var obj in CardList)
         {
             Destroy(obj);
             handlist.Remove(obj);
         }
-        // VO怎么做  TODO
+        Game.MJMgr.MyPlayer.handCardLayout.LineUp(true);
+        // VO怎么做  TODO？
     }
 }
