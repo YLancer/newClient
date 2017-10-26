@@ -519,7 +519,7 @@ public partial class SocketGame : MonoBehaviour {
         {
             return "中";
         }
-        else if (c >= 64)
+        else if (c >=64)   //  ???? 有趣
         {
             return c.ToString();
         }

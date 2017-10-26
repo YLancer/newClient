@@ -5,35 +5,36 @@ using System.Collections.Generic;
 using packet.mj;
 using System;
 
-public class PlayPage : PlayPageBase {
+public class PlayPage : PlayPageBase
+{
     private List<PlayerSub> players = new List<PlayerSub>();
-    
-    public override void InitializeScene ()
-	{
-		base.InitializeScene ();
+
+    public override void InitializeScene()
+    {
+        base.InitializeScene();
 
         players.Add(detail.PlayerSub0_PlayerSub);
         players.Add(detail.PlayerSub1_PlayerSub);
         players.Add(detail.PlayerSub2_PlayerSub);
         players.Add(detail.PlayerSub3_PlayerSub);
 
-        detail.ExitButton_Button.onClick.AddListener (OnBackPressed);
+        detail.ExitButton_Button.onClick.AddListener(OnBackPressed);
         detail.DismissButton_Button.onClick.AddListener(OnClickDismissBtn);
         detail.SettingButton_Button.onClick.AddListener(OnClickSettingBtn);
 
-        detail.PopupButton_Button.onClick.AddListener (OnClickOpenPopupMenu);
-		detail.ClosePopButton_Button.onClick.AddListener (OnClickClosePopupMenu);
-		//detail.DropButton_Button.onClick.AddListener (OnClickDropBtn);
+        detail.PopupButton_Button.onClick.AddListener(OnClickOpenPopupMenu);
+        detail.ClosePopButton_Button.onClick.AddListener(OnClickClosePopupMenu);
+        //detail.DropButton_Button.onClick.AddListener (OnClickDropBtn);
 
-		detail.PassButton_Button.onClick.AddListener (OnClickPassBtn);
-		detail.ChiButton_Button.onClick.AddListener (OnClickChiBtn);
-		detail.PengButton_Button.onClick.AddListener (OnClickPengBtn);
+        detail.PassButton_Button.onClick.AddListener(OnClickPassBtn);
+        detail.ChiButton_Button.onClick.AddListener(OnClickChiBtn);
+        detail.PengButton_Button.onClick.AddListener(OnClickPengBtn);
         detail.TingButton_Button.onClick.AddListener(OnClickTingBtn);           //听牌
         detail.TingChiButton_Button.onClick.AddListener(OnClickTingChiBtn);     //碰听
         detail.TingPengButton_Button.onClick.AddListener(OnClickTingPengBtn);   //吃听
         detail.ZhiduiButton_Button.onClick.AddListener(OnClickZhiduiBtn);
 
-        detail.CancelButton_Button.onClick.AddListener (OnClickCancelBtn);
+        detail.CancelButton_Button.onClick.AddListener(OnClickCancelBtn);
         detail.CancelHangUpBtn_Button.onClick.AddListener(OnClickCancelHangUpBtn);
         detail.DumpBtn_Button.onClick.AddListener(OnClickDumpBtn);
         //detail.GangButton_Button.onClick.AddListener (OnClickGangBtn);
@@ -104,7 +105,7 @@ public class PlayPage : PlayPageBase {
         {
             Game.SocketGame.DoExitGameRequest();
         }
-        else if(RoomMgr.IsVipRoom())
+        else if (RoomMgr.IsVipRoom())
         {
             if (Game.Instance.state == GameState.Playing)
             {
@@ -172,7 +173,8 @@ public class PlayPage : PlayPageBase {
         Game.SoundManager.PlayClick();
         if (RoomMgr.IsVipRoom())
         {
-            Action<bool> callback = (ok) => {
+            Action<bool> callback = (ok) =>
+            {
                 if (ok)
                 {
                     Game.SocketGame.DoDissmissVoteSyn(true);
@@ -188,21 +190,23 @@ public class PlayPage : PlayPageBase {
         Game.UIMgr.PushScene(UIPage.SettingPage);
     }
 
-    void OnClickOpenPopupMenu(){
+    void OnClickOpenPopupMenu()
+    {
         Game.SoundManager.PlayClick();
-        detail.PopupMenu_UIItem.gameObject.SetActive (true);
-		detail.PopupButton_Button.gameObject.SetActive (false);
-	}
+        detail.PopupMenu_UIItem.gameObject.SetActive(true);
+        detail.PopupButton_Button.gameObject.SetActive(false);
+    }
 
-	void OnClickClosePopupMenu(){
+    void OnClickClosePopupMenu()
+    {
         Game.SoundManager.PlayClick();
-        detail.PopupMenu_UIItem.gameObject.SetActive (false);
-		detail.PopupButton_Button.gameObject.SetActive (true);
-	}
+        detail.PopupMenu_UIItem.gameObject.SetActive(false);
+        detail.PopupButton_Button.gameObject.SetActive(true);
+    }
 
-	public override void OnSceneActivated (params object[] sceneData)
-	{
-		base.OnSceneActivated (sceneData);
+    public override void OnSceneActivated(params object[] sceneData)
+    {
+        base.OnSceneActivated(sceneData);
 
         //Game.Instance.state = GameState.Playing;
 
@@ -224,7 +228,7 @@ public class PlayPage : PlayPageBase {
             detail.GameRoundButton_Button.gameObject.SetActive(true);
             int quanNum = RoomMgr.GetQuanNum();
             int totalQuan = RoomMgr.GetTotalQuan();
-            detail.GameRoundText_Text.text = string.Format("{0}/{1}{2}",quanNum,totalQuan, RoomMgr.IsVip2Room()?"局":"圈");
+            detail.GameRoundText_Text.text = string.Format("{0}/{1}{2}", quanNum, totalQuan, RoomMgr.IsVip2Room() ? "局" : "圈");
 
             bool isWaitting = Game.Instance.state == GameState.Waitting;
             detail.WXButton_Button.gameObject.SetActive(isWaitting);
@@ -247,7 +251,7 @@ public class PlayPage : PlayPageBase {
         {
             int position = i;
             MjData data = Game.MJMgr.MjData[position];
-            if(null != data.player)
+            if (null != data.player)
             {
                 int index = Game.MJMgr.GetIndexByPosition(position);
                 players[index].SetValue(data);
@@ -295,7 +299,7 @@ public class PlayPage : PlayPageBase {
 
     //    //		Game.SoundManager.PlayHu ();
     //}
-    
+
     void OnUpdateCtrlPanel(params object[] args)
     {
         bool chu = MJUtils.DropCard();
@@ -313,7 +317,7 @@ public class PlayPage : PlayPageBase {
         bool ShuaiJiuYao = MJUtils.ShuaiJiuYao();
 
         //bool showPanel = (!Game.Instance.Ting)&& (chi || peng || ting || tingChi || tingPeng || tingZhidui);
-        bool showPanel = (chi || peng || ting || tingChi || tingPeng || tingZhidui  || ShuaiJiuYao);
+        bool showPanel = (chi || peng || ting || tingChi || tingPeng || tingZhidui || ShuaiJiuYao);
 
         detail.CtrlPanel_UIItem.gameObject.SetActive(showPanel);
         detail.ChiButton_Button.gameObject.SetActive(chi);
@@ -334,7 +338,8 @@ public class PlayPage : PlayPageBase {
         }
     }
 
-    void OnClickPassBtn(){
+    void OnClickPassBtn()
+    {
         Game.SoundManager.PlayClick();
         //EventDispatcher.DispatchEvent (MessageCommand.MJ_Pass);
         detail.CtrlPanel_UIItem.gameObject.SetActive(false);
@@ -344,77 +349,88 @@ public class PlayPage : PlayPageBase {
         //detail.DropButton_Button.gameObject.SetActive(true);
     }
 
-	void OnClickChiBtn(){
+    void OnClickChiBtn()
+    {
         Game.SoundManager.PlayClick();
 
         if (MJUtils.Chi() || MJUtils.TingChi())
         {
             List<GameOperChiArg> list = RoomMgr.actionNotify.chiArg;
-			//List<int[]> list = Game.MJMgr.MyPlayer.GetChiList (Game.MJMgr.lastDropCard);
-			if (null != list && list.Count > 0) {
-				detail.CtrlPanel_UIItem.gameObject.SetActive (false);
+            //List<int[]> list = Game.MJMgr.MyPlayer.GetChiList (Game.MJMgr.lastDropCard);
+            if (null != list && list.Count > 0)
+            {
+                detail.CtrlPanel_UIItem.gameObject.SetActive(false);
 
-				if (list.Count == 1) {
+                if (list.Count == 1)
+                {
                     GameOperChiArg chiArg = list[0];
 
-                    Game.MJMgr.MyPlayer.Chi (chiArg);
-					//Game.SoundManager.PlayChi ();
+                    Game.MJMgr.MyPlayer.Chi(chiArg);
+                    //Game.SoundManager.PlayChi ();
                     //detail.DropButton_Button.gameObject.SetActive(true);
-                } else {
+                }
+                else
+                {
                     ClearSelectPanel();
-                    detail.SelectPanel_UIItem.gameObject.SetActive (true);
-					List<int> sortTemp = new List<int> ();
+                    detail.SelectPanel_UIItem.gameObject.SetActive(true);
+                    List<int> sortTemp = new List<int>();
                     for (int i = list.Count - 1; i >= 0; i--)
                     //for (int i = 0; i < list.Count; i++) 
                     {
                         GameOperChiArg chiArg = list[i];
 
-                        GameObject selectGroup = PrefabUtils.AddChild (detail.SelectRoot_HorizontalLayoutGroup, detail.GroupButton_Button.gameObject);
-						selectGroup.SetActive (true);
+                        GameObject selectGroup = PrefabUtils.AddChild(detail.SelectRoot_HorizontalLayoutGroup, detail.GroupButton_Button.gameObject);
+                        selectGroup.SetActive(true);
 
-						sortTemp.Clear ();
-						sortTemp.Add (chiArg.myCard1);
-						sortTemp.Add (chiArg.myCard2);
-						sortTemp.Add (chiArg.targetCard);
-						sortTemp.Sort ();
+                        sortTemp.Clear();
+                        sortTemp.Add(chiArg.myCard1);
+                        sortTemp.Add(chiArg.myCard2);
+                        sortTemp.Add(chiArg.targetCard);
+                        sortTemp.Sort();
 
-						foreach (int card in sortTemp) {
-							GameObject card0 = Game.PoolManager.MjPool.Spawn (card.ToString ());
-							card0.transform.SetParent (selectGroup.transform);
-							card0.transform.localScale = Vector3.one;
-							card0.transform.localRotation = Quaternion.identity;
-						}
+                        foreach (int card in sortTemp)
+                        {
+                            GameObject card0 = Game.PoolManager.MjPool.Spawn(card.ToString());
+                            card0.transform.SetParent(selectGroup.transform);
+                            card0.transform.localScale = Vector3.one;
+                            card0.transform.localRotation = Quaternion.identity;
+                        }
 
-						Button btn = selectGroup.GetComponent<Button> ();
-						btn.onClick.AddListener (() => {
-							Game.MJMgr.MyPlayer.Chi (chiArg);
+                        Button btn = selectGroup.GetComponent<Button>();
+                        btn.onClick.AddListener(() =>
+                        {
+                            Game.MJMgr.MyPlayer.Chi(chiArg);
                             detail.SelectPanel_UIItem.gameObject.SetActive(false);
                             //detail.DropButton_Button.gameObject.SetActive(true);
                         });
-					}
-				}
-			}
-		}
-	}
+                    }
+                }
+            }
+        }
+    }
 
-	void ClearSelectPanel(){
-		for (int a = 0; a < detail.SelectRoot_HorizontalLayoutGroup.transform.childCount; a++) {
-			Transform sGroup = detail.SelectRoot_HorizontalLayoutGroup.transform.GetChild (a);
-			for (int b = 0; b < sGroup.childCount; b++) {
-				Transform sCard = sGroup.GetChild (b);
-				Game.PoolManager.MjPool.Despawn (sCard);
-			}
-		}
+    void ClearSelectPanel()
+    {
+        for (int a = 0; a < detail.SelectRoot_HorizontalLayoutGroup.transform.childCount; a++)
+        {
+            Transform sGroup = detail.SelectRoot_HorizontalLayoutGroup.transform.GetChild(a);
+            for (int b = 0; b < sGroup.childCount; b++)
+            {
+                Transform sCard = sGroup.GetChild(b);
+                Game.PoolManager.MjPool.Despawn(sCard);
+            }
+        }
 
-		PrefabUtils.ClearChild (detail.SelectRoot_HorizontalLayoutGroup);
+        PrefabUtils.ClearChild(detail.SelectRoot_HorizontalLayoutGroup);
         detail.SelectPanel_UIItem.gameObject.SetActive(false);
     }
 
-	void OnClickPengBtn(){
+    void OnClickPengBtn()
+    {
         Game.SoundManager.PlayClick();
 
-        Game.MJMgr.MyPlayer.Peng ();
-		detail.CtrlPanel_UIItem.gameObject.SetActive (false);
+        Game.MJMgr.MyPlayer.Peng();
+        detail.CtrlPanel_UIItem.gameObject.SetActive(false);
 
         //detail.DropButton_Button.gameObject.SetActive(true);
     }
@@ -437,15 +453,16 @@ public class PlayPage : PlayPageBase {
         }
     }
 
-    void OnClickCancelBtn(){
+    void OnClickCancelBtn()
+    {
         Game.SoundManager.PlayClick();
         //RoomMgr.actionNotify.actions = 0;
-        detail.SelectPanel_UIItem.gameObject.SetActive (false);
+        detail.SelectPanel_UIItem.gameObject.SetActive(false);
         Game.Instance.Ting = false;
         ClearSelectPanel();
 
-		OnClickPassBtn ();
-	}
+        OnClickPassBtn();
+    }
 
     void OnClickTingChiBtn()
     {
@@ -521,10 +538,10 @@ public class PlayPage : PlayPageBase {
             case 1:
                 int id = (int)objs[2];
                 ConfigWord config = ConfigWord.GetByKey(id);
-                if(null != config)
+                if (null != config)
                 {
                     player.ShowWord(config.TextContent);
-                    Game.SoundManager.PlayVoice(position,config.Talk);
+                    Game.SoundManager.PlayVoice(position, config.Talk);
                 }
                 break;
             case 2:
@@ -533,7 +550,7 @@ public class PlayPage : PlayPageBase {
                 break;
             case 3:
                 byte[] data = (byte[])objs[2];
-                player.ShowVoice(data,detail.AudioSource_MicrophoneInput);
+                player.ShowVoice(data, detail.AudioSource_MicrophoneInput);
                 break;
         }
     }
@@ -544,7 +561,8 @@ public class PlayPage : PlayPageBase {
         Game.SoundManager.PlayClick();
 
         detail.RecodState_UIItem.gameObject.SetActive(true);
-        detail.AudioSource_MicrophoneInput.StartRecord((data)=> {
+        detail.AudioSource_MicrophoneInput.StartRecord((data) =>
+        {
             Game.StopDelay(countDownCoroutine);
             detail.RecodState_UIItem.gameObject.SetActive(false);
             Game.Delay(0.1f, () => { Game.SocketGame.DoGameChatMsgRequest(data); });
@@ -563,7 +581,8 @@ public class PlayPage : PlayPageBase {
     private void OnVoiceButtonUp(GameObject go)
     {
         detail.RecodState_UIItem.gameObject.SetActive(false);
-        Game.Delay(1,()=> {
+        Game.Delay(1, () =>
+        {
             detail.AudioSource_MicrophoneInput.EndRecord();
         });
     }
@@ -597,13 +616,13 @@ public class PlayPage : PlayPageBase {
         eff.transform.SetParent(detail.EffectPos_EffectPos.pos[index].transform);
         eff.transform.localPosition = Vector3.zero;
         eff.transform.localScale = Vector3.one;
-        Game.PoolManager.EffectPool.Despawn(eff,2);
+        Game.PoolManager.EffectPool.Despawn(eff, 2);
     }
 
     void OnClickWXBtn()
     {
         string deskId = null;
-        if(RoomMgr.playerGamingSyn != null)
+        if (RoomMgr.playerGamingSyn != null)
         {
             deskId = RoomMgr.playerGamingSyn.deskId;
         }
@@ -611,44 +630,92 @@ public class PlayPage : PlayPageBase {
     }
 
 
+
+    private List<MJEntity> CardList;
+    private void Start()
+    {
+        CardList = new List<MJEntity>();
+    }
+
     // 幺九牌向上弹出
     private void PopingCard()
     {
         MaterialManager cardMaterial = GetComponent<MaterialManager>();
-        var handlist = Game.MJMgr.MyPlayer.handCardLayout.list;
-        for(int i=0;i<handlist.Count;i++)
+        var handlist = Game.MJMgr.MyPlayer.handCardLayout.list;  //手牌
+        for (int i = 0; i < handlist.Count; i++)
         {
             MJEntity cardObj = handlist[i].GetComponent<MJEntity>();
             Renderer selectCard = cardObj.GetComponent<Renderer>();
             int cardPoint = cardObj.Card;
-            if(cardPoint % 9 <2 || (cardPoint >16 && cardPoint<26||cardPoint % 9 >=7) || (cardPoint> 32 && cardPoint<42||cardPoint %9==5||cardPoint %9==6 )||cardPoint>63 )
+            if (cardPoint % 9 < 2 || (cardPoint > 16 && cardPoint < 26 || cardPoint % 9 >= 7) || (cardPoint > 32 && cardPoint < 42 || cardPoint % 9 == 5 || cardPoint % 9 == 6) || cardPoint > 63)
             {
-                handlist[i].transform.position = new Vector3(handlist[i].transform.localPosition.x, handlist[i].transform.localPosition.y, 0.01f);
+                OnClickShuaiCard(true,handlist[i]);
+                //cardObj.OnClickDrop += OnClickShuaiCard; //????
                 selectCard.material = cardMaterial.myCardMatOn;
             }
             else
             {
-                handlist[i].transform.position = handlist[i].transform.localPosition;
                 selectCard.material = cardMaterial.myCardMatOff;
             }
         }
     }
 
-    private void OnClickShuaiCard()
+    private void OnClickShuaiCard(bool selectCard, MJEntity throwCard)
     {
-
+        MJEntity throwObj = throwCard.GetComponent<MJEntity>();
+        selectCard = MJUtils.ShuaiJiuYao();
+        if (selectCard == true)
+        {
+            throwObj.transform.localPosition = new Vector3(throwObj.transform.localPosition.x, throwObj.transform.localPosition.y, 0.015f);
+            CardList.Add(throwCard);
+        }
+        else
+        {
+            throwObj.transform.localPosition = throwObj.transform.localPosition;
+            CardList.Remove(throwCard);
+        }
     }
 
     // 甩九幺按钮触发的事件
-    private void  OnClickShuaiJiuYao_MakeSureBtn()
-    {  
-    
+    private void OnClickShuaiJiuYao_MakeSureBtn()
+    {
+        if (CardList.Count != 0)
+        {
+            if (!(CardList.Count == 3 || CardList.Count == 6 || CardList.Count == 9))
+            {
+                detail.Text_tishi.text = "扔出的牌数不对，请扔三张、六张或者九张";
+                detail.Text_tishi.color = Color.red;
+                return;
+            }       
+        }
+        // VO怎么做  TODO
+
         detail.ShuaiJiuYao_panel.gameObject.SetActive(false);
+        AfterSelect();
     }
+    private void AfterSelect()
+    {
+        MaterialManager cardMaterial = GetComponent<MaterialManager>();
+        var handlist = Game.MJMgr.MyPlayer.handCardLayout.list;  //手牌
+        for (int i = 0; i < handlist.Count; i++)
+        {
+            MJEntity cardObj = handlist[i].GetComponent<MJEntity>() ;
+            Renderer selectCard = cardObj.GetComponent<Renderer>();
+            int cardPoint = cardObj.Card;
+            if (cardPoint % 9 < 2 || (cardPoint > 16 && cardPoint < 26 || cardPoint % 9 >= 7) || (cardPoint > 32 && cardPoint < 42 || cardPoint % 9 == 5 || cardPoint % 9 == 6) || cardPoint > 63)
+            {
+                OnClickShuaiCard(false, handlist[i]);
+            }
+            else
+                selectCard.material = cardMaterial.myCardMatOn;
 
-
-
-
-
-
+            Game.MJMgr.MyPlayer.handCardLayout.DragCard(cardPoint,null);   //?????
+        }
+        foreach( var obj in CardList)
+        {
+            Destroy(obj);
+            handlist.Remove(obj);
+        }
+        // VO怎么做  TODO
+    }
 }

@@ -62,7 +62,7 @@ public class MJEntity : MonoBehaviour {
         return false;
     }
 
-    void OnClickDrop()
+    public void OnClickDrop()
     {
         if (RoomMgr.actionNotify.tingList.Count <= 0 || RoomMgr.IsTingDropCard(Card))
         {
@@ -75,16 +75,16 @@ public class MJEntity : MonoBehaviour {
             EventDispatcher.DispatchEvent(MessageCommand.MJ_UpdatePlayPage);
         }
     }
-    //牌位置上升
-    public void SelectCardForJiuYao()
-    {
-        if (IsMine() && IsHandCard())
-        {
-            transform.localPosition = new Vector3(transform.localPosition.x, transform.localPosition.y, 0.01f);
-        }
-        else
-        {
-            transform.localPosition = new Vector3(transform.localPosition.x, transform.localPosition.y, transform.localPosition.z);
-        }
-    }
+    ////牌位置上升
+    //public void SelectCardForJiuYao()
+    //{
+    //    if (IsMine() && IsHandCard())
+    //    {
+    //        transform.localPosition = new Vector3(transform.localPosition.x, transform.localPosition.y, 0.01f);
+    //    }
+    //    else
+    //    {
+    //        transform.localPosition = new Vector3(transform.localPosition.x, transform.localPosition.y, transform.localPosition.z);
+    //    }
+    //}
 }
