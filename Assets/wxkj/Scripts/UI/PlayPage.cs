@@ -306,7 +306,7 @@ public class PlayPage : PlayPageBase
         bool chi = MJUtils.Chi();
         bool peng = MJUtils.Peng();
         //bool hu = false;// MJUtils.CanChi(actions);
-        //bool gang = false;// MJUtils.AnGang() || MJUtils.MinGang();
+        //bool gang = false;// MJUtils.AnGang() || MJUtils.BuGang() || MJUtils.ZhiGang();
 
         bool ting = MJUtils.Ting();
         bool tingChi = MJUtils.TingChi();

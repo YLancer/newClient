@@ -38,7 +38,7 @@ message GameOperActorSyn {
 //玩家操作同步operType=ACTIONSYN, 前端通过此包告诉后端玩家进行了什么操作，后端通过此包将操作告诉其它玩家
 message GameOperPlayerActionSyn {
   required sint32 position = 1; //玩家位置
-  required sint32 action = 2; //操作编码 (0x01:吃) (0x02:碰) (0x04:暗杠) (0x08:明杠) (0x10:出牌) (0x40:听牌) (0x80:取消)  (0x40000000:摸牌)
+  required sint32 action = 2; //操作编码 (0x01:吃) (0x02:碰) (0x04:暗杠) (0x08:补杠) (0x10:直杠) (0x20:出牌) (0x40:胡牌) (0x80:听牌) (0x100:取消)  (0x40000000:摸牌)
   repeated sint32 cardValue = 3;//出碰传一个牌, 吃和支对传2个牌
   optional sint32 seq = 5; //序列号,调试用
 }
@@ -46,7 +46,7 @@ message GameOperPlayerActionSyn {
 //服务器提示玩家操作 operType=ACTNOTIFY
 message GameOperPlayerActionNotify {
    required sint32 position = 1; //玩家位置
-   required sint32 actions = 2; // 可选操作列表(位与):(0x01:吃) (0x02:碰) (0x04:暗杠) (0x08:明杠) (0x10:出牌) (0x40:听牌) (0x80000:自动出) (0x8000:已出) (0x4000000:抢听) (0x40000:吃听) (0x2000000:碰听) (0x20000000:支对听 ) (0x40000000:摸牌)
+   required sint32 actions = 2; // 可选操作列表(位与):(0x01:吃) (0x02:碰) (0x04:暗杠) (0x08:补杠) (0x10:直杠) (0x20:出牌) (0x40:胡牌) (0x80:听牌) (0x80000:自动出) (0x8000:已出) (0x4000000:抢听) (0x40000:吃听) (0x2000000:碰听) (0x20000000:支对听 ) (0x40000000:摸牌)
    optional sint32 newCard = 3; //刚摸到的牌
    repeated sint32 tingList = 4; //打出其中任何一张牌就可以听
    repeated sint32 tingDzs = 5; //支对提醒时，告诉客户端有哪些对子

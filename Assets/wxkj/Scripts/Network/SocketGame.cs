@@ -626,7 +626,8 @@ public partial class SocketGame : MonoBehaviour {
         str += ActionsStrOne(MJUtils.ACT_CHI, "吃", action);
         str += ActionsStrOne(MJUtils.ACT_PENG, "碰", action);
         str += ActionsStrOne(MJUtils.ACT_AN_GANG, "暗杠", action);
-        str += ActionsStrOne(MJUtils.ACT_MIN_GANG, "明杠", action);
+        str += ActionsStrOne(MJUtils.ACT_BU_GANG, "补杠", action);
+        str += ActionsStrOne(MJUtils.ACT_ZHI_GANG, "直杠", action);
         str += ActionsStrOne(MJUtils.ACT_DROP_CARD, "出", action);
         str += ActionsStrOne(MJUtils.ACT_HU, "胡", action);
         str += ActionsStrOne(MJUtils.ACT_TING, "听", action);

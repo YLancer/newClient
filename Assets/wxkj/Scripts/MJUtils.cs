@@ -9,11 +9,12 @@ public class MJUtils
     public const int ACT_CHI = 0x01;                    // 吃
     public const int ACT_PENG = 0x02;                   // 碰
     public const int ACT_AN_GANG = 0x04;                // 暗杠
-    public const int ACT_MIN_GANG = 0x08;               // 明杠
-    public const int ACT_DROP_CARD = 0x10;              // 出牌
-    public const int ACT_HU = 0x20;                     // 胡牌
-    public const int ACT_TING = 0x40;                   // 听牌
-    public const int ACT_PASS = 0x80;                   // 取消（过）
+    public const int ACT_BU_GANG = 0x08;                // 补杠 自己碰了之后补杠
+    public const int ACT_ZHI_GANG = 0x10;               // 直杠 别人打出的被我直接杠上
+    public const int ACT_DROP_CARD = 0x20;              // 出牌
+    public const int ACT_HU = 0x40;                     // 胡牌
+    public const int ACT_TING = 0x80;                   // 听牌
+    public const int ACT_PASS = 0x100;                   // 取消（过）
     //public const int ACT_DROP_CARD_AUTO_TING = 0x400;   // 听牌后自动出牌
     //public const int ACT_DROPED = 0x8000;               // 已出
     public const int ACT_TING_CHI = 0x40000;            // 吃听
@@ -85,9 +86,14 @@ public class MJUtils
         return CanAct(ACT_AN_GANG, actions);
     }
 
-    public static bool MinGang(int actions = -1)
+    public static bool BuGang(int actions = -1)
     {
-        return CanAct(ACT_MIN_GANG, actions);
+        return CanAct(ACT_BU_GANG, actions);
+    }
+
+    public static bool ZhiGang(int actions = -1)
+    {
+        return CanAct(ACT_ZHI_GANG, actions);
     }
 
     public static bool DragCard(int actions = -1)
