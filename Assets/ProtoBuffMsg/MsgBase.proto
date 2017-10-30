@@ -32,7 +32,9 @@ enum PacketType
 	ExitGameRequest = 2014; //退出游戏
 	PlayerExitSyn = 2015;//有玩家退出游戏
 	ReadySyn = 2016; //告知客户端某玩家已经准备好
-	GameStartSyn = 2017; //告知客户端游戏已开始
+	GameStartSyn = 2017; //告知客户端所有人都准备好了
+	GameStartDealCardSyn = 2118; //告知客户端开始发牌
+	GameStartPlaySyn = 2119; //告知客户端游戏已开始
 	CreateVipRoomRequest = 2018; //创建vip房间
 	EnterVipRoomRequest = 2019; //加入vip房间
 	KickPlayerRequest = 2020; //vip房间踢人

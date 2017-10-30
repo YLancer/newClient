@@ -54,6 +54,7 @@ message GameOperPlayerActionNotify {
    optional sint32 pengArg = 7; //可以碰的牌，这里只传一张牌
    optional sint32 lastActionPosition = 8; //上一个行动的玩家位置
    optional sint32 lastActionCard = 9; //上一个行动的牌值
+   optional sint32 mustZhiDui = 10; //是否必须支队,非必须为0,必须为1
    //optional GameOperAutoChuArg autoChuArg = 14;
    //optional sint32 huArg = 12;//胡的是哪张牌
    

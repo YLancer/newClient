@@ -29,7 +29,7 @@ public class SettleRoundDialog : SettleRoundDialogBase
         {
             if (Game.UIMgr.IsSceneActive(UIPage.PlayPage))
             {
-                Game.SocketGame.DoREADYL();
+                Game.SocketGame.DoREADYL(1, 0);
             }
         }
 
@@ -65,7 +65,7 @@ public class SettleRoundDialog : SettleRoundDialogBase
 
         if (!RoomMgr.IsVipRoom())
         {
-            Game.SocketGame.DoREADYL();
+            Game.SocketGame.DoREADYL(1, 0);
         }
         //Game.MJMgr.Clear();
         //if (Game.Instance.state != GameState.Playing)

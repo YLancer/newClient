@@ -10,7 +10,7 @@ public class Player
     public int playerId; //id
     public int coin; //金币数
     public int score; //积分数
-    public bool isReady = false;
+    public bool[] isReady = new bool[3]{false, false, false};
     public bool offline = false;
     public bool ting = false;
     public bool leave = false;  // 离开

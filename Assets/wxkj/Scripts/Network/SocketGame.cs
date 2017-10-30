@@ -193,7 +193,7 @@ public partial class SocketGame : MonoBehaviour {
             player.coin = response.coin;
             player.score = response.score;
             player.offline = (response.online == 0);
-            player.isReady = (response.state == 1);
+            player.isReady[0] = (response.state == 1);
             player.leave = (response.away == 1);
 
             Game.MJMgr.MjData[player.position].player = player;
@@ -303,11 +303,11 @@ public partial class SocketGame : MonoBehaviour {
         }
     }
 
-    public void DoREADYL()
+    public void DoREADYL(int state, int phase) //TODO WXD send ready
     {
         PacketBase msg = new PacketBase() { packetType = PacketType.ReadyRequest };
-        //ReadyRequest request = new ReadyRequest() { playerId = Game.Instance.playerId };
-        //msg.data = NetSerilizer.Serialize(request);
+        ReadyRequest request = new ReadyRequest() { state = state, phase = phase };
+        msg.data = NetSerilizer.Serialize(request);
         SocketNetTools.SendMsg(msg);
     }
 
@@ -319,7 +319,13 @@ public partial class SocketGame : MonoBehaviour {
             Player player = Game.MJMgr.GetPlayerById(response.playerId);
             if (null != player)
             {
-                player.isReady = (response.state == 1);
+                player.isReady[response.phase] = (response.state == 1);
+                print("    --------------  wxd  ready " + response.state + " , " + response.phase); //TODO WXD get ready
+                foreach(var f in player.isReady)
+                {
+                    print(" for : " + f);
+                }
+                print("-----------------------------------");
                 EventDispatcher.DispatchEvent(MessageCommand.MJ_UpdatePlayPage);
             }
         }

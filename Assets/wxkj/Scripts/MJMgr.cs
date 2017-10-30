@@ -243,6 +243,7 @@ public class MJMgr : MonoBehaviour {
 
             MJCardGroup.TryDragCard();
         }
+        //TODO WXD Add ShuaiJiuYao
     }
 
 	public MJEntity MyDropMJEntity = null;

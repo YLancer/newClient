@@ -581,6 +581,14 @@ namespace packet.game
       get { return _fee; }
       set { _fee = value; }
     }
+    private int _onlineNum = default(int);
+    [global::ProtoBuf.ProtoMember(10, IsRequired = false, Name=@"onlineNum", DataFormat = global::ProtoBuf.DataFormat.TwosComplement)]
+    [global::System.ComponentModel.DefaultValue(default(int))]
+    public int onlineNum
+    {
+      get { return _onlineNum; }
+      set { _onlineNum = value; }
+    }
     private global::ProtoBuf.IExtension extensionObject;
     global::ProtoBuf.IExtension global::ProtoBuf.IExtensible.GetExtensionObject(bool createIfMissing)
       { return global::ProtoBuf.Extensible.GetExtensionObject(ref extensionObject, createIfMissing); }

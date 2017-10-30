@@ -141,6 +141,12 @@ namespace packet.msgbase
       [global::ProtoBuf.ProtoEnum(Name=@"GameStartSyn", Value=2017)]
       GameStartSyn = 2017,
             
+      [global::ProtoBuf.ProtoEnum(Name=@"GameStartDealCardSyn", Value=2118)]
+      GameStartDealCardSyn = 2118,
+            
+      [global::ProtoBuf.ProtoEnum(Name=@"GameStartPlaySyn", Value=2119)]
+      GameStartPlaySyn = 2119,
+            
       [global::ProtoBuf.ProtoEnum(Name=@"CreateVipRoomRequest", Value=2018)]
       CreateVipRoomRequest = 2018,
             

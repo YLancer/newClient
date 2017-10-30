@@ -510,17 +510,17 @@ namespace packet.game
       { return global::ProtoBuf.Extensible.GetExtensionObject(ref extensionObject, createIfMissing); }
   }
   
-  [global::System.Serializable, global::ProtoBuf.ProtoContract(Name=@"ReadySyn")]
-  public partial class ReadySyn : global::ProtoBuf.IExtensible
+  [global::System.Serializable, global::ProtoBuf.ProtoContract(Name=@"StartDealRequest")]
+  public partial class StartDealRequest : global::ProtoBuf.IExtensible
   {
-    public ReadySyn() {}
+    public StartDealRequest() {}
     
-    private int _playerId;
-    [global::ProtoBuf.ProtoMember(1, IsRequired = true, Name=@"playerId", DataFormat = global::ProtoBuf.DataFormat.ZigZag)]
-    public int playerId
+    private int _position;
+    [global::ProtoBuf.ProtoMember(1, IsRequired = true, Name=@"position", DataFormat = global::ProtoBuf.DataFormat.TwosComplement)]
+    public int position
     {
-      get { return _playerId; }
-      set { _playerId = value; }
+      get { return _position; }
+      set { _position = value; }
     }
     private int _state;
     [global::ProtoBuf.ProtoMember(2, IsRequired = true, Name=@"state", DataFormat = global::ProtoBuf.DataFormat.TwosComplement)]
@@ -561,10 +561,99 @@ namespace packet.game
       { return global::ProtoBuf.Extensible.GetExtensionObject(ref extensionObject, createIfMissing); }
   }
   
+  [global::System.Serializable, global::ProtoBuf.ProtoContract(Name=@"ReadyRequest")]
+  public partial class ReadyRequest : global::ProtoBuf.IExtensible
+  {
+    public ReadyRequest() {}
+    
+    private int _state;
+    [global::ProtoBuf.ProtoMember(2, IsRequired = true, Name=@"state", DataFormat = global::ProtoBuf.DataFormat.ZigZag)]
+    public int state
+    {
+      get { return _state; }
+      set { _state = value; }
+    }
+    private int _phase;
+    [global::ProtoBuf.ProtoMember(3, IsRequired = true, Name=@"phase", DataFormat = global::ProtoBuf.DataFormat.ZigZag)]
+    public int phase
+    {
+      get { return _phase; }
+      set { _phase = value; }
+    }
+    private global::ProtoBuf.IExtension extensionObject;
+    global::ProtoBuf.IExtension global::ProtoBuf.IExtensible.GetExtensionObject(bool createIfMissing)
+      { return global::ProtoBuf.Extensible.GetExtensionObject(ref extensionObject, createIfMissing); }
+  }
+  
+  [global::System.Serializable, global::ProtoBuf.ProtoContract(Name=@"ReadySyn")]
+  public partial class ReadySyn : global::ProtoBuf.IExtensible
+  {
+    public ReadySyn() {}
+    
+    private int _playerId;
+    [global::ProtoBuf.ProtoMember(1, IsRequired = true, Name=@"playerId", DataFormat = global::ProtoBuf.DataFormat.ZigZag)]
+    public int playerId
+    {
+      get { return _playerId; }
+      set { _playerId = value; }
+    }
+    private int _state;
+    [global::ProtoBuf.ProtoMember(2, IsRequired = true, Name=@"state", DataFormat = global::ProtoBuf.DataFormat.ZigZag)]
+    public int state
+    {
+      get { return _state; }
+      set { _state = value; }
+    }
+    private int _phase;
+    [global::ProtoBuf.ProtoMember(3, IsRequired = true, Name=@"phase", DataFormat = global::ProtoBuf.DataFormat.ZigZag)]
+    public int phase
+    {
+      get { return _phase; }
+      set { _phase = value; }
+    }
+    private global::ProtoBuf.IExtension extensionObject;
+    global::ProtoBuf.IExtension global::ProtoBuf.IExtensible.GetExtensionObject(bool createIfMissing)
+      { return global::ProtoBuf.Extensible.GetExtensionObject(ref extensionObject, createIfMissing); }
+  }
+  
   [global::System.Serializable, global::ProtoBuf.ProtoContract(Name=@"GameStartSyn")]
   public partial class GameStartSyn : global::ProtoBuf.IExtensible
   {
     public GameStartSyn() {}
+    
+    private string _deskId;
+    [global::ProtoBuf.ProtoMember(1, IsRequired = true, Name=@"deskId", DataFormat = global::ProtoBuf.DataFormat.Default)]
+    public string deskId
+    {
+      get { return _deskId; }
+      set { _deskId = value; }
+    }
+    private global::ProtoBuf.IExtension extensionObject;
+    global::ProtoBuf.IExtension global::ProtoBuf.IExtensible.GetExtensionObject(bool createIfMissing)
+      { return global::ProtoBuf.Extensible.GetExtensionObject(ref extensionObject, createIfMissing); }
+  }
+  
+  [global::System.Serializable, global::ProtoBuf.ProtoContract(Name=@"GameStartDealCardSyn")]
+  public partial class GameStartDealCardSyn : global::ProtoBuf.IExtensible
+  {
+    public GameStartDealCardSyn() {}
+    
+    private string _deskId;
+    [global::ProtoBuf.ProtoMember(1, IsRequired = true, Name=@"deskId", DataFormat = global::ProtoBuf.DataFormat.Default)]
+    public string deskId
+    {
+      get { return _deskId; }
+      set { _deskId = value; }
+    }
+    private global::ProtoBuf.IExtension extensionObject;
+    global::ProtoBuf.IExtension global::ProtoBuf.IExtensible.GetExtensionObject(bool createIfMissing)
+      { return global::ProtoBuf.Extensible.GetExtensionObject(ref extensionObject, createIfMissing); }
+  }
+  
+  [global::System.Serializable, global::ProtoBuf.ProtoContract(Name=@"GameStartPlaySyn")]
+  public partial class GameStartPlaySyn : global::ProtoBuf.IExtensible
+  {
+    public GameStartPlaySyn() {}
     
     private string _deskId;
     [global::ProtoBuf.ProtoMember(1, IsRequired = true, Name=@"deskId", DataFormat = global::ProtoBuf.DataFormat.Default)]

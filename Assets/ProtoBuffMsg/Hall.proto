@@ -108,7 +108,8 @@ message RoomConfigModel {
 	optional int32 minCoinLimit = 6;
 	optional int32 maxCoinLimit = 7;
 	optional string icon = 8;
-	optional int32 fee = 9; //台费	
+	optional int32 fee = 9; //台费
+	optional int32 onlineNum = 10; //在线人数
 }
 
 message ServerChangeSyn {

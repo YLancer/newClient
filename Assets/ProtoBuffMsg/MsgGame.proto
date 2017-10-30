@@ -111,15 +111,8 @@ message PlayerExitSyn {
    required sint32 playerId = 1; //玩家id
 }
 
-//message ReadyReponse{
-//	required int32 position = 1; //位置
-//	required int32 state = 2;//状态 0 取消准备，1准备
-//}
-
-//同步玩家的准备状态
-message ReadySyn{
-	//required int32 position = 1; //位置
-	required sint32 playerId = 1; //玩家id
+message StartDealRequest{
+	required int32 position = 1; //位置
 	required int32 state = 2;//状态 0 取消准备，1准备
 }
 
@@ -132,8 +125,33 @@ message ChangeDeskResponse {
 
 }
 
-//游戏开始
+//客户端提交准备状态
+message ReadyRequest{
+//	required sint32 position = 1; //位置
+	required sint32 state = 2; //状态  0 取消准备，1准备
+	required sint32 phase = 3; //阶段 
+}
+
+//同步玩家的准备状态
+message ReadySyn{
+	//required sint32 position = 1; //位置
+	required sint32 playerId = 1; //玩家id
+	required sint32 state = 2; //状态 0 取消准备，1准备
+	required sint32 phase = 3; //阶段 
+}
+
+//告知客户端所有人都准备好了
 message GameStartSyn {
+   required string deskId = 1;//开赛的桌子id
+}
+
+//告知客户端开始发牌
+message GameStartDealCardSyn {
+   required string deskId = 1;//开赛的桌子id
+}
+
+//告知客户端游戏已开始
+message GameStartPlaySyn {
    required string deskId = 1;//开赛的桌子id
 }
 

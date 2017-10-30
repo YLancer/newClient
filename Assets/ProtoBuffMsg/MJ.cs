@@ -288,6 +288,14 @@ namespace packet.mj
       get { return _lastActionCard; }
       set { _lastActionCard = value; }
     }
+    private int _mustZhiDui = default(int);
+    [global::ProtoBuf.ProtoMember(10, IsRequired = false, Name=@"mustZhiDui", DataFormat = global::ProtoBuf.DataFormat.ZigZag)]
+    [global::System.ComponentModel.DefaultValue(default(int))]
+    public int mustZhiDui
+    {
+      get { return _mustZhiDui; }
+      set { _mustZhiDui = value; }
+    }
     private int _seq = default(int);
     [global::ProtoBuf.ProtoMember(100, IsRequired = false, Name=@"seq", DataFormat = global::ProtoBuf.DataFormat.ZigZag)]
     [global::System.ComponentModel.DefaultValue(default(int))]

@@ -139,6 +139,7 @@ public class MJCardGroup : MonoBehaviour {
     }
     private void doTryDragCard(bool countdown)
     {
+        print("  trt drag card  loop  " + countdown + " - " + Game.MJTable.DiceNum + " = " + list.Count + " | " + IsFirstGroup + " - " + firstGroupIndex + " ] ");
         if (IsFirstGroup)
         {
             int zhuangNum = Game.MJTable.DiceNum * 2;
