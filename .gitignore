@@ -170,3 +170,4 @@ sysinfo.txt
 # Builds
 *.apk
 *.unitypackage
+/protobuf-net r668
