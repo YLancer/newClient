@@ -410,7 +410,7 @@ public partial class SocketGame : MonoBehaviour {
         RoomMgr.gameOperStartSyn = data;
         Game.MJMgr.Clear();
 
-        Game.MJMgr.CardLeft = 112;// data.cardLeft;
+        Game.MJMgr.CardLeft = data.cardLeft + 13 * 4;
         //Game.MJMgr.Init();
         Game.Instance.Ting = false;
         //Game.IsBusy = false;
@@ -986,6 +986,13 @@ public partial class SocketGame : MonoBehaviour {
         if (zimo)
         {
             PlayZimoHu(player, data);
+        }
+        else if ((RoomMgr.huSyn.winType | MJUtils.HU_ShouPao) != 0)
+        {
+            Game.SoundManager.PlayEffect(28);
+            GameObject eff = Game.PoolManager.EffectPool.Spawn("shandian_EF");
+            eff.transform.position = Game.MJMgr.LastDropCard.transform.position;
+            Game.PoolManager.EffectPool.Despawn(eff, 5);
         }
         else
         {
