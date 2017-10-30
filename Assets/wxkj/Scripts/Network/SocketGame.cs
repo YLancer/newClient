@@ -564,8 +564,13 @@ public partial class SocketGame : MonoBehaviour {
     }
 
     string[] strs = new string[] { "北", "东", "南", "西" };
-    void OnGameOperPlayerActionNotify(GameOperPlayerActionNotify data)
+    public void OnGameOperPlayerActionNotify(GameOperPlayerActionNotify data)
     {
+        if (RoomMgr.actionNotify != null && ((RoomMgr.actionNotify.actions | MJUtils.ACT_SHUAIJIUYAO) != 0)) //TODO WXD 额外添加甩九幺标记，防止被覆盖。
+        {
+            data.actions |= MJUtils.ACT_SHUAIJIUYAO;
+        }
+
         RoomMgr.actionNotify = data;
 
         int position = data.position;
@@ -696,7 +701,8 @@ public partial class SocketGame : MonoBehaviour {
         {
             player.MJHand.PlayChi(data.cardValue[0], data.cardValue[1], isMy);
 
-            Game.Delay(0.5f, () => {
+            Game.Delay(0.5f, () =>
+            {
                 player.MJHand.PlayTing(isMy);
             });
         }
@@ -709,6 +715,10 @@ public partial class SocketGame : MonoBehaviour {
             EventDispatcher.DispatchEvent(MessageCommand.MJ_UpdatePlayPage);
             player.handCardLayout.PlayZhidui(card, isMy);
         }
+        else if (MJUtils.ShuaiJiuYao(data.action))
+        {
+            player.MJHand.PlayShuaiJiuYao(data.cardValue.ToArray(), isMy);
+        }
     }
 
     void OnGameOperActorSyn(GameOperActorSyn data)
@@ -719,7 +729,7 @@ public partial class SocketGame : MonoBehaviour {
         Game.MJTable.ShowCountdown(timeLeft, position);
     }
 
-    private void DoGameOperPlayerActionSyn(int action, params int[] card)
+    public void DoGameOperPlayerActionSyn(int action, params int[] card)
     {
         Debug.LogFormat("=>DoActionSyn action:{0},card1:{1},card2:{2}", ActionStr(action), card.Length > 0 ? GetCardStr(card[0]) : GetCardStr(-1), card.Length > 1 ? GetCardStr(card[1]) : GetCardStr(-1));
         RoomMgr.actionNotify.actions = 0;

@@ -259,6 +259,11 @@ public class MJHand : MonoBehaviour
         EventDispatcher.DispatchEvent(MessageCommand.PlayEffect, position, "tingUI_EF");
     }
 
+    internal void PlayShuaiJiuYao(int[] list, bool isMy)
+    {
+        //TODO WXD
+    }
+
     public void Bao(int dice, int oldBao)
     {
         IsBusy = true;

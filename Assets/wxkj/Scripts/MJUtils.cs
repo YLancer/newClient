@@ -18,6 +18,7 @@ public class MJUtils
     //public const int ACT_DROP_CARD_AUTO_TING = 0x400;   // 听牌后自动出牌
     //public const int ACT_DROPED = 0x8000;               // 已出
     public const int ACT_TING_CHI = 0x40000;            // 吃听
+    public const int ACT_SHUAIJIUYAO = 0x1000000;            //甩九幺
     //public const int ACT_DROP_CARD_AUTO = 0x80000;      // 超时自动出牌
     //public const int ACT_TING_QIANG = 0x4000000;        // 抢听
     public const int ACT_DRAG_CARD = 0x40000000;        // 摸牌
@@ -35,7 +36,6 @@ public class MJUtils
     public const int MODE_JIAHU = 0x80;      // 不夹不胡
 
     //新增玩法 FOR 西凉/金昌麻将（七小对，报听，风牌，带会，自摸胡，清一色一条龙） 
-    public const int ACT_SHUAIJIUYAO = 0x100; //甩九幺
     public const int MODE_SEVENPAIR = 0x110;  //七小对
     public const int MODE_FENGPAI = 0x120;    //风牌
     public const int MODE_DAIHUI = 0x130;     //带会
@@ -67,7 +67,6 @@ public class MJUtils
                 return false;
             }
         }
-
         return (actions & act) > 0;
     }
 

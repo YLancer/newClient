@@ -244,6 +244,14 @@ public class MJMgr : MonoBehaviour {
             MJCardGroup.TryDragCard();
         }
         //TODO WXD Add ShuaiJiuYao
+        print(" <<<<<<<<<<<<<<<<<<" + MJUtils.ACT_SHUAIJIUYAO);
+        GameOperPlayerActionNotify packet = RoomMgr.actionNotify;
+        if (packet == null)
+        {
+            packet = new GameOperPlayerActionNotify();
+        }
+        packet.actions |= MJUtils.ACT_SHUAIJIUYAO;
+        Game.SocketGame.OnGameOperPlayerActionNotify(packet); //模拟发包
     }
 
 	public MJEntity MyDropMJEntity = null;
