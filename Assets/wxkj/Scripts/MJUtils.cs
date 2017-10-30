@@ -46,6 +46,7 @@ public class MJUtils
     public const int HU_Hu = 0x100000;// 胡牌
     public const int HU_Shu = 0x200000;// 输了    
     public const int HU_LiuJu = 0x400000;// 流局     
+    public const int HU_ShouPao = 0x800000;// 流局     
     public const int HU_Pao = 0x0002;// 点炮
     public const int HU_BaoZhongBao = 0x0080;// 宝中宝
     public const int HU_MoBao = 0x0020;// 摸宝胡
