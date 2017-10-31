@@ -10,6 +10,11 @@ public class PlayPage : PlayPageBase
 {
     private List<PlayerSub> players = new List<PlayerSub>();
 
+    private void Start()
+    {
+        Game.SocketGame.DoREADYL(1, 0);
+    }
+
     public override void InitializeScene()
     {
         base.InitializeScene();
@@ -332,7 +337,7 @@ public class PlayPage : PlayPageBase
         detail.TingPengButton_Button.gameObject.SetActive(tingPeng);
         detail.ZhiduiButton_Button.gameObject.SetActive(tingZhidui);
 
-        print("========================== " + MJUtils.ShuaiJiuYao());
+        //print("========================== " + MJUtils.ShuaiJiuYao());
         detail.ShuaiJiuYao_panel.gameObject.SetActive(ShuaiJiuYao); 
         if(ShuaiJiuYao)
         {
@@ -659,7 +664,6 @@ public class PlayPage : PlayPageBase
             int cardPoint = cardObj.Card;
             if (cardPoint % 8 == 1 || cardPoint > 48)
             {
-                cardObj.kaiguanM = true;
                 ShuaiCardUp(true,handlist[i]);
                 selectCard.material = cardMaterial.myCardMatOn;
             }
@@ -671,17 +675,17 @@ public class PlayPage : PlayPageBase
     }
     
     private void ShuaiCardUp(bool selectCard, MJEntity throwCard)
-    {    
-        MJEntity throwObj = throwCard.GetComponent<MJEntity>();
+    {
+        throwCard.isCardUp = selectCard;
         //MJUtils.ShuaiJiuYao();
         if (selectCard == true)
         {
-            throwObj.transform.localPosition = new Vector3(throwObj.transform.localPosition.x, throwObj.transform.localPosition.y, 0.015f);
+            throwCard.transform.localPosition = new Vector3(throwCard.transform.localPosition.x, throwCard.transform.localPosition.y, 0.015f);
             CardList.Add(throwCard);
         }
         else
         {
-            throwObj.transform.localPosition = new Vector3(throwObj.transform.localPosition.x, throwObj.transform.localPosition.y, 0f);          
+            throwCard.transform.localPosition = new Vector3(throwCard.transform.localPosition.x, throwCard.transform.localPosition.y, 0f);          
             CardList.Remove(throwCard);
         }
     }
@@ -710,6 +714,7 @@ public class PlayPage : PlayPageBase
     private void AfterSelect()
     {
         // 扔完九幺牌，确定按钮之后
+        detail.Text_tishi.text = "";
         detail.ShuaiJiuYao_panel.gameObject.SetActive(false);
         if (RoomMgr.actionNotify != null)
         {
@@ -726,7 +731,6 @@ public class PlayPage : PlayPageBase
         for (int i = 0; i < handlist.Length; i++)
         {
             MJEntity cardObj = handlist[i].GetComponent<MJEntity>() ;
-            cardObj.kaiguanM = true;
             selectCard = cardObj.GetComponent<Renderer>();
             selectCard.material = cardMaterial.myCardMatOn;
             int cardPoint = cardObj.Card;

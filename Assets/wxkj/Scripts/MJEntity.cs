@@ -3,7 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 
 public class MJEntity : MonoBehaviour {   
-    public bool kaiguanM;//控制OnMouseDown
+    public bool isCardUp = false;//控制OnMouseDown
     private static int id = 0;
     private int cardId;
     public int CardId
@@ -29,20 +29,20 @@ public class MJEntity : MonoBehaviour {
         }
     }
     PlayPage playPage;
-    public List<MJEntity> throwlist =new List<MJEntity>();
-    
+    private List<MJEntity> throwlist =new List<MJEntity>();
+    private List<int> throwcardPointlist = new List<int>();
+
     void OnMouseDown()
     {
         playPage = FindObjectOfType<PlayPage>();
         throwlist = GameObject.Find("Player0").GetComponentInChildren<HandCardLayout>().list;
-        //throwcardPointlist= GameObject.Find("Player0").GetComponentInChildren<HandCardLayout>().HandCards;
-        if (kaiguanM == false) return;
-        print("  Game.MJMgr.isShuaiJiuYao----------------- " + Game.MJMgr.HangUp);
+        throwcardPointlist= GameObject.Find("Player0").GetComponentInChildren<HandCardLayout>().HandCards;
+
         if (Game.MJMgr.HangUp)
         {
             return;
         }
-        print("  Game.MJMgr.isShuaiJiuYao+++++++++++++++++++++++ " + IsMine() + IsHandCard());
+
         if (!(IsMine() && IsHandCard()))
         {
             return;
@@ -51,15 +51,20 @@ public class MJEntity : MonoBehaviour {
         print("  Game.MJMgr.isShuaiJiuYao<<<<<<<<<<<<<<<<<< " + MJUtils.DropCard());
         if (Game.MJMgr.isShuaiJiuYao)
         {
+            if(!isCardUp)
+            {
+                return;
+            }
             if (playPage.CardList.Count > 2) 
             {
                 playPage.throwCount = 1;
-                playPage.throwCardList.Add(this.Card);
+                playPage.throwCardList.Add(this.Card);              
                 Destroy(this.gameObject, 0.1f);
                 throwlist.Remove(this);
+                throwcardPointlist.Remove(this.Card);
                 playPage.CalThrowZongShu();
             }
-        }
+        }  
         else if (MJUtils.DropCard())
         {
             playPage.throwCount = 0;
