@@ -258,7 +258,7 @@ public class MJHand : MonoBehaviour
         EventDispatcher.DispatchEvent(MessageCommand.MJ_UpdatePlayPage);
         EventDispatcher.DispatchEvent(MessageCommand.PlayEffect, position, "tingUI_EF");
     }
-
+    // 玩家收炮阶段，桌面上卡牌的动作
     internal void PlayShouPao(int cardSP, bool isMy)
     {
         Game.SoundManager.PlayHu(position);

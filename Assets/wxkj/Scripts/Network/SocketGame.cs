@@ -348,11 +348,13 @@ public partial class SocketGame : MonoBehaviour {
 
     void OnStartDealSyn(PacketBase msg)
     {
+        print("   -------   OnStartDealSyn");
         Game.MJMgr.isShuaiJiuYao = true;
     }
 
     void OnStartGamePlaySyn(PacketBase msg)
     {
+        print("   -------   OnStartGamePlaySyn");
         Game.MJMgr.isShuaiJiuYao = false;
     }
 
@@ -542,10 +544,10 @@ public partial class SocketGame : MonoBehaviour {
         {
             return "空";
         }
-        else if (c == 69)
-        {
-            return "中";
-        }
+        //else if (c == 69)
+        //{
+        //    return "中";
+        //}
 
         int type = (c >> 4);
         int card = (c & 0x0f);
