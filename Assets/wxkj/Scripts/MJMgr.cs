@@ -29,6 +29,8 @@ public class MJMgr : MonoBehaviour {
         }
     }
 
+    public bool isShuaiJiuYao = false;
+
     //public List<int> All = new List<int>();
     public List<MJPlayer> players = new List<MJPlayer>();
     public int makersIndex = -1;
@@ -244,7 +246,6 @@ public class MJMgr : MonoBehaviour {
             MJCardGroup.TryDragCard();
         }
         //TODO WXD Add ShuaiJiuYao
-        print(" <<<<<<<<<<<<<<<<<<" + MJUtils.ACT_SHUAIJIUYAO);
         GameOperPlayerActionNotify packet = RoomMgr.actionNotify;
         if (packet == null)
         {

@@ -1,7 +1,9 @@
 ﻿using UnityEngine;
 using System.Collections;
+using System.Collections.Generic;
 
-public class MJEntity : MonoBehaviour {
+public class MJEntity : MonoBehaviour {   
+    public bool kaiguanM;//控制OnMouseDown
     private static int id = 0;
     private int cardId;
     public int CardId
@@ -26,19 +28,42 @@ public class MJEntity : MonoBehaviour {
             cardId = value * 100000 + id;
         }
     }
-
-
+    PlayPage playPage;
+    public List<MJEntity> throwlist =new List<MJEntity>();
+    
     void OnMouseDown()
     {
-        if (!Game.MJMgr.HangUp)
+        playPage = FindObjectOfType<PlayPage>();
+        throwlist = GameObject.Find("Player0").GetComponentInChildren<HandCardLayout>().list;
+        //throwcardPointlist= GameObject.Find("Player0").GetComponentInChildren<HandCardLayout>().HandCards;
+        if (kaiguanM == false) return;
+        print("  Game.MJMgr.isShuaiJiuYao----------------- " + Game.MJMgr.HangUp);
+        if (Game.MJMgr.HangUp)
         {
-            if (MJUtils.DropCard())
+            return;
+        }
+        print("  Game.MJMgr.isShuaiJiuYao+++++++++++++++++++++++ " + IsMine() + IsHandCard());
+        if (!(IsMine() && IsHandCard()))
+        {
+            return;
+        }
+        print("  Game.MJMgr.isShuaiJiuYao>>>>>>>>>>>>>>>>> " + Game.MJMgr.isShuaiJiuYao);
+        print("  Game.MJMgr.isShuaiJiuYao<<<<<<<<<<<<<<<<<< " + MJUtils.DropCard());
+        if (Game.MJMgr.isShuaiJiuYao)
+        {
+            if (playPage.CardList.Count > 2) 
             {
-                if (IsMine() && IsHandCard())
-                {
-                    OnClickDrop();
-                }
+                playPage.throwCount = 1;
+                playPage.throwCardList.Add(this.Card);
+                Destroy(this.gameObject, 0.1f);
+                throwlist.Remove(this);
+                playPage.CalThrowZongShu();
             }
+        }
+        else if (MJUtils.DropCard())
+        {
+            playPage.throwCount = 0;
+            OnClickDrop();
         }
     }
 
@@ -75,16 +100,4 @@ public class MJEntity : MonoBehaviour {
             EventDispatcher.DispatchEvent(MessageCommand.MJ_UpdatePlayPage);
         }
     }
-    ////牌位置上升
-    //public void SelectCardForJiuYao()
-    //{
-    //    if (IsMine() && IsHandCard())
-    //    {
-    //        transform.localPosition = new Vector3(transform.localPosition.x, transform.localPosition.y, 0.01f);
-    //    }
-    //    else
-    //    {
-    //        transform.localPosition = new Vector3(transform.localPosition.x, transform.localPosition.y, transform.localPosition.z);
-    //    }
-    //}
 }

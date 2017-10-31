@@ -101,7 +101,7 @@ public class HandCardLayout : MonoBehaviour {
         return child.transform.position;
     }
 
-    private void doSort()
+    public void doSort()
     {
         list.Sort(delegate (MJEntity a, MJEntity b) {
             return a.CardId.CompareTo(b.CardId);

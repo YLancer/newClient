@@ -259,6 +259,34 @@ public class MJHand : MonoBehaviour
         EventDispatcher.DispatchEvent(MessageCommand.PlayEffect, position, "tingUI_EF");
     }
 
+    internal void PlayShouPao(int cardSP, bool isMy)
+    {
+        Game.SoundManager.PlayHu(position);
+        player.tableCardLayout.AddCard(cardSP);
+        if (isMy)
+        {
+            player.handCardLayout.RemoveCard(cardSP);
+        }
+
+        Game.MJMgr.targetFlag.gameObject.SetActive(false);
+        Game.PoolManager.CardPool.Despawn(Game.MJMgr.LastDropCard.gameObject);
+        //Game.MJMgr.LastDropCardPlayer.dropCardLayout.RemoveLast();
+
+        EventDispatcher.DispatchEvent(MessageCommand.PlayEffect, position, "shandian_EF");
+        Transform tableCLTrans = player.tableCardLayout.transform;
+        int childCount = tableCLTrans.childCount;
+        Transform lastChild = tableCLTrans.GetChild(childCount - 1);
+        Vector3 endPos = tableCLTrans.TransformPoint(lastChild.localPosition);
+        hand.transform.position = endPos;
+        anim.gameObject.SetActive(true);
+
+        GameObject eff = Game.PoolManager.EffectPool.Spawn("shandian_EF");
+        eff.transform.position = endPos;
+        Game.PoolManager.EffectPool.Despawn(eff, 2);
+
+        anim.Play("PutTable");
+    }
+
     internal void PlayShuaiJiuYao(int[] list, bool isMy)
     {
         //TODO WXD

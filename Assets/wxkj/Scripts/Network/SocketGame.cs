@@ -26,6 +26,9 @@ public partial class SocketGame : MonoBehaviour {
         AddEventListener(PacketType.PlayerGamingSyn, OnGAMING_SYN);
         AddEventListener(PacketType.EnrollRequest, OnENROLL);
         AddEventListener(PacketType.ReadySyn, OnREADY_SYN);
+        AddEventListener(PacketType.GameStartSyn, OnAllReadySyn);
+        AddEventListener(PacketType.GameStartDealCardSyn, OnStartDealSyn);
+        AddEventListener(PacketType.GameStartPlaySyn, OnStartGamePlaySyn);
         AddEventListener(PacketType.GameOperation, OnGameOperation);
         AddEventListener(PacketType.DeskDestorySyn, OnDeskDestorySyn);
         AddEventListener(PacketType.ServerChangeSyn, Game.OnServerChangeSyn);
@@ -63,6 +66,9 @@ public partial class SocketGame : MonoBehaviour {
         RemoveEventListener(PacketType.PlayerGamingSyn, OnGAMING_SYN);
         RemoveEventListener(PacketType.EnrollRequest, OnENROLL);
         RemoveEventListener(PacketType.ReadySyn, OnREADY_SYN);
+        RemoveEventListener(PacketType.GameStartSyn, OnAllReadySyn);
+        RemoveEventListener(PacketType.GameStartDealCardSyn, OnStartDealSyn);
+        RemoveEventListener(PacketType.GameStartPlaySyn, OnStartGamePlaySyn);
         RemoveEventListener(PacketType.GameOperation, OnGameOperation);
         RemoveEventListener(PacketType.DeskDestorySyn, OnDeskDestorySyn);
         RemoveEventListener(PacketType.ServerChangeSyn, Game.OnServerChangeSyn);
@@ -333,6 +339,21 @@ public partial class SocketGame : MonoBehaviour {
         {
             // TODO 金币不足  无法准备
         }
+    }
+
+    void OnAllReadySyn(PacketBase msg)
+    {
+        DoREADYL(1, 1);
+    }
+
+    void OnStartDealSyn(PacketBase msg)
+    {
+        Game.MJMgr.isShuaiJiuYao = true;
+    }
+
+    void OnStartGamePlaySyn(PacketBase msg)
+    {
+        Game.MJMgr.isShuaiJiuYao = false;
     }
 
     public void DoBack2HallRequest()
@@ -970,7 +991,7 @@ public partial class SocketGame : MonoBehaviour {
 
         MJPlayer player = Game.MJMgr.GetPlayerByPosition(data.position);
         MjData pData = Game.MJMgr.MjData[data.position];
-
+        bool isMy = player.index == 0;
         List<GameOperPlayerSettle> list = data.detail;
         foreach (GameOperPlayerSettle s in list)
         {
@@ -993,6 +1014,7 @@ public partial class SocketGame : MonoBehaviour {
             GameObject eff = Game.PoolManager.EffectPool.Spawn("shandian_EF");
             eff.transform.position = Game.MJMgr.LastDropCard.transform.position;
             Game.PoolManager.EffectPool.Despawn(eff, 5);
+            player.MJHand.PlayShouPao(data.card, isMy);
         }
         else
         {

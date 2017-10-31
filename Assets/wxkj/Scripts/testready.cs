@@ -7,6 +7,6 @@ public class testready : MonoBehaviour, IPointerClickHandler
     public void OnPointerClick(PointerEventData eventData)
     {
         print("   ---- click -----   ");
-        Game.SocketGame.DoREADYL(1, 1);
+        Game.SocketGame.DoREADYL(1, 0);
     }
 }

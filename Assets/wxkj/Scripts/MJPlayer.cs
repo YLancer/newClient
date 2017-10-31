@@ -55,7 +55,7 @@ public class MJPlayer : MonoBehaviour {
 		}
 	}
 
-	public Vector3 DragCard(int card, bool isMy)
+	public Vector3 DragCard(int card, bool isMy) //摸牌
 	{
         Game.SoundManager.PlayGetCard();
 

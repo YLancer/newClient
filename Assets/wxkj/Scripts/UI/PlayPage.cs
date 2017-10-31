@@ -4,6 +4,7 @@ using System.Collections;
 using System.Collections.Generic;
 using packet.mj;
 using System;
+using UnityEngine.EventSystems;
 
 public class PlayPage : PlayPageBase
 {
@@ -85,7 +86,8 @@ public class PlayPage : PlayPageBase
         //EventDispatcher.AddEventListener(MessageCommand.OnEnterRoom, SetupUI);
         EventDispatcher.AddEventListener(MessageCommand.MJ_UpdateCtrlPanel, OnUpdateCtrlPanel);
         EventDispatcher.AddEventListener(MessageCommand.Chat, OnChat);
-        EventDispatcher.AddEventListener(MessageCommand.PlayEffect, OnPlayEffect);      
+        EventDispatcher.AddEventListener(MessageCommand.PlayEffect, OnPlayEffect);
+        
     }
 
     public override void OnSceneClosed()
@@ -246,7 +248,7 @@ public class PlayPage : PlayPageBase
         {
             sub.gameObject.SetActive(false);
         }
-
+        
         for (int i = 0; i < Game.MJMgr.MjData.Length; i++)
         {
             int position = i;
@@ -330,9 +332,12 @@ public class PlayPage : PlayPageBase
         detail.TingPengButton_Button.gameObject.SetActive(tingPeng);
         detail.ZhiduiButton_Button.gameObject.SetActive(tingZhidui);
 
-        // 根据true和false 显示甩九幺界面的--测试  
-        detail.ShuaiJiuYao_panel.gameObject.SetActive(ShuaiJiuYao);
-        //PopingCard(); //测试牌是否上弹
+        print("========================== " + MJUtils.ShuaiJiuYao());
+        detail.ShuaiJiuYao_panel.gameObject.SetActive(ShuaiJiuYao); 
+        if(ShuaiJiuYao)
+        {
+            PopingCard(); //测试牌上弹
+        }
         if (chu)
         {
             Game.MaterialManager.TurnOffHandCard();
@@ -595,6 +600,7 @@ public class PlayPage : PlayPageBase
             detail.CardNum_Text.text = Game.MJMgr.CardLeft.ToString();
             detail.Time_Text.text = System.DateTime.Now.ToString("HH:mm");
         }
+        
     }
 
     void OnClickHostedBtn()
@@ -630,45 +636,44 @@ public class PlayPage : PlayPageBase
         Game.AndroidUtil.Share(deskId);
     }
 
+    public List<MJEntity> CardList = new List<MJEntity>(); //弹上去幺九牌集合
+    public HandCardLayout handCardLayout;
+    public int throwCount;//默认值
+    public  int throwZongShu;//甩牌总数
+    public List<int> throwCardList =new List<int>();//甩牌集合 
 
-
-    private List<MJEntity> CardList;
-    private void Start()
+    public void CalThrowZongShu()
     {
-        CardList = new List<MJEntity>();
-        PopingCard();
+        print("  throwZongShu   " + throwZongShu);
+        throwZongShu += throwCount;
     }
 
-    // 幺九牌向上弹出            有问题!!!!
     private void PopingCard()
-    {
-        MaterialManager cardMaterial = GetComponent<MaterialManager>();
+    {      
+        MaterialManager cardMaterial = GameObject.FindObjectOfType<MaterialManager>();
         var handlist = Game.MJMgr.MyPlayer.handCardLayout.list;
-        print(">>>>> ++++++Game.MJMgr.MyPlayer.handCardLayout.HandCards  <<<<" + handlist.Count);
         for (int i = 0; i < handlist.Count; i++)
         {            
             MJEntity cardObj = handlist[i].GetComponent<MJEntity>();
-            print(" >>>>>  handlist[i]  TO cardObj  <<<<< "    +   cardObj);
             Renderer selectCard = cardObj.GetComponent<Renderer>();          
             int cardPoint = cardObj.Card;
-            print(" >>>>>> +++ cardPoint +++ <<<<<<<" + cardPoint);
-            if (cardPoint % 9 < 2 || cardPoint % 9 >= 7 || cardPoint % 9 == 5 || cardPoint % 9 == 6 || cardPoint > 63)
+            if (cardPoint % 8 == 1 || cardPoint > 48)
             {
-                print(" >>>>>> +++ handlist[i]的坐标是： +++ <<<<<<<" + handlist[i].transform.localPosition);
-                OnClickShuaiCard(true,handlist[i]);
+                cardObj.kaiguanM = true;
+                ShuaiCardUp(true,handlist[i]);
                 selectCard.material = cardMaterial.myCardMatOn;
             }
             else
             {
                 selectCard.material = cardMaterial.myCardMatOff;
             }
-        }
+        }      
     }
-
-    private void OnClickShuaiCard(bool selectCard, MJEntity throwCard)
-    {
+    
+    private void ShuaiCardUp(bool selectCard, MJEntity throwCard)
+    {    
         MJEntity throwObj = throwCard.GetComponent<MJEntity>();
-        selectCard = true;//MJUtils.ShuaiJiuYao();
+        //MJUtils.ShuaiJiuYao();
         if (selectCard == true)
         {
             throwObj.transform.localPosition = new Vector3(throwObj.transform.localPosition.x, throwObj.transform.localPosition.y, 0.015f);
@@ -676,51 +681,61 @@ public class PlayPage : PlayPageBase
         }
         else
         {
-            throwObj.transform.localPosition = throwObj.transform.localPosition;
+            throwObj.transform.localPosition = new Vector3(throwObj.transform.localPosition.x, throwObj.transform.localPosition.y, 0f);          
             CardList.Remove(throwCard);
         }
     }
 
     // 甩九幺按钮触发的事件
     private void OnClickShuaiJiuYao_MakeSureBtn()
-    {
-        if (CardList.Count != 0)
+    {    
+        if (CardList.Count != 0&&CardList.Count>2)
         {
-            if (!(CardList.Count == 3 || CardList.Count == 6 || CardList.Count == 9))
-            {
+            if (throwZongShu % 3 != 0){
                 detail.Text_tishi.text = "扔出的牌数不对，请扔三张、六张或者九张";
                 detail.Text_tishi.color = Color.red;
-                return;
-            }       
+            }
+            else{
+                AfterSelect();
+            }
+        }  
+        else 
+        {
+            detail.Text_tishi.text = "九幺牌不足三张，不甩牌！";
+            detail.Text_tishi.color = Color.red;
+            AfterSelect();
         }
-        // VO怎么做  TODO？
-
-        detail.ShuaiJiuYao_panel.gameObject.SetActive(false);
-        AfterSelect();
     }
+
     private void AfterSelect()
     {
-        MaterialManager cardMaterial = GetComponent<MaterialManager>();
-        var handlist = Game.MJMgr.MyPlayer.handCardLayout.list;  
-        for (int i = 0; i < handlist.Count; i++)
+        // 扔完九幺牌，确定按钮之后
+        detail.ShuaiJiuYao_panel.gameObject.SetActive(false);
+        if (RoomMgr.actionNotify != null)
+        {
+            RoomMgr.actionNotify.actions &= ~MJUtils.ACT_SHUAIJIUYAO;
+        }
+        //EventDispatcher.DispatchEvent(MessageCommand.MJ_UpdatePlayPage); //TODO 用这个来关界面      
+        handCardLayout = GameObject.Find("Player0").GetComponentInChildren<HandCardLayout>();
+        MaterialManager cardMaterial = GameObject.FindObjectOfType<MaterialManager>();
+        var handlist = GameObject.Find("Player0").GetComponentsInChildren<MJEntity>();        
+        Game.SocketGame.DoREADYL(1, 2);
+        Game.SocketGame.DoGameOperPlayerActionSyn(MJUtils.ACT_SHUAIJIUYAO, throwCardList.ToArray());
+        //Game.SocketGame.DoGameOperPlayerActionSyn(MJUtils.ACT_DROP_CARD);
+        Renderer selectCard = null;
+        for (int i = 0; i < handlist.Length; i++)
         {
             MJEntity cardObj = handlist[i].GetComponent<MJEntity>() ;
-            Renderer selectCard = cardObj.GetComponent<Renderer>();
+            cardObj.kaiguanM = true;
+            selectCard = cardObj.GetComponent<Renderer>();
+            selectCard.material = cardMaterial.myCardMatOn;
             int cardPoint = cardObj.Card;
-            if (cardPoint % 9 < 2 || cardPoint % 9 >= 7|| cardPoint % 9 == 5 || cardPoint % 9 == 6 || cardPoint > 63)
+            if (cardPoint % 8 == 1 || cardPoint > 48)
             {
-                OnClickShuaiCard(false, handlist[i]);
+                ShuaiCardUp(false, handlist[i]);
             }
-            else
-                selectCard.material = cardMaterial.myCardMatOn;
-         
         }
-        foreach( var obj in CardList)
-        {
-            Destroy(obj);
-            handlist.Remove(obj);
-        }
-        Game.MJMgr.MyPlayer.handCardLayout.LineUp(true);
-        // VO怎么做  TODO？
+        handCardLayout.LineUp(true);
+        throwCardList.Clear();
     }
 }
