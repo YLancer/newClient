@@ -1012,10 +1012,12 @@ public partial class SocketGame : MonoBehaviour {
         }
         else if ((RoomMgr.huSyn.winType | MJUtils.HU_ShouPao) != 0)
         {
+            print(" >>>>>>> player.MJHand.PlayShouPao(data.card, isMy) <<<<<<" + "   >>>>>>>> 收炮 <<<<<<<");
             Game.SoundManager.PlayEffect(28);
             GameObject eff = Game.PoolManager.EffectPool.Spawn("shandian_EF");
             eff.transform.position = Game.MJMgr.LastDropCard.transform.position;
             Game.PoolManager.EffectPool.Despawn(eff, 5);
+            
             player.MJHand.PlayShouPao(data.card, isMy);
         }
         else

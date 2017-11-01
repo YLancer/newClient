@@ -261,12 +261,22 @@ public class MJHand : MonoBehaviour
     // 玩家收炮阶段，桌面上卡牌的动作
     internal void PlayShouPao(int cardSP, bool isMy)
     {
+        print(" >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>                       <<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<");
         Game.SoundManager.PlayHu(position);
-        player.tableCardLayout.AddCard(cardSP);
+
         if (isMy)
         {
-            player.handCardLayout.RemoveCard(cardSP);
+            player.tableCardLayout.AddCard(cardSP);
+            //player.handCardLayout.RemoveCard(cardSP);
+            //player.dropCardLayout.RemoveLast();
         }
+        else
+        {
+            player.dropCardLayout.RemoveLast();
+           // player.handCardLayout.RemoveCard(cardSP);
+            //player.tableCardLayout.AddCard(cardSP);
+        }
+            
 
         Game.MJMgr.targetFlag.gameObject.SetActive(false);
         Game.PoolManager.CardPool.Despawn(Game.MJMgr.LastDropCard.gameObject);
