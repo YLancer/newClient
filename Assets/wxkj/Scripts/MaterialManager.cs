@@ -9,7 +9,7 @@ public class MaterialManager : MonoBehaviour {
 
     public Material Flowlight_Fast;
 
-    public void TurnOffHandCard()
+    public void TurnOffHandCard() // 听牌，手牌的颜色转换
     {
         if (RoomMgr.actionNotify.tingList.Count > 0)
         {
@@ -31,7 +31,7 @@ public class MaterialManager : MonoBehaviour {
         }
     }
 
-    public void TurnOffAllHandCard()
+    public void TurnOffAllHandCard()  //手牌变黑
     {
         int count = Game.MJMgr.MyPlayer.handCardLayout.list.Count;
         for (int i = 0; i < count; i++)
@@ -42,7 +42,7 @@ public class MaterialManager : MonoBehaviour {
         }
     }
 
-    public void TurnOnHandCard()
+    public void TurnOnHandCard()  //手牌变白
     {
         int count = Game.MJMgr.MyPlayer.handCardLayout.list.Count;
         for (int i = 0; i < count; i++)

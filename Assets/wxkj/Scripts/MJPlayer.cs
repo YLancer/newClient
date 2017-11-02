@@ -8,6 +8,7 @@ public class MJPlayer : MonoBehaviour {
     public HandCardLayout handCardLayout;
 	public DropCardLayout dropCardLayout;
 	public TableCardLayout tableCardLayout;
+    public ShouPaoCardLayout shouPaoCardLayout;
     public Transform baoRoot;
     public Transform EffectPos;
     public MJHand MJHand;
@@ -21,6 +22,8 @@ public class MJPlayer : MonoBehaviour {
         handCardLayout.Clear();
         dropCardLayout.Clear();
         tableCardLayout.Clear();
+
+        shouPaoCardLayout.Clear();
 
         if (baoRoot.childCount > 0)
         {
