@@ -341,9 +341,12 @@ public class PlayPage : PlayPageBase
         detail.ShuaiJiuYao_panel.gameObject.SetActive(ShuaiJiuYao); 
         if(ShuaiJiuYao)
         {
-            PopingCard(); //测试牌上弹
+            PopingCard(); //九幺牌上弹
         }
-        if (chu)
+        
+        print(" chu " + chu + " <><><><><>" + ting + " <<<<<<<>>>>>>" + Game.Instance.Ting);
+        //if (Game.Instance.Ting)
+        if (chu && Game.Instance.Ting)
         {
             Game.MaterialManager.TurnOffHandCard();
         }
