@@ -805,12 +805,24 @@ public partial class SocketGame : MonoBehaviour {
         }
     }
 
+    public void DoAnGang(int card)
+    {
+        DoGameOperPlayerActionSyn(MJUtils.ACT_AN_GANG, card);
+    }
+
+    public void DoBuGang(int card)
+    {
+        DoGameOperPlayerActionSyn(MJUtils.ACT_BU_GANG, card);
+    }
+
+    public void DoZhiGang(int card)
+    {
+        DoGameOperPlayerActionSyn(MJUtils.ACT_ZHI_GANG, card);
+    }
+
     public void DoZhidui(int card)
     {
-        //if (Game.Instance.Ting)
-        {
-            DoGameOperPlayerActionSyn(MJUtils.ACT_TING_ZHIDUI, card);
-        }
+        DoGameOperPlayerActionSyn(MJUtils.ACT_TING_ZHIDUI, card);
     }
 
     public void DoTing(int card = -1)

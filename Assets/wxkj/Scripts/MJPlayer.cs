@@ -98,9 +98,32 @@ public class MJPlayer : MonoBehaviour {
         }
     }
 
-	public void Gang()
-	{
-	}
+    public void AnGang()
+    {
+        if (MJUtils.AnGang())
+        {
+            int card = RoomMgr.actionNotify.gangList[0];
+            Game.SocketGame.DoAnGang(card);
+        }
+    }
+
+    public void BuGang()
+    {
+        if (MJUtils.BuGang())
+        {
+            int card = RoomMgr.actionNotify.gangList[0];
+            Game.SocketGame.DoBuGang(card);
+        }
+    }
+
+    public void ZhiGang()
+    {
+        if (MJUtils.ZhiGang())
+        {
+            int card = RoomMgr.actionNotify.gangList[0];
+            Game.SocketGame.DoZhiGang(card);
+        }
+    }
 
 	public void Hu()
 	{

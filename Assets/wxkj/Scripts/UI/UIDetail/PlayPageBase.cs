@@ -12,8 +12,6 @@ public class PlayPageBase : UISceneBase
         detail.CancelHangUpBtn_Image = transform.Find("HangUp/CancelHangUpBtn").gameObject.GetComponent<Image>();
         detail.CancelHangUpBtn_Button = transform.Find("HangUp/CancelHangUpBtn").gameObject.GetComponent<Button>();
         detail.HangUp_UIItem = transform.Find("HangUp").gameObject.GetComponent<UIItem>();
-        detail.DropButton_Image = transform.Find("DropButton").gameObject.GetComponent<Image>();
-        detail.DropButton_Button = transform.Find("DropButton").gameObject.GetComponent<Button>();
         detail.ExitButton_Image = transform.Find("ExitButton").gameObject.GetComponent<Image>();
         detail.ExitButton_Button = transform.Find("ExitButton").gameObject.GetComponent<Button>();
         detail.PopupButton_Image = transform.Find("PopupButton").gameObject.GetComponent<Image>();
@@ -26,9 +24,15 @@ public class PlayPageBase : UISceneBase
         detail.Image1_Image = transform.Find("Image (1)").gameObject.GetComponent<Image>();
         detail.PassButton_Image = transform.Find("CtrlPanel/PassButton").gameObject.GetComponent<Image>();
         detail.PassButton_Button = transform.Find("CtrlPanel/PassButton").gameObject.GetComponent<Button>();
-        detail.GangButton_Image = transform.Find("CtrlPanel/Root/GangButton").gameObject.GetComponent<Image>();
-        detail.GangButton_Button = transform.Find("CtrlPanel/Root/GangButton").gameObject.GetComponent<Button>();
-        detail.GangButton_LayoutElement = transform.Find("CtrlPanel/Root/GangButton").gameObject.GetComponent<LayoutElement>();
+        detail.AnGangButton_Image = transform.Find("CtrlPanel/Root/AnGangButton").gameObject.GetComponent<Image>();
+        detail.AnGangButton_Button = transform.Find("CtrlPanel/Root/AnGangButton").gameObject.GetComponent<Button>();
+        detail.AnGangButton_LayoutElement = transform.Find("CtrlPanel/Root/AnGangButton").gameObject.GetComponent<LayoutElement>();
+        detail.BuGangButton_Image = transform.Find("CtrlPanel/Root/BuGangButton").gameObject.GetComponent<Image>();
+        detail.BuGangButton_Button = transform.Find("CtrlPanel/Root/BuGangButton").gameObject.GetComponent<Button>();
+        detail.BuGangButton_LayoutElement = transform.Find("CtrlPanel/Root/BuGangButton").gameObject.GetComponent<LayoutElement>();
+        detail.ZhiGangButton_Image = transform.Find("CtrlPanel/Root/ZhiGangButton").gameObject.GetComponent<Image>();
+        detail.ZhiGangButton_Button = transform.Find("CtrlPanel/Root/ZhiGangButton").gameObject.GetComponent<Button>();
+        detail.ZhiGangButton_LayoutElement = transform.Find("CtrlPanel/Root/ZhiGangButton").gameObject.GetComponent<LayoutElement>();
         detail.PengButton_Image = transform.Find("CtrlPanel/Root/PengButton").gameObject.GetComponent<Image>();
         detail.PengButton_Button = transform.Find("CtrlPanel/Root/PengButton").gameObject.GetComponent<Button>();
         detail.PengButton_LayoutElement = transform.Find("CtrlPanel/Root/PengButton").gameObject.GetComponent<LayoutElement>();
