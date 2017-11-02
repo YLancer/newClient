@@ -261,20 +261,16 @@ public class MJHand : MonoBehaviour
     // 玩家收炮阶段，桌面上卡牌的动作
     internal void PlayShouPao(int cardSP, bool isMy)
     {
-        print(" >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>                       <<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<");
         Game.SoundManager.PlayHu(position);
 
         if (isMy)
         {
-            player.tableCardLayout.AddCard(cardSP);
-            //player.handCardLayout.RemoveCard(cardSP);
-            //player.dropCardLayout.RemoveLast();
+            player.shouPaoCardLayout.AddCard(cardSP);
         }
         else
         {
             player.dropCardLayout.RemoveLast();
-           // player.handCardLayout.RemoveCard(cardSP);
-            //player.tableCardLayout.AddCard(cardSP);
+            player.shouPaoCardLayout.AddCard(cardSP);
         }
             
 
@@ -282,7 +278,7 @@ public class MJHand : MonoBehaviour
         Game.PoolManager.CardPool.Despawn(Game.MJMgr.LastDropCard.gameObject);
         //Game.MJMgr.LastDropCardPlayer.dropCardLayout.RemoveLast();
 
-        EventDispatcher.DispatchEvent(MessageCommand.PlayEffect, position, "shandian_EF");
+        EventDispatcher.DispatchEvent(MessageCommand.PlayEffect, position, "huUI_EF");
         Transform tableCLTrans = player.tableCardLayout.transform;
         int childCount = tableCLTrans.childCount;
         Transform lastChild = tableCLTrans.GetChild(childCount - 1);
@@ -290,9 +286,9 @@ public class MJHand : MonoBehaviour
         hand.transform.position = endPos;
         anim.gameObject.SetActive(true);
 
-        GameObject eff = Game.PoolManager.EffectPool.Spawn("shandian_EF");
+        GameObject eff = Game.PoolManager.EffectPool.Spawn("huUI_EF");
         eff.transform.position = endPos;
-        Game.PoolManager.EffectPool.Despawn(eff, 2);
+        Game.PoolManager.EffectPool.Despawn(eff, 10);
 
         anim.Play("PutTable");
     }
