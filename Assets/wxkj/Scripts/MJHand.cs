@@ -400,10 +400,10 @@ public class MJHand : MonoBehaviour
         //Game.MJMgr.LastDropCardPlayer.dropCardLayout.RemoveLast();
 
         EventDispatcher.DispatchEvent(MessageCommand.PlayEffect, position, "huUI_EF");
-        Transform tableCLTrans = player.tableCardLayout.transform;
-        int childCount = tableCLTrans.childCount;
-        Transform lastChild = tableCLTrans.GetChild(childCount - 1);
-        Vector3 endPos = tableCLTrans.TransformPoint(lastChild.localPosition);
+        Transform shouPaoCLTrans = player.shouPaoCardLayout.transform;
+        int childCount = shouPaoCLTrans.childCount;
+        Transform lastChild = shouPaoCLTrans.GetChild(childCount - 1);
+        Vector3 endPos = shouPaoCLTrans.TransformPoint(lastChild.localPosition);
         hand.transform.position = endPos;
         anim.gameObject.SetActive(true);
 
