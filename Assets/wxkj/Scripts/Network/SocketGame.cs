@@ -707,6 +707,18 @@ public partial class SocketGame : MonoBehaviour {
         {
             player.MJHand.PlayChi(data.cardValue[0], data.cardValue[1], isMy);
         }
+        else if (MJUtils.AnGang(data.action))
+        {
+            player.MJHand.PlayGang(data.cardValue[0], isMy, 1);
+        }
+        else if (MJUtils.BuGang(data.action))
+        {
+            player.MJHand.PlayGang(data.cardValue[0], isMy, 2);
+        }
+        else if (MJUtils.ZhiGang(data.action))
+        {
+            player.MJHand.PlayGang(data.cardValue[0], isMy, 3);
+        }
         else if (MJUtils.Ting(data.action))
         {
             player.MJHand.PlayTing(isMy);
@@ -1012,7 +1024,7 @@ public partial class SocketGame : MonoBehaviour {
         }
         else if ((RoomMgr.huSyn.winType | MJUtils.HU_ShouPao) != 0)
         {
-            print(" >>>>>>> player.MJHand.PlayShouPao(data.card, isMy) <<<<<<" + "   >>>>>>>> 收炮 <<<<<<<");
+            print(" >>>>>>> player.MJHand.PlayShouPao(data.card, isMy) <<<<<<" + "   >>>>>>>> 收炮 <<<<<<< "  + isMy);
             Game.SoundManager.PlayEffect(28);
             GameObject eff = Game.PoolManager.EffectPool.Spawn("shandian_EF");
             eff.transform.position = Game.MJMgr.LastDropCard.transform.position;

@@ -344,8 +344,7 @@ public class PlayPage : PlayPageBase
             PopingCard(); //九幺牌上弹
         }
         
-        print(" chu " + chu + " <><><><><>" + ting + " <<<<<<<>>>>>>" + Game.Instance.Ting);
-        //if (Game.Instance.Ting)
+        //print(" chu " + chu + " <><><><><>" + ting + " <<<<<<<>>>>>>" + Game.Instance.Ting);
         if (chu && Game.Instance.Ting)
         {
             Game.MaterialManager.TurnOffHandCard();
@@ -652,7 +651,6 @@ public class PlayPage : PlayPageBase
 
     public void CalThrowZongShu()
     {
-        print("  throwZongShu   " + throwZongShu);
         throwZongShu += throwCount;
     }
 
