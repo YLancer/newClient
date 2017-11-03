@@ -30,11 +30,13 @@ public class PlayPage : PlayPageBase
 
         detail.PopupButton_Button.onClick.AddListener(OnClickOpenPopupMenu);
         detail.ClosePopButton_Button.onClick.AddListener(OnClickClosePopupMenu);
-        //detail.DropButton_Button.onClick.AddListener (OnClickDropBtn);
 
         detail.PassButton_Button.onClick.AddListener(OnClickPassBtn);
         detail.ChiButton_Button.onClick.AddListener(OnClickChiBtn);
         detail.PengButton_Button.onClick.AddListener(OnClickPengBtn);
+        detail.AnGangButton_Button.onClick.AddListener(OnClickAnGangBtn);       //暗杠
+        detail.BuGangButton_Button.onClick.AddListener(OnClickBuGangBtn);       //补杠
+        detail.ZhiGangButton_Button.onClick.AddListener(OnClickZhiGangBtn);     //直杠
         detail.TingButton_Button.onClick.AddListener(OnClickTingBtn);           //听牌
         detail.TingChiButton_Button.onClick.AddListener(OnClickTingChiBtn);     //碰听
         detail.TingPengButton_Button.onClick.AddListener(OnClickTingPengBtn);   //吃听
@@ -58,7 +60,6 @@ public class PlayPage : PlayPageBase
         detail.RecodState_UIItem.gameObject.SetActive(false);
         detail.WXButton_Button.gameObject.SetActive(false);
         detail.WXButton_Button.onClick.AddListener(OnClickWXBtn);
-        detail.DropButton_Button.gameObject.SetActive(false);
         detail.SelectPanel_UIItem.gameObject.SetActive(false);
 
         //甩九幺界面,确定按钮处理
@@ -312,6 +313,9 @@ public class PlayPage : PlayPageBase
         bool chu = MJUtils.DropCard();
         bool chi = MJUtils.Chi();
         bool peng = MJUtils.Peng();
+        bool angang = MJUtils.AnGang();
+        bool bugang = MJUtils.BuGang();
+        bool zhigang = MJUtils.ZhiGang();
         //bool hu = false;// MJUtils.CanChi(actions);
         //bool gang = false;// MJUtils.AnGang() || MJUtils.BuGang() || MJUtils.ZhiGang();
 
@@ -324,13 +328,14 @@ public class PlayPage : PlayPageBase
         bool ShuaiJiuYao = MJUtils.ShuaiJiuYao();
 
         //bool showPanel = (!Game.Instance.Ting)&& (chi || peng || ting || tingChi || tingPeng || tingZhidui);
-        bool showPanel = (chi || peng || ting || tingChi || tingPeng || tingZhidui || ShuaiJiuYao);
+        bool showPanel = (chi || peng || angang || bugang || zhigang || ting || tingChi || tingPeng || tingZhidui || ShuaiJiuYao);
 
         detail.CtrlPanel_UIItem.gameObject.SetActive(showPanel);
         detail.ChiButton_Button.gameObject.SetActive(chi);
         detail.PengButton_Button.gameObject.SetActive(peng);
-        detail.GangButton_Button.gameObject.SetActive(false);
-        detail.DropButton_Button.gameObject.SetActive(chu/* || ting*/);
+        detail.AnGangButton_Button.gameObject.SetActive(angang);
+        detail.BuGangButton_Button.gameObject.SetActive(bugang);
+        detail.ZhiGangButton_Button.gameObject.SetActive(zhigang);
         detail.TingButton_Button.gameObject.SetActive(ting);
         detail.HuButton_Button.gameObject.SetActive(false);
         detail.TingChiButton_Button.gameObject.SetActive(tingChi);
@@ -359,7 +364,6 @@ public class PlayPage : PlayPageBase
         detail.SelectPanel_UIItem.gameObject.SetActive(false);
         Game.SocketGame.DoPass();
         Game.MaterialManager.TurnOnHandCard();
-        //detail.DropButton_Button.gameObject.SetActive(true);
     }
 
     void OnClickChiBtn()
@@ -380,7 +384,6 @@ public class PlayPage : PlayPageBase
 
                     Game.MJMgr.MyPlayer.Chi(chiArg);
                     //Game.SoundManager.PlayChi ();
-                    //detail.DropButton_Button.gameObject.SetActive(true);
                 }
                 else
                 {
@@ -414,7 +417,6 @@ public class PlayPage : PlayPageBase
                         {
                             Game.MJMgr.MyPlayer.Chi(chiArg);
                             detail.SelectPanel_UIItem.gameObject.SetActive(false);
-                            //detail.DropButton_Button.gameObject.SetActive(true);
                         });
                     }
                 }
@@ -444,8 +446,30 @@ public class PlayPage : PlayPageBase
 
         Game.MJMgr.MyPlayer.Peng();
         detail.CtrlPanel_UIItem.gameObject.SetActive(false);
+    }
+    
+    void OnClickAnGangBtn()
+    {
+        Game.SoundManager.PlayClick();
 
-        //detail.DropButton_Button.gameObject.SetActive(true);
+        Game.MJMgr.MyPlayer.AnGang();
+        detail.CtrlPanel_UIItem.gameObject.SetActive(false);
+    }
+
+    void OnClickBuGangBtn()
+    {
+        Game.SoundManager.PlayClick();
+
+        Game.MJMgr.MyPlayer.BuGang();
+        detail.CtrlPanel_UIItem.gameObject.SetActive(false);
+    }
+
+    void OnClickZhiGangBtn()
+    {
+        Game.SoundManager.PlayClick();
+
+        Game.MJMgr.MyPlayer.ZhiGang();
+        detail.CtrlPanel_UIItem.gameObject.SetActive(false);
     }
 
     void OnClickTingBtn()
@@ -453,11 +477,6 @@ public class PlayPage : PlayPageBase
         Game.SoundManager.PlayClick();
 
         bool ting = MJUtils.Ting();
-        //bool tingChi = MJUtils.TingChi();
-        //bool tingPeng = MJUtils.TingPeng();
-        //bool tingZhidui = MJUtils.TingZhidui();
-
-        //bool t = ting || tingChi || tingPeng;
         if (ting)
         {
             Game.SocketGame.DoTing();
@@ -528,7 +547,6 @@ public class PlayPage : PlayPageBase
                         detail.SelectPanel_UIItem.gameObject.SetActive(false);
                         EventDispatcher.DispatchEvent(MessageCommand.MJ_UpdatePlayPage);
                         //Game.SoundManager.PlayChi();
-                        //detail.DropButton_Button.gameObject.SetActive(true);
                     });
                 }
             }

@@ -9,8 +9,6 @@ public class PlayPageDetail
     public UIItem HangUp_UIItem;
     public Image CancelHangUpBtn_Image;
     public Button CancelHangUpBtn_Button;
-    public Image DropButton_Image;
-    public Button DropButton_Button;
     public Image ExitButton_Image;
     public Button ExitButton_Button;
     public Image PopupButton_Image;
@@ -25,9 +23,15 @@ public class PlayPageDetail
     public Image PassButton_Image;
     public Button PassButton_Button;
     public HorizontalLayoutGroup Root_HorizontalLayoutGroup;
-    public Image GangButton_Image;
-    public Button GangButton_Button;
-    public LayoutElement GangButton_LayoutElement;
+    public Image AnGangButton_Image;
+    public Button AnGangButton_Button;
+    public LayoutElement AnGangButton_LayoutElement;
+    public Image BuGangButton_Image;
+    public Button BuGangButton_Button;
+    public LayoutElement BuGangButton_LayoutElement;
+    public Image ZhiGangButton_Image;
+    public Button ZhiGangButton_Button;
+    public LayoutElement ZhiGangButton_LayoutElement;
     public Image PengButton_Image;
     public Button PengButton_Button;
     public LayoutElement PengButton_LayoutElement;

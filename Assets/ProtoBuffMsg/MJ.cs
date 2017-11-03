@@ -250,22 +250,29 @@ namespace packet.mj
       get { return _tingList; }
     }
   
+    private readonly global::System.Collections.Generic.List<int> _gangList = new global::System.Collections.Generic.List<int>();
+    [global::ProtoBuf.ProtoMember(5, Name=@"gangList", DataFormat = global::ProtoBuf.DataFormat.ZigZag)]
+    public global::System.Collections.Generic.List<int> gangList
+    {
+      get { return _gangList; }
+    }
+  
     private readonly global::System.Collections.Generic.List<int> _tingDzs = new global::System.Collections.Generic.List<int>();
-    [global::ProtoBuf.ProtoMember(5, Name=@"tingDzs", DataFormat = global::ProtoBuf.DataFormat.ZigZag)]
+    [global::ProtoBuf.ProtoMember(6, Name=@"tingDzs", DataFormat = global::ProtoBuf.DataFormat.ZigZag)]
     public global::System.Collections.Generic.List<int> tingDzs
     {
       get { return _tingDzs; }
     }
   
     private readonly global::System.Collections.Generic.List<packet.mj.GameOperChiArg> _chiArg = new global::System.Collections.Generic.List<packet.mj.GameOperChiArg>();
-    [global::ProtoBuf.ProtoMember(6, Name=@"chiArg", DataFormat = global::ProtoBuf.DataFormat.Default)]
+    [global::ProtoBuf.ProtoMember(7, Name=@"chiArg", DataFormat = global::ProtoBuf.DataFormat.Default)]
     public global::System.Collections.Generic.List<packet.mj.GameOperChiArg> chiArg
     {
       get { return _chiArg; }
     }
   
     private int _pengArg = default(int);
-    [global::ProtoBuf.ProtoMember(7, IsRequired = false, Name=@"pengArg", DataFormat = global::ProtoBuf.DataFormat.ZigZag)]
+    [global::ProtoBuf.ProtoMember(8, IsRequired = false, Name=@"pengArg", DataFormat = global::ProtoBuf.DataFormat.ZigZag)]
     [global::System.ComponentModel.DefaultValue(default(int))]
     public int pengArg
     {
@@ -273,7 +280,7 @@ namespace packet.mj
       set { _pengArg = value; }
     }
     private int _lastActionPosition = default(int);
-    [global::ProtoBuf.ProtoMember(8, IsRequired = false, Name=@"lastActionPosition", DataFormat = global::ProtoBuf.DataFormat.ZigZag)]
+    [global::ProtoBuf.ProtoMember(9, IsRequired = false, Name=@"lastActionPosition", DataFormat = global::ProtoBuf.DataFormat.ZigZag)]
     [global::System.ComponentModel.DefaultValue(default(int))]
     public int lastActionPosition
     {
@@ -281,7 +288,7 @@ namespace packet.mj
       set { _lastActionPosition = value; }
     }
     private int _lastActionCard = default(int);
-    [global::ProtoBuf.ProtoMember(9, IsRequired = false, Name=@"lastActionCard", DataFormat = global::ProtoBuf.DataFormat.ZigZag)]
+    [global::ProtoBuf.ProtoMember(10, IsRequired = false, Name=@"lastActionCard", DataFormat = global::ProtoBuf.DataFormat.ZigZag)]
     [global::System.ComponentModel.DefaultValue(default(int))]
     public int lastActionCard
     {
@@ -289,7 +296,7 @@ namespace packet.mj
       set { _lastActionCard = value; }
     }
     private int _mustZhiDui = default(int);
-    [global::ProtoBuf.ProtoMember(10, IsRequired = false, Name=@"mustZhiDui", DataFormat = global::ProtoBuf.DataFormat.ZigZag)]
+    [global::ProtoBuf.ProtoMember(11, IsRequired = false, Name=@"mustZhiDui", DataFormat = global::ProtoBuf.DataFormat.ZigZag)]
     [global::System.ComponentModel.DefaultValue(default(int))]
     public int mustZhiDui
     {
