@@ -283,24 +283,50 @@ public class MJHand : MonoBehaviour
             player.handCardLayout.RemoveCard(cardG);
         }
         else if(type == 2)
-        {          
+        {
+            //检验手中有没有card牌
+            bool isHandCard = false;
             List<int> pengGangCard  = player.handCardLayout.HandCards;
             for (int i = 0; i < pengGangCard.Count; i++)
             {
                 if (pengGangCard[i] == cardG)
                 {
-                    if (isMy)
-                    {
-                        player.tableCardLayout.AddCard(pengGangCard[i]);
-                    }
-                    else
-                    {
-                        player.dropCardLayout.RemoveLast();
-                        player.tableCardLayout.AddCard(pengGangCard[i]);
-                    }
+                    isHandCard = true;
+                    break;
                 }
-                player.tableCardLayout.tableCardDoSort();
             }
+            if(!isHandCard)
+            {
+                return;
+            }
+
+            //检验门前牌中有没有card碰牌
+            int cnt = 0;
+            List<int> pengCard = player.tableCardLayout.TableCards;
+            for (int i = 0; i < pengCard.Count; i++)
+            {
+                if (pengCard[i] == cardG)
+                {
+                    cnt++;
+                }
+            }
+            if(cnt != 3)
+            {
+                return;
+            }
+
+            //往碰牌里补杠
+            if (isMy)
+            {
+                player.tableCardLayout.AddCard(cardG);
+            }
+            else
+            {
+                player.dropCardLayout.RemoveLast();
+                player.tableCardLayout.AddCard(cardG); 
+            }
+
+            player.tableCardLayout.tableCardDoSort();            
             player.tableCardLayout.LineUp();
         }
         else if (type == 3)
@@ -331,12 +357,12 @@ public class MJHand : MonoBehaviour
                 player.handCardLayout.RemoveCardAt(index2);
                 player.handCardLayout.RemoveCardAt(index3);
             }
+            Game.PoolManager.CardPool.Despawn(Game.MJMgr.LastDropCard.gameObject);
         }        
 
         player.handCardLayout.LineUp();
 
         Game.MJMgr.targetFlag.gameObject.SetActive(false);
-        //Game.PoolManager.CardPool.Despawn(Game.MJMgr.LastDropCard.gameObject);
         EventDispatcher.DispatchEvent(MessageCommand.PlayEffect, position, "gangUI_EF");
 
         Transform tableCLTrans = player.tableCardLayout.transform;
