@@ -47,8 +47,6 @@ public class MJEntity : MonoBehaviour {
         {
             return;
         }
-        print("  Game.MJMgr.isShuaiJiuYao>>>>>>>>>>>>>>>>> " + Game.MJMgr.isShuaiJiuYao);
-        print("  Game.MJMgr.isShuaiJiuYao<<<<<<<<<<<<<<<<<< " + MJUtils.DropCard());
         if (Game.MJMgr.isShuaiJiuYao)
         {
             if(!isCardUp)

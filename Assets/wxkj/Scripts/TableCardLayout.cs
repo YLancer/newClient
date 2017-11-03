@@ -10,8 +10,9 @@ public class TableCardLayout : MonoBehaviour
     public GameObject last = null;
     public List<int> TableCards = new List<int>();
 
-    private void LineUp()
+    public void LineUp()
     {
+        tableCardDoSort();
         for (int j = 0; j < row; j++)
         {
             for (int i = 0; i < col; i++)
@@ -27,6 +28,13 @@ public class TableCardLayout : MonoBehaviour
                 }
             }
         }
+    }
+    //桌面上的牌要进行排列
+    public void tableCardDoSort()
+    {
+        TableCards.Sort(delegate (int a, int b) {
+            return a.CompareTo(b);
+        });
     }
 
     public void Clear()

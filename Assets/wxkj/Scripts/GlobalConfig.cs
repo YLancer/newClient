@@ -5,16 +5,17 @@ public class GlobalConfig : MonoBehaviour
 {
 #if UNITY_ANDROID || UNITY_IOS || UNITY_IPHONE
 	//public static string address = "www.xskdqmj3d.cn:5000";//121.40.177.10
-     public static string address = "103.26.79.31:5000";//121.40.177.10   103.47.82.46:5000
+    // public static string address = "103.26.79.31:5000";//121.40.177.10   103.47.82.46:5000
+    public static string address = "192.168.10.100:5000";//121.40.177.10   103.47.82.46:5000
 #else
     public static string address = "www.xskdqmj3d.cn:5000";
 #endif
 
 #if UNITY_IOS || UNITY_IPHONE
-	public const string URL_ROOT = "https://103.26.79.31";
-	//public const string URL_ROOT = "https://103.26.79.31";
+	public const string URL_ROOT = "https://192.168.10.100";
+	//public const string URL_ROOT = "https://192.168.10.100";
 #else
-    public const string URL_ROOT = "https://103.26.79.31";
+    public const string URL_ROOT = "https://192.168.10.100";
 	#endif
 
 	public const string SECRET = "fbfea1f1bc0342a22a28f0c93bfd94c0e9870a0f";

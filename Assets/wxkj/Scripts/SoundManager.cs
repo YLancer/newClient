@@ -84,9 +84,11 @@ public class SoundManager : MonoBehaviour {
     {
         PlayRandom(GetSoundsFiles(position).pengSounds);
     }
-
-	public void PlayGang(){
+    //我做的杠的声音新增
+	public void PlayGang(int position)
+    {
         //PlayRandom(PlayGang);
+        PlayRandom(GetSoundsFiles(position).gangSound);
     }
 
 	public void PlayTing(int position)

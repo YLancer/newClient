@@ -2,6 +2,7 @@
 using System.Collections;
 using DG.Tweening;
 using System;
+using System.Collections.Generic;
 
 public enum AnimationAct
 {
@@ -258,22 +259,116 @@ public class MJHand : MonoBehaviour
         EventDispatcher.DispatchEvent(MessageCommand.MJ_UpdatePlayPage);
         EventDispatcher.DispatchEvent(MessageCommand.PlayEffect, position, "tingUI_EF");
     }
+
+    /// <summary>
+    /// 杠牌桌面上卡牌的动作和播放动画  TODO
+    /// </summary>
+    /// <param name="cardG">常规自己抓四张牌杠cardG</param>
+    /// <param name="isMy">是不是我杠了</param>
+    /// <param name="type">杠类型 1-暗杠 2-补杠 3-直杠</param>
+    internal void PlayGang(int cardG, bool isMy, int type)
+    {
+        Game.SoundManager.PlayGang(position);
+
+        if ( type==1 )
+        {
+            player.tableCardLayout.AddCard(cardG);
+            player.tableCardLayout.AddCard(cardG);
+            player.tableCardLayout.AddCard(cardG);
+            player.tableCardLayout.AddCard(cardG);
+
+            player.handCardLayout.RemoveCard(cardG);
+            player.handCardLayout.RemoveCard(cardG);
+            player.handCardLayout.RemoveCard(cardG);
+            player.handCardLayout.RemoveCard(cardG);
+        }
+        else if(type == 2)
+        {          
+            List<int> pengGangCard  = player.handCardLayout.HandCards;
+            for (int i = 0; i < pengGangCard.Count; i++)
+            {
+                if (pengGangCard[i] == cardG)
+                {
+                    if (isMy)
+                    {
+                        player.tableCardLayout.AddCard(pengGangCard[i]);
+                    }
+                    else
+                    {
+                        player.dropCardLayout.RemoveLast();
+                        player.tableCardLayout.AddCard(pengGangCard[i]);
+                    }
+                }
+                player.tableCardLayout.tableCardDoSort();
+            }
+            player.tableCardLayout.LineUp();
+        }
+        else if (type == 3)
+        {
+            player.tableCardLayout.AddCard(cardG);
+            player.tableCardLayout.AddCard(cardG);
+            player.tableCardLayout.AddCard(cardG);
+            player.tableCardLayout.AddCard(cardG);
+
+            if (isMy)
+            {
+                player.handCardLayout.RemoveCard(cardG);
+                player.handCardLayout.RemoveCard(cardG);
+                player.handCardLayout.RemoveCard(cardG);
+            }
+            else
+            {
+                int count = player.handCardLayout.HandCards.Count;
+                int index = UnityEngine.Random.Range(0, count);
+                int index2 = index - 1;
+                int index3 = index - 2;
+                if (index <= 0)
+                {
+                    index2 = index + 1;
+                    index3 = index + 2;
+                }
+                player.handCardLayout.RemoveCardAt(index);
+                player.handCardLayout.RemoveCardAt(index2);
+                player.handCardLayout.RemoveCardAt(index3);
+            }
+        }        
+
+        player.handCardLayout.LineUp();
+
+        Game.MJMgr.targetFlag.gameObject.SetActive(false);
+        //Game.PoolManager.CardPool.Despawn(Game.MJMgr.LastDropCard.gameObject);
+        EventDispatcher.DispatchEvent(MessageCommand.PlayEffect, position, "gangUI_EF");
+
+        Transform tableCLTrans = player.tableCardLayout.transform;
+        int childCount = tableCLTrans.childCount;
+        Transform lastChild = tableCLTrans.GetChild(childCount - 1);
+        Vector3 endPos = tableCLTrans.TransformPoint(lastChild.localPosition);
+
+        hand.transform.position = endPos;
+        anim.gameObject.SetActive(true);
+
+        GameObject eff = Game.PoolManager.EffectPool.Spawn("peng_EF");
+        eff.transform.position = endPos;
+        Game.PoolManager.EffectPool.Despawn(eff, 2);
+
+        anim.Play("PutTable");
+    }
+    
+
     // 玩家收炮阶段，桌面上卡牌的动作
     internal void PlayShouPao(int cardSP, bool isMy)
     {
         Game.SoundManager.PlayHu(position);
-
-        if (isMy)
-        {
+        if (isMy)  
+        {// ture
             player.shouPaoCardLayout.AddCard(cardSP);
         }
         else
-        {
+        {//false
             player.dropCardLayout.RemoveLast();
             player.shouPaoCardLayout.AddCard(cardSP);
         }
             
-
         Game.MJMgr.targetFlag.gameObject.SetActive(false);
         Game.PoolManager.CardPool.Despawn(Game.MJMgr.LastDropCard.gameObject);
         //Game.MJMgr.LastDropCardPlayer.dropCardLayout.RemoveLast();

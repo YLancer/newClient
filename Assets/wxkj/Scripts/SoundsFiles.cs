@@ -7,6 +7,9 @@ public class SoundsFiles : MonoBehaviour {
     public AudioClip[] chiSounds;
     public AudioClip[] pengSounds;
     public AudioClip[] tingSounds;
+
+    public AudioClip[] gangSound;
+
     public AudioClip[] huSounds;
     public AudioClip[] zimoSounds;
     public AudioClip[] baozbaoSounds;
