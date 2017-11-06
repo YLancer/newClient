@@ -640,12 +640,13 @@ public class PlayPage : PlayPageBase
         });
     }
 
-    void Update()
+    void Update() 
     {
         if (Application.isPlaying)
         {
             detail.CardNum_Text.text = Game.MJMgr.CardLeft.ToString();
             detail.Time_Text.text = System.DateTime.Now.ToString("HH:mm");
+           // detail.Image_Hui.sprite = Game.PoolManager.CardPool.Spawn(card.ToString());
         }
         
     }
