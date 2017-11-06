@@ -14,6 +14,7 @@ public class MJCardGroup : MonoBehaviour {
     public static int firstGroupIndex = -1;
 
     public int index;
+    int LastGroupindex;
     public List<Transform> list = new List<Transform>();
 
     public static void GetStartGroup()
@@ -53,6 +54,22 @@ public class MJCardGroup : MonoBehaviour {
 			return index == firstGroupIndex;
 		}
 	}
+    //public bool IsLastGroup
+    //{
+    //    get
+    //    {
+    //        int Lastindex = firstGroupIndex-3;
+    //        if (Lastindex == -3)
+    //        {
+    //            Lastindex = 3;
+    //        }
+    //        else
+    //        {
+    //            Lastindex += 2;
+    //        }
+    //        return LastGroupindex == Lastindex;
+    //    }
+    //}
 
 	public void SetActive()
 	{
@@ -84,6 +101,23 @@ public class MJCardGroup : MonoBehaviour {
 			return Game.MJMgr.cardGroups[nextIndex];
 		}
 	}
+
+    public MJCardGroup LastGroup
+    {
+        get
+        {
+            int lastIndex = index - 3;
+            if (lastIndex == -3)
+            {
+                lastIndex = 3;
+            }
+            else
+            {
+                lastIndex += 2;
+            }
+            return Game.MJMgr.cardGroups[lastIndex];
+        }
+    }
 
     public void Clear()
     {
@@ -135,7 +169,15 @@ public class MJCardGroup : MonoBehaviour {
     public static void TryDragCard(bool countdown = false)
     {
         MJCardGroup group = Game.MJMgr.ActiveGroup;
-        group.doTryDragCard(countdown);
+
+        if(Game.Instance.Gang==true)
+        {
+            group.doGangDragCard(countdown);
+        }
+        else
+        {
+            group.doTryDragCard(countdown);
+        }
     }
     private void doTryDragCard(bool countdown)
     {
@@ -177,6 +219,55 @@ public class MJCardGroup : MonoBehaviour {
                 NextGroup.doTryDragCard(countdown);
             }
         }
+    }
+    
+    //杠牌的摸牌方式
+    private void doGangDragCard(bool countdown)
+    {
+        int gangCount =  FindObjectOfType<PlayPage>().allGangCount;
+        print("  _______________________  " + gangCount + "||||||||||||||" + PrevGroup.list.Count);
+        int index=0;        
+        if (PrevGroup.list.Count>=0 &&  PrevGroup.list.Count - gangCount >= 0)
+        {
+            for (int i = 1; i <= gangCount; i++)
+            {
+                if (i % 2 == 0)
+                {
+                    index = i - 1;
+                }
+                else
+                {
+                    index = i + 1;
+                }
+            }
+            PrevGroup.SetActive();
+            Transform card = PrevGroup.list[PrevGroup.list.Count - index];
+            Game.PoolManager.CardPool.Despawn(card.gameObject);
+            PrevGroup.list.RemoveAt(index);
+        }
+        else
+        {
+            PrevGroup.PrevGroup.SetActive();
+            for (int j = 1;j <= gangCount-PrevGroup.list.Count; j++)
+            {
+                if (j % 2 == 0)
+                {
+                    index = j - 1;
+                }
+                else
+                {
+                    index = j + 1;
+                }
+            }
+            Transform card = PrevGroup.PrevGroup.list[PrevGroup.PrevGroup.list.Count - index];
+            Game.PoolManager.CardPool.Despawn(card.gameObject);
+            PrevGroup.PrevGroup.list.RemoveAt(PrevGroup.PrevGroup.list.Count - index);
+        }    
+        if (countdown)
+        {
+            Game.MJMgr.CardLeft--;
+        }
+        Game.Instance.Gang = false;
     }
 
     internal static void DragBaoCard(int dice = -1)

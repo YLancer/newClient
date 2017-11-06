@@ -130,8 +130,13 @@ public class MJPlayer : MonoBehaviour {
 
 	public void Hu()
 	{
+        if (MJUtils.Hu())
+        {
+            int card = RoomMgr.actionNotify.actions;
 
-	}
+            Game.SocketGame.DoHu(card);
+        }
+    }
 
     internal void Zhidui(int card)
     {
