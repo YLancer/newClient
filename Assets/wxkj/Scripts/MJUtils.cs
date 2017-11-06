@@ -110,6 +110,11 @@ public class MJUtils
     {
         return CanAct(ACT_TING, actions);
     }
+    //胡我写的
+    public static bool Hu(int actions =-1)
+    {
+        return CanAct(ACT_HU, actions);
+    }
 
     public static bool TingChi(int actions = -1)
     {

@@ -248,6 +248,7 @@ public class Game : MonoBehaviour
 
     public GameState state = GameState.Null;
     public bool Ting = false;   // 是否已经听
+    public bool Gang = false;   //是否杠了
 
     public int playerId = -1;
     public static bool IsSelf(int playerId)

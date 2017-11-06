@@ -41,6 +41,7 @@ public class PlayPage : PlayPageBase
         detail.TingChiButton_Button.onClick.AddListener(OnClickTingChiBtn);     //碰听
         detail.TingPengButton_Button.onClick.AddListener(OnClickTingPengBtn);   //吃听
         detail.ZhiduiButton_Button.onClick.AddListener(OnClickZhiduiBtn);
+        detail.HuButton_Button.onClick.AddListener(OnClickHuBtn);               //胡牌
 
         detail.CancelButton_Button.onClick.AddListener(OnClickCancelBtn);
         detail.CancelHangUpBtn_Button.onClick.AddListener(OnClickCancelHangUpBtn);
@@ -316,7 +317,7 @@ public class PlayPage : PlayPageBase
         bool angang = MJUtils.AnGang();
         bool bugang = MJUtils.BuGang();
         bool zhigang = MJUtils.ZhiGang();
-        //bool hu = false;// MJUtils.CanChi(actions);
+        bool hu = MJUtils.Hu();
         //bool gang = false;// MJUtils.AnGang() || MJUtils.BuGang() || MJUtils.ZhiGang();
 
         bool ting = MJUtils.Ting();
@@ -324,7 +325,7 @@ public class PlayPage : PlayPageBase
         bool tingPeng = MJUtils.TingPeng();
         bool tingZhidui = MJUtils.TingZhidui();
 
-        //新增甩九幺判断
+        //甩九幺判断
         bool ShuaiJiuYao = MJUtils.ShuaiJiuYao();
 
         //bool showPanel = (!Game.Instance.Ting)&& (chi || peng || ting || tingChi || tingPeng || tingZhidui);
@@ -337,7 +338,7 @@ public class PlayPage : PlayPageBase
         detail.BuGangButton_Button.gameObject.SetActive(bugang);
         detail.ZhiGangButton_Button.gameObject.SetActive(zhigang);
         detail.TingButton_Button.gameObject.SetActive(ting);
-        detail.HuButton_Button.gameObject.SetActive(false);
+        detail.HuButton_Button.gameObject.SetActive(hu);
         detail.TingChiButton_Button.gameObject.SetActive(tingChi);
         detail.TingPengButton_Button.gameObject.SetActive(tingPeng);
         detail.ZhiduiButton_Button.gameObject.SetActive(tingZhidui);
@@ -447,11 +448,27 @@ public class PlayPage : PlayPageBase
         Game.MJMgr.MyPlayer.Peng();
         detail.CtrlPanel_UIItem.gameObject.SetActive(false);
     }
-    
-    void OnClickAnGangBtn()
+    //胡按钮触发事件
+    void OnClickHuBtn()
     {
         Game.SoundManager.PlayClick();
 
+        Game.MJMgr.MyPlayer.Hu();
+        detail.CtrlPanel_UIItem.gameObject.SetActive(false);
+    }
+
+    private  int  GangCount;
+    public int allGangCount;
+    private void calAllGangCount()
+    {
+        allGangCount += GangCount;
+    }
+    void OnClickAnGangBtn()
+    {
+        Game.SoundManager.PlayClick();
+        Game.Instance.Gang = true;
+        GangCount = 1;
+        calAllGangCount();
         Game.MJMgr.MyPlayer.AnGang();
         detail.CtrlPanel_UIItem.gameObject.SetActive(false);
     }
@@ -459,7 +476,9 @@ public class PlayPage : PlayPageBase
     void OnClickBuGangBtn()
     {
         Game.SoundManager.PlayClick();
-
+        Game.Instance.Gang = true;
+        GangCount = 1;
+        calAllGangCount();
         Game.MJMgr.MyPlayer.BuGang();
         detail.CtrlPanel_UIItem.gameObject.SetActive(false);
     }
@@ -467,7 +486,9 @@ public class PlayPage : PlayPageBase
     void OnClickZhiGangBtn()
     {
         Game.SoundManager.PlayClick();
-
+        Game.Instance.Gang = true;
+        GangCount = 1;
+        calAllGangCount();
         Game.MJMgr.MyPlayer.ZhiGang();
         detail.CtrlPanel_UIItem.gameObject.SetActive(false);
     }
@@ -491,6 +512,7 @@ public class PlayPage : PlayPageBase
         //RoomMgr.actionNotify.actions = 0;
         detail.SelectPanel_UIItem.gameObject.SetActive(false);
         Game.Instance.Ting = false;
+        
         ClearSelectPanel();
 
         OnClickPassBtn();

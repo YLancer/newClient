@@ -703,6 +703,11 @@ public partial class SocketGame : MonoBehaviour {
         {
             player.MJHand.PlayPeng(data.cardValue[0], isMy);
         }
+        //胡牌的动画
+        else if(MJUtils.Hu(data.action))
+        {
+            player.MJHand.PlayHu(data.cardValue[0], isMy);
+        }
         else if (MJUtils.Chi(data.action))
         {
             player.MJHand.PlayChi(data.cardValue[0], data.cardValue[1], isMy);
@@ -816,7 +821,12 @@ public partial class SocketGame : MonoBehaviour {
             DoGameOperPlayerActionSyn(MJUtils.ACT_PENG, card);
         }
     }
-
+    //胡牌我写的
+    public  void DoHu(int card)
+    {
+        DoGameOperPlayerActionSyn(MJUtils.ACT_HU, card);
+    }
+    
     public void DoAnGang(int card)
     {
         DoGameOperPlayerActionSyn(MJUtils.ACT_AN_GANG, card);
@@ -1034,14 +1044,12 @@ public partial class SocketGame : MonoBehaviour {
         {
             PlayZimoHu(player, data);
         }
-        else if ((RoomMgr.huSyn.winType | MJUtils.HU_ShouPao) != 0)
+        else if ((RoomMgr.huSyn.winType &  MJUtils.HU_ShouPao) != 0)
         {
-            print(" >>>>>>> player.MJHand.PlayShouPao(data.card, isMy) <<<<<<" + "   >>>>>>>> 收炮 <<<<<<< "  + isMy);
             Game.SoundManager.PlayEffect(28);
             GameObject eff = Game.PoolManager.EffectPool.Spawn("shandian_EF");
             eff.transform.position = Game.MJMgr.LastDropCard.transform.position;
-            Game.PoolManager.EffectPool.Despawn(eff, 5);
-            
+            Game.PoolManager.EffectPool.Despawn(eff, 5);           
             player.MJHand.PlayShouPao(data.card, isMy);
         }
         else

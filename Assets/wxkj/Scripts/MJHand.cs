@@ -186,7 +186,6 @@ public class MJHand : MonoBehaviour
 
         EventDispatcher.DispatchEvent(MessageCommand.PlayEffect, position, "pengUI_EF");
 
-
         Transform tableCLTrans = player.tableCardLayout.transform;
         int childCount = tableCLTrans.childCount;
         Transform lastChild = tableCLTrans.GetChild(childCount - 1);
@@ -407,11 +406,27 @@ public class MJHand : MonoBehaviour
         hand.transform.position = endPos;
         anim.gameObject.SetActive(true);
 
-        GameObject eff = Game.PoolManager.EffectPool.Spawn("huUI_EF");
+        GameObject eff = Game.PoolManager.EffectPool.Spawn("hu_EF");
         eff.transform.position = endPos;
-        Game.PoolManager.EffectPool.Despawn(eff, 10);
+        Game.PoolManager.EffectPool.Despawn(eff, 5);
 
         anim.Play("PutTable");
+    }
+
+    internal void PlayHu(int cardHu,bool  isMy)
+    {   
+        Game.MaterialManager.TurnOnHandCard();
+        player.handCardLayout.PlayHu();
+
+        Game.SoundManager.PlayHu(position);
+        Game.SoundManager.PlayWin();
+        EventDispatcher.DispatchEvent(MessageCommand.MJ_UpdatePlayPage);
+
+        Vector3 pos = player.handCardLayout.DragCard(cardHu, Game.MJMgr.LastDropCard.gameObject);
+        EventDispatcher.DispatchEvent(MessageCommand.PlayEffect, position, "huUI_EF");
+        GameObject eff = Game.PoolManager.EffectPool.Spawn("hu_EF");
+        eff.transform.position = pos;
+        Game.PoolManager.EffectPool.Despawn(eff, 3);
     }
 
     internal void PlayShuaiJiuYao(int[] list, bool isMy)
