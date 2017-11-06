@@ -35,7 +35,7 @@ public class MJUtils
     public const int MODE_DAILOU = 0x40;      // 带漏的
     public const int MODE_JIAHU = 0x80;      // 不夹不胡
 
-    //新增玩法 FOR 西凉/金昌麻将（七小对，报听，风牌，带会，自摸胡，清一色一条龙） 
+    //新增玩法 FOR 西凉/金昌麻将（0x110:七小对，0x120:风牌，0x130:带会，0x140:自摸胡，0x150:清一色一条龙） 
     public const int MODE_SEVENPAIR = 0x110;  //七小对
     public const int MODE_FENGPAI = 0x120;    //风牌
     public const int MODE_DAIHUI = 0x130;     //带会

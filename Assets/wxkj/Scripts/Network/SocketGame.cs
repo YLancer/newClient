@@ -706,7 +706,7 @@ public partial class SocketGame : MonoBehaviour {
         //胡牌的动画
         else if(MJUtils.Hu(data.action))
         {
-            player.MJHand.PlayHu(data.cardValue[0], isMy);
+            player.MJHand.PlayHU(data.cardValue[0], isMy);
         }
         else if (MJUtils.Chi(data.action))
         {

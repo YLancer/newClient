@@ -358,7 +358,6 @@ public class MJHand : MonoBehaviour
             }
             Game.PoolManager.CardPool.Despawn(Game.MJMgr.LastDropCard.gameObject);
         }        
-
         player.handCardLayout.LineUp();
 
         Game.MJMgr.targetFlag.gameObject.SetActive(false);
@@ -412,18 +411,16 @@ public class MJHand : MonoBehaviour
 
         anim.Play("PutTable");
     }
-
-    internal void PlayHu(int cardHu,bool  isMy)
+    //胡的界面上显示的动作
+    internal void PlayHU(int cardHu,bool  isMy)
     {   
         Game.MaterialManager.TurnOnHandCard();
         player.handCardLayout.PlayHu();
 
         Game.SoundManager.PlayHu(position);
         Game.SoundManager.PlayWin();
-        EventDispatcher.DispatchEvent(MessageCommand.MJ_UpdatePlayPage);
-
-        Vector3 pos = player.handCardLayout.DragCard(cardHu, Game.MJMgr.LastDropCard.gameObject);
         EventDispatcher.DispatchEvent(MessageCommand.PlayEffect, position, "huUI_EF");
+        Vector3 pos = player.handCardLayout.DragCard(cardHu, Game.MJMgr.LastDropCard.gameObject);
         GameObject eff = Game.PoolManager.EffectPool.Spawn("hu_EF");
         eff.transform.position = pos;
         Game.PoolManager.EffectPool.Despawn(eff, 3);
