@@ -33,27 +33,6 @@ public class SettleRoundDialog : SettleRoundDialogBase
             }
         }
 
-        //if (RoomMgr.IsSingeRoom())
-        //{
-        //    Game.SocketGame.DoLeaveGame();
-        //    Game.Instance.state = GameState.Hall;
-        //    OnBackPressed();
-        //}
-        //else
-        //{
-        //    if (Game.Instance.state == GameState.Playing)
-        //    {
-        //        Game.SocketGame.DoBack2HallRequest();
-        //    }
-        //    else
-        //    {
-        //        OnBackPressed();
-        //        Game.UIMgr.ResetToHomeScreen();
-        //    }
-        //}
-
-        //Game.MJMgr.Clear();
-
         OnBackPressed();
     }
 
@@ -61,21 +40,10 @@ public class SettleRoundDialog : SettleRoundDialogBase
     {
         Game.SoundManager.PlayClick();
 
-        //Game.MJMgr.Clear();
-
         if (!RoomMgr.IsVipRoom())
         {
             Game.SocketGame.DoREADYL(1, 0);
         }
-        //Game.MJMgr.Clear();
-        //if (Game.Instance.state != GameState.Playing)
-        //{
-        //    Game.SocketGame.DoENROLL(RoomMgr.playerGamingSyn.matchId);
-        //}
-        //else
-        //{
-        //    Game.SocketGame.DoREADYL();
-        //}
 
         OnBackPressed();
     }

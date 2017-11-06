@@ -898,100 +898,6 @@ public partial class SocketGame : MonoBehaviour {
         str += "]";
         return str;
     }
-    //int[] wins = new int[] {
-    //    MJUtils.HU_BaoZhongBao,
-    //    MJUtils.HU_DaiLou,
-    //    MJUtils.HU_GuaDaFeng,
-    //    MJUtils.HU_HongZhong,
-    //    MJUtils.HU_Hu,
-    //    MJUtils.HU_KaiPaiZha,
-    //    MJUtils.HU_MoBao
-    //};
-    //void _OnGameOperPlayerHuSyn(GameOperPlayerHuSyn data)
-    //{
-    //    string huInfo = GetHuStr(data.resultType);
-    //    string winInfo = GetHuStr(data.winType);
-    //    Debug.LogFormat("===HuSyn:{0}[炮：{1}] card:{2} bao:[{3}] Hu:{4}/Win:{5}", (data.position < 0) ? "流局" : strs[data.position], (data.paoPosition < 0) ? "无" : strs[data.paoPosition], GetCardStr(data.card), GetCardStr(data.bao), huInfo, winInfo);
-
-    //    RoomMgr.huSyn = data;
-
-    //    if (RoomMgr.huSyn.resultType != MJUtils.HU_LiuJu)
-    //    {
-    //        MJPlayer player = Game.MJMgr.GetPlayerByPosition(data.position);
-    //        MjData pData = Game.MJMgr.MjData[data.position];
-
-    //        bool zimo = (data.paoPosition == -1 || data.paoPosition == data.position);
-
-    //        List<GameOperPlayerSettle> list = data.detail;
-    //        foreach (GameOperPlayerSettle s in list)
-    //        {
-    //            Debug.LogFormat("===OnGameOperPlayerHuSyn:{0} fanNum:{1} handcard:[{2}]", strs[s.position], s.fanNum, ToStr(s.handcard));
-
-    //            if (s.position == data.position)
-    //            {
-    //                player.handCardLayout.Refresh(s.handcard);
-    //            }
-    //        }
-
-    //        if (zimo)
-    //        {
-    //            Game.SoundManager.PlayEffect(27);
-    //            Game.SoundManager.PlayZimo(data.position);
-    //            player.DragCard(data.card, true);
-    //        }
-    //        else
-    //        {
-    //            if (-1 != data.paoPosition)
-    //            {
-    //                Game.SoundManager.PlayEffect(28);
-    //                MJPlayer paoPlayer = Game.MJMgr.GetPlayerByPosition(data.paoPosition);
-    //                GameObject eff = Game.PoolManager.EffectPool.Spawn("shandian_EF");
-    //                eff.transform.position = Game.MJMgr.LastDropCard.transform.position;
-    //                Game.PoolManager.EffectPool.Despawn(eff, 2);
-    //            }
-
-    //            Game.SoundManager.PlayHu(data.position);
-    //            player.handCardLayout.DragCard(data.card, Game.MJMgr.LastDropCard.gameObject);
-    //        }
-
-    //        Game.MaterialManager.TurnOnHandCard();
-    //        player.handCardLayout.PlayHu();
-
-    //        PlayHuEffect(data.position);
-
-    //        bool isMy = player.index == 0;
-    //        if (isMy)
-    //        {
-    //            Game.SoundManager.PlayWin();
-    //        }
-    //        else
-    //        {
-    //            if (data.paoPosition != -1)
-    //            {
-    //                MJPlayer paoPplayer = Game.MJMgr.GetPlayerByPosition(data.paoPosition);
-    //                isMy = paoPplayer.index == 0;
-    //                if (isMy)
-    //                {
-    //                    Game.SoundManager.PlayLose();
-    //                }
-    //            }
-    //        }
-    //    }
-    //    else
-    //    {
-    //        Game.SoundManager.PlayFall();
-    //    }
-
-    //    if (!data.skipHuSettle)
-    //    {
-    //        Game.Delay(3, () =>
-    //        {
-    //            Game.SoundManager.PlaySettleSound();
-    //            Game.DialogMgr.PushDialog(UIDialog.SettleRoundDialog);
-    //            IsBusy = false;
-    //        });
-    //    }
-    //}
 
     void OnGameOperPlayerHuSyn(GameOperPlayerHuSyn data)
     {
@@ -1034,7 +940,7 @@ public partial class SocketGame : MonoBehaviour {
         {
             PlayZimoHu(player, data);
         }
-        else if ((RoomMgr.huSyn.winType | MJUtils.HU_ShouPao) != 0)
+        else if ((RoomMgr.huSyn.winType & MJUtils.HU_ShouPao) != 0)
         {
             print(" >>>>>>> player.MJHand.PlayShouPao(data.card, isMy) <<<<<<" + "   >>>>>>>> 收炮 <<<<<<< "  + isMy);
             Game.SoundManager.PlayEffect(28);
