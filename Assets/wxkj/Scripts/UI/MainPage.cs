@@ -66,10 +66,10 @@ public class MainPage : MainPageBase
         Game.UIMgr.PushScene(UIPage.SettingPage);
     }
 
-    private void OnClickHelp()
+    private void OnClickHelp()   
     {
         Game.SoundManager.PlayClick();
-        throw new NotImplementedException();
+        Game.UIMgr.PushScene(UIPage.HelpPage);   
     }
 
     private void OnClickActivity()

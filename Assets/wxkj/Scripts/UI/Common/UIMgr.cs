@@ -58,7 +58,8 @@ public enum UIPage  // 加载UI界面
     TotalRecrodPage = 24,
     [Description("Prefabs/UI/UserInfoPage")]
     UserInfoPage = 25,
-   
+    [Description("Prefabs/UI/HelpPage")]     //帮助的界面
+    HelpPage = 26,
 }
 
 public class UIMgr : MonoBehaviour

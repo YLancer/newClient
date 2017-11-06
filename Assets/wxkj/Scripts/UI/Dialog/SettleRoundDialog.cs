@@ -61,8 +61,7 @@ public class SettleRoundDialog : SettleRoundDialogBase
     {
         Game.SoundManager.PlayClick();
 
-        //Game.MJMgr.Clear();
-
+        FindObjectOfType<PlayPage>().allGangCount = 0;
         if (!RoomMgr.IsVipRoom())
         {
             Game.SocketGame.DoREADYL(1, 0);
