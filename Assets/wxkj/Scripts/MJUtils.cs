@@ -42,18 +42,18 @@ public class MJUtils
     public const int MODE_ZIMOHU = 0x140;     //自摸胡
     public const int MODE_ONECOLORTRAIN = 0x150;  // 清一色一条龙
 
-    //0x100000:胡牌      0x200000:输了    0x400000:流局     0x0002:点炮    0x0080:宝中宝    0x0020:摸宝胡      0x0800:开牌炸      0x0400刮大风     0x2000:红中满天飞        0x4000:带漏胡
+    //0x0001:点炮    0x100000:胡牌      0x200000:输了    0x400000:流局    0x800000:收炮    0x1000:摸宝胡     0x4000:宝中宝      0x8000刮大风      0x10000:开牌炸     0x20000:红中满天飞        0x40000:带漏胡
+    public const int HU_Pao = 0x0001;// 点炮
+    public const int HU_MoBao = 0x1000;// 摸宝胡
+    public const int HU_BaoZhongBao = 0x4000;// 宝中宝
+    public const int HU_GuaDaFeng = 0x8000;// 刮大风
+    public const int HU_KaiPaiZha = 0x10000;// 开牌炸
+    public const int HU_HongZhong = 0x20000;// 红中满天飞
+    public const int HU_DaiLou = 0x40000;// 带漏胡
     public const int HU_Hu = 0x100000;// 胡牌
-    public const int HU_Shu = 0x200000;// 输了    
-    public const int HU_LiuJu = 0x400000;// 流局     
-    public const int HU_ShouPao = 0x800000;// 收炮     
-    public const int HU_Pao = 0x0002;// 点炮
-    public const int HU_BaoZhongBao = 0x0080;// 宝中宝
-    public const int HU_MoBao = 0x0020;// 摸宝胡
-    public const int HU_KaiPaiZha = 0x0800;// 开牌炸
-    public const int HU_GuaDaFeng = 0x0400;// 刮大风
-    public const int HU_HongZhong = 0x2000;// 红中满天飞
-    public const int HU_DaiLou = 0x4000;// 带漏胡
+    public const int HU_Shu = 0x200000;// 输了
+    public const int HU_LiuJu = 0x400000;// 流局
+    public const int HU_ShouPao = 0x800000;// 收炮
 
     public static bool CanAct(int act, int actions = -1)
     {
@@ -147,7 +147,7 @@ public class MJUtils
         return (wanfa & act) > 0;
     }
 
-    public static string GetHuType(int resultType)
+    public static string GetHuType(int resultType)//TODO WXD 服务器删除点炮字段，点炮文字需要额外判断显示。
     {
         switch (resultType)
         {
@@ -155,12 +155,6 @@ public class MJUtils
             case HU_Shu: return "输了";
             case HU_LiuJu: return "流局";
             case HU_Pao: return "点炮";
-            case HU_BaoZhongBao: return "宝中宝";
-            case HU_MoBao: return "摸宝胡";
-            case HU_KaiPaiZha: return "开牌炸";
-            case HU_GuaDaFeng: return "刮大风";
-            case HU_HongZhong: return "红中满天飞";
-            case HU_DaiLou: return "带漏胡";
             default: return "本局结算";
         }
     }

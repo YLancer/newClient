@@ -822,7 +822,7 @@ public partial class SocketGame : MonoBehaviour {
         }
     }
     //胡牌我写的
-    public  void DoHu(int card)
+    public  void DoHu(int card = -1)
     {
         DoGameOperPlayerActionSyn(MJUtils.ACT_HU, card);
     }
@@ -895,12 +895,6 @@ public partial class SocketGame : MonoBehaviour {
         str += GetStrOne(MJUtils.HU_Shu, "输了", action);
         str += GetStrOne(MJUtils.HU_LiuJu, "流局", action);
         str += GetStrOne(MJUtils.HU_Pao, "点炮", action);
-        str += GetStrOne(MJUtils.HU_BaoZhongBao, "宝中宝", action);
-        str += GetStrOne(MJUtils.HU_MoBao, "摸宝胡", action);
-        str += GetStrOne(MJUtils.HU_KaiPaiZha, "开牌炸", action);
-        str += GetStrOne(MJUtils.HU_GuaDaFeng, "刮大风", action);
-        str += GetStrOne(MJUtils.HU_HongZhong, "红中满天飞", action);
-        str += GetStrOne(MJUtils.HU_DaiLou, "带漏胡", action);
         if (str.Length > 1)
         {
             str = str.Substring(0, str.Length - 1);

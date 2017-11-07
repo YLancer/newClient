@@ -318,8 +318,6 @@ public class PlayPage : PlayPageBase
         bool bugang = MJUtils.BuGang();
         bool zhigang = MJUtils.ZhiGang();
         bool hu = MJUtils.Hu();
-        //bool gang = false;// MJUtils.AnGang() || MJUtils.BuGang() || MJUtils.ZhiGang();
-
         bool ting = MJUtils.Ting();
         bool tingChi = MJUtils.TingChi();
         bool tingPeng = MJUtils.TingPeng();
@@ -328,8 +326,7 @@ public class PlayPage : PlayPageBase
         //甩九幺判断
         bool ShuaiJiuYao = MJUtils.ShuaiJiuYao();
 
-        //bool showPanel = (!Game.Instance.Ting)&& (chi || peng || ting || tingChi || tingPeng || tingZhidui);
-        bool showPanel = (chi || peng || angang || bugang || zhigang || ting || tingChi || tingPeng || tingZhidui || ShuaiJiuYao);
+        bool showPanel = (chi || peng || angang || bugang || zhigang || ting || hu || tingChi || tingPeng || tingZhidui || ShuaiJiuYao);
 
         detail.CtrlPanel_UIItem.gameObject.SetActive(showPanel);
         detail.ChiButton_Button.gameObject.SetActive(chi);
@@ -452,7 +449,6 @@ public class PlayPage : PlayPageBase
     void OnClickHuBtn()
     {
         Game.SoundManager.PlayClick();
-
         Game.MJMgr.MyPlayer.Hu();
         detail.CtrlPanel_UIItem.gameObject.SetActive(false);
     }
@@ -496,14 +492,9 @@ public class PlayPage : PlayPageBase
     void OnClickTingBtn()
     {
         Game.SoundManager.PlayClick();
-
-        bool ting = MJUtils.Ting();
-        if (ting)
-        {
-            Game.SocketGame.DoTing();
-            Game.Instance.Ting = true;
-            detail.CtrlPanel_UIItem.gameObject.SetActive(false);
-        }
+        Game.MJMgr.MyPlayer.Ting();
+        Game.Instance.Ting = true;
+        detail.CtrlPanel_UIItem.gameObject.SetActive(false);
     }
 
     void OnClickCancelBtn()

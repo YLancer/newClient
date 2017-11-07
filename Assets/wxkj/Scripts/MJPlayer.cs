@@ -128,13 +128,19 @@ public class MJPlayer : MonoBehaviour {
         }
     }
 
-	public void Hu()
+    public void Ting()
+    {
+        if (MJUtils.Ting())
+        {
+            Game.SocketGame.DoTing();
+        }
+    }
+
+    public void Hu()
 	{
         if (MJUtils.Hu())
         {
-            int card = RoomMgr.actionNotify.actions;
-
-            Game.SocketGame.DoHu(card);
+            Game.SocketGame.DoHu();
         }
     }
 
