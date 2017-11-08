@@ -37,7 +37,7 @@ public class MJUtils
 
     //新增玩法 FOR 西凉/金昌麻将（0x01:风牌，0x02:报听，0x04:七小对，0x08:带会，0x10:自摸胡，0x20:清一色一条龙，0x40:甩九幺，0x80:收炮）
     public const int MODE_FENGPAI = 0x01;        //风牌
-    public const int MODE_BAOTING = 0x02;        //风牌
+    public const int MODE_BAOTING = 0x02;        //报听
     public const int MODE_SEVENPAIR = 0x04;      //七小对
     public const int MODE_DAIHUI = 0x08;         //带会
     public const int MODE_ZIMOHU = 0x10;         //自摸胡

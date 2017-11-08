@@ -242,10 +242,13 @@ public partial class SocketGame : MonoBehaviour {
         str += GetWanfaOne(wanfa, MJUtils.MODE_JIAHU, "夹");
 
         str += GetWanfaOne(wanfa, MJUtils.MODE_FENGPAI, "带风");
+        str += GetWanfaOne(wanfa, MJUtils.MODE_BAOTING, "报听");
         str += GetWanfaOne(wanfa, MJUtils.MODE_SEVENPAIR, "七对");
-        str += GetWanfaOne(wanfa, MJUtils.MODE_ZIMOHU, "自摸");
         str += GetWanfaOne(wanfa, MJUtils.MODE_DAIHUI, "带会");
+        str += GetWanfaOne(wanfa, MJUtils.MODE_ZIMOHU, "自摸");
         str += GetWanfaOne(wanfa, MJUtils.MODE_ONECOLORTRAIN, "清一色一条龙");
+        str += GetWanfaOne(wanfa, MJUtils.MODE_SHUAIJIUYAO, "甩九幺");
+        str += GetWanfaOne(wanfa, MJUtils.MODE_SHOUPAO, "收炮");
         return str;
     }
 
@@ -259,7 +262,7 @@ public partial class SocketGame : MonoBehaviour {
 
             Debug.Log("===OnGAMING_SYN [" + GetWanfa(response.wanfa) + "]");
             Game.MJMgr.targetFlag.gameObject.SetActive(false);
-
+            
             RoomMgr.Reset();
             RoomMgr.playerGamingSyn = response;
 
