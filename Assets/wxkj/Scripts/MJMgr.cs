@@ -246,13 +246,20 @@ public class MJMgr : MonoBehaviour {
             MJCardGroup.TryDragCard();
         }
         //TODO WXD Add ShuaiJiuYao
-        GameOperPlayerActionNotify packet = RoomMgr.actionNotify;
-        if (packet == null)
+        if ((RoomMgr.playerGamingSyn != null) && ((RoomMgr.playerGamingSyn.wanfa & MJUtils.MODE_SHUAIJIUYAO) != 0))
         {
-            packet = new GameOperPlayerActionNotify();
+            GameOperPlayerActionNotify packet = RoomMgr.actionNotify;
+            if (packet == null)
+            {
+                packet = new GameOperPlayerActionNotify();
+            }
+            packet.actions |= MJUtils.ACT_SHUAIJIUYAO;
+            Game.SocketGame.OnGameOperPlayerActionNotify(packet); //模拟发包
         }
-        packet.actions |= MJUtils.ACT_SHUAIJIUYAO;
-        Game.SocketGame.OnGameOperPlayerActionNotify(packet); //模拟发包
+        else //跳过界面，直接准备完成
+        {
+            Game.SocketGame.DoREADYL(1, 2);
+        }
     }
 
 	public MJEntity MyDropMJEntity = null;

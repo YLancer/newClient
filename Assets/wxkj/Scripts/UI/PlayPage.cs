@@ -10,7 +10,7 @@ public class PlayPage : PlayPageBase
 {
     private List<PlayerSub> players = new List<PlayerSub>();
 
-    private void Start()
+    private void OnEnable()
     {
         Game.SocketGame.DoREADYL(1, 0);
     }
@@ -753,10 +753,10 @@ public class PlayPage : PlayPageBase
         {
             RoomMgr.actionNotify.actions &= ~MJUtils.ACT_SHUAIJIUYAO;
         }
-        //EventDispatcher.DispatchEvent(MessageCommand.MJ_UpdatePlayPage); //TODO 用这个来关界面      
+        //EventDispatcher.DispatchEvent(MessageCommand.MJ_UpdatePlayPage); //TODO 用这个来关界面
         handCardLayout = GameObject.Find("Player0").GetComponentInChildren<HandCardLayout>();
         MaterialManager cardMaterial = GameObject.FindObjectOfType<MaterialManager>();
-        var handlist = GameObject.Find("Player0").GetComponentsInChildren<MJEntity>();        
+        var handlist = GameObject.Find("Player0").GetComponentsInChildren<MJEntity>();
         Game.SocketGame.DoREADYL(1, 2);
         Game.SocketGame.DoGameOperPlayerActionSyn(MJUtils.ACT_SHUAIJIUYAO, throwCardList.ToArray());
         //Game.SocketGame.DoGameOperPlayerActionSyn(MJUtils.ACT_DROP_CARD);

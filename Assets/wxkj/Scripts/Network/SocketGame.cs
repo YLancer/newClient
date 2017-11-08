@@ -589,7 +589,7 @@ public partial class SocketGame : MonoBehaviour {
     string[] strs = new string[] { "北", "东", "南", "西" };
     public void OnGameOperPlayerActionNotify(GameOperPlayerActionNotify data)
     {
-        if (RoomMgr.actionNotify != null && ((RoomMgr.actionNotify.actions | MJUtils.ACT_SHUAIJIUYAO) != 0)) //TODO WXD 额外添加甩九幺标记，防止被覆盖。
+        if (RoomMgr.actionNotify != null && ((RoomMgr.actionNotify.actions & MJUtils.ACT_SHUAIJIUYAO) != 0)) //TODO WXD 额外添加甩九幺标记，防止被覆盖。
         {
             data.actions |= MJUtils.ACT_SHUAIJIUYAO;
         }
