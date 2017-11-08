@@ -2,6 +2,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using System;
+using UnityEngine.UI;
 
 public class MJCardGroup : MonoBehaviour {
     public float width = 7.5f;
@@ -54,24 +55,8 @@ public class MJCardGroup : MonoBehaviour {
 			return index == firstGroupIndex;
 		}
 	}
-    //public bool IsLastGroup
-    //{
-    //    get
-    //    {
-    //        int Lastindex = firstGroupIndex-3;
-    //        if (Lastindex == -3)
-    //        {
-    //            Lastindex = 3;
-    //        }
-    //        else
-    //        {
-    //            Lastindex += 2;
-    //        }
-    //        return LastGroupindex == Lastindex;
-    //    }
-    //}
 
-	public void SetActive()
+    public void SetActive()
 	{
 		activeGroupIndex = index;
 	}
@@ -101,20 +86,21 @@ public class MJCardGroup : MonoBehaviour {
 			return Game.MJMgr.cardGroups[nextIndex];
 		}
 	}
-
+    //由第一牌组得知最后一个牌组   确定下来！！！
     public MJCardGroup LastGroup
     {
         get
         {
-            int lastIndex = index - 3;
-            if (lastIndex == -3)
-            {
-                lastIndex = 3;
-            }
-            else
-            {
-                lastIndex += 2;
-            }
+            int lastIndex = firstGroupIndex;
+            //int lastIndex = firstGroupIndex - 3;
+            //if (lastIndex == -3)
+            //{
+            //    lastIndex = 3;
+            //}
+            //else
+            //{
+            //    lastIndex += 2;
+            //}
             return Game.MJMgr.cardGroups[lastIndex];
         }
     }
@@ -169,8 +155,8 @@ public class MJCardGroup : MonoBehaviour {
     public static void TryDragCard(bool countdown = false)
     {
         MJCardGroup group = Game.MJMgr.ActiveGroup;
-
-        if(Game.Instance.Gang==true)
+        print(" Gang Gang Gang Gang" + MJUtils.ACT_AN_GANG + MJUtils.ACT_BU_GANG + MJUtils.ACT_ZHI_GANG);
+        if (Game.Instance.Gang ==true)
         {
             group.doGangDragCard(countdown);
         }
@@ -225,9 +211,8 @@ public class MJCardGroup : MonoBehaviour {
     private void doGangDragCard(bool countdown)
     {
         int gangCount =  FindObjectOfType<PlayPage>().allGangCount;
-        print("  _______________________  " + gangCount + "||||||||||||||" + PrevGroup.list.Count);
         int index=0;        
-        if (PrevGroup.list.Count>=0 &&  PrevGroup.list.Count - gangCount >= 0)
+        if (LastGroup.list.Count>=0 && LastGroup.list.Count - gangCount >= 0)
         {
             for (int i = 1; i <= gangCount; i++)
             {
@@ -240,15 +225,17 @@ public class MJCardGroup : MonoBehaviour {
                     index = i + 1;
                 }
             }
-            PrevGroup.SetActive();
-            Transform card = PrevGroup.list[PrevGroup.list.Count - index];
+            LastGroup.SetActive();
+            //PrevGroup.doGangDragCard(countdown);
+            Transform card = LastGroup.list[LastGroup.list.Count - index];
             Game.PoolManager.CardPool.Despawn(card.gameObject);
-            PrevGroup.list.RemoveAt(index);
+            LastGroup.list.RemoveAt(LastGroup.list.Count - index);
         }
         else
         {
-            PrevGroup.PrevGroup.SetActive();
-            for (int j = 1;j <= gangCount-PrevGroup.list.Count; j++)
+            LastGroup.PrevGroup.SetActive();
+            //PrevGroup.PrevGroup.doGangDragCard(countdown);
+            for (int j = 1;j <= gangCount- LastGroup.list.Count; j++)
             {
                 if (j % 2 == 0)
                 {
@@ -259,15 +246,36 @@ public class MJCardGroup : MonoBehaviour {
                     index = j + 1;
                 }
             }
-            Transform card = PrevGroup.PrevGroup.list[PrevGroup.PrevGroup.list.Count - index];
+            Transform card = LastGroup.PrevGroup.list[LastGroup.PrevGroup.list.Count - index];
             Game.PoolManager.CardPool.Despawn(card.gameObject);
-            PrevGroup.PrevGroup.list.RemoveAt(PrevGroup.PrevGroup.list.Count - index);
+            LastGroup.PrevGroup.list.RemoveAt(LastGroup.PrevGroup.list.Count - index);
         }    
         if (countdown)
         {
             Game.MJMgr.CardLeft--;
         }
         Game.Instance.Gang = false;
+    }
+
+    //显示会牌
+    public static void ShowHuiCard(int cardPoint)
+    {
+        print(" <<<<<<<<<<< >>>>>>>>>> " + Game.MJMgr.ActiveGroup);
+        MJCardGroup group = Game.MJMgr.ActiveGroup;
+        group.DOShowHuiPai(cardPoint);
+    }
+    private  void  DOShowHuiPai(int cardPoint)  
+    {
+        print(" >>>>>>>>>>>>> 展示会牌 <<<<<<<<<<<<<<<" + Game.PoolManager.CardPool.Spawn(cardPoint.ToString()));
+        if (MJUtils.MODE_DAIHUI !=0)   // TODO  问题
+        {
+            if (LastGroup.list.Count >= 0)
+            {
+                Transform cardHui = LastGroup.list[LastGroup.list.Count - 2];
+                cardHui.GetComponent<MeshFilter>().mesh = Game.PoolManager.CardPool.Spawn(cardPoint.ToString()).GetComponent<MeshFilter>().mesh;
+                cardHui.transform.Rotate(new Vector3(-180, 0, 0));
+            }
+        }
     }
 
     internal static void DragBaoCard(int dice = -1)

@@ -240,6 +240,12 @@ public partial class SocketGame : MonoBehaviour {
         str += GetWanfaOne(wanfa, MJUtils.MODE_HONGZHONG, "中");
         str += GetWanfaOne(wanfa, MJUtils.MODE_DAILOU, "漏");
         str += GetWanfaOne(wanfa, MJUtils.MODE_JIAHU, "夹");
+
+        str += GetWanfaOne(wanfa, MJUtils.MODE_FENGPAI, "带风");
+        str += GetWanfaOne(wanfa, MJUtils.MODE_SEVENPAIR, "七对");
+        str += GetWanfaOne(wanfa, MJUtils.MODE_ZIMOHU, "自摸");
+        str += GetWanfaOne(wanfa, MJUtils.MODE_DAIHUI, "带会");
+        str += GetWanfaOne(wanfa, MJUtils.MODE_ONECOLORTRAIN, "清一色一条龙");
         return str;
     }
 
@@ -434,6 +440,9 @@ public partial class SocketGame : MonoBehaviour {
         Game.MJMgr.Clear();
 
         Game.MJMgr.CardLeft = data.cardLeft + 13 * 4;
+
+        Game.MJMgr.cardHui = data.lastCard;        //TODO YC
+        //MJCardGroup.ShowHuiCard(data.lastCard);    //TODO YC
         //Game.MJMgr.Init();
         Game.Instance.Ting = false;
         //Game.IsBusy = false;
@@ -582,6 +591,7 @@ public partial class SocketGame : MonoBehaviour {
         Debug.LogFormat("=== 剩余：{0}", data.cardLeft);
         //Game.MJMgr.MakersPosition = data.bankerPos;
         Game.MJMgr.CardLeft = data.cardLeft;
+        Game.MJMgr.cardHui = data.cardLeft;   //TODO YC
         //Game.MJMgr.BaoCard = data.baoCard;
         //EventDispatcher.DispatchEvent(MessageCommand.MJ_UpdatePlayPage);
     }
@@ -685,6 +695,8 @@ public partial class SocketGame : MonoBehaviour {
         int position = data.position;
         MJPlayer player = Game.MJMgr.GetPlayerByPosition(data.position);
         bool isMy = player.index == 0;
+
+        //MJCardGroup.ShowHuiCard(data.cardValue[0]);  //TODO YC
 
         if (MJUtils.DragCard(data.action))
         {

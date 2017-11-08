@@ -110,7 +110,7 @@ public class CreateRoomDialog : CreateRoomDialogBase
         bool is2Player = detail.PlayerNum2_Jiuyao.IsSelected;
         int vipRoomType = is2Player ? 2 : 4;
         int quanNum = detail.Round4_Jiuyao.IsSelected ? 4 : 8;
-        int wanfa = 0;//MJUtils.MODE_SHUAIJIUYAO;
+        int wanfa = MJUtils.MODE_SHUAIJIUYAO;  
         if (detail.Mode0_OneColorTrain_Jiuyao.IsSelected)
         {
             wanfa = wanfa | MJUtils.MODE_ONECOLORTRAIN;
