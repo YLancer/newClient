@@ -86,21 +86,20 @@ namespace packet.mj
       set { _reconnect = value; }
     }
     private int _cardLeft = default(int);
-    [global::ProtoBuf.ProtoMember(12, IsRequired = false, Name=@"cardLeft", DataFormat = global::ProtoBuf.DataFormat.ZigZag)]
+    [global::ProtoBuf.ProtoMember(10, IsRequired = false, Name=@"cardLeft", DataFormat = global::ProtoBuf.DataFormat.ZigZag)]
     [global::System.ComponentModel.DefaultValue(default(int))]
     public int cardLeft
     {
       get { return _cardLeft; }
       set { _cardLeft = value; }
     }
-    private int _lastCard = default(int);
-    [global::ProtoBuf.ProtoMember(13, IsRequired = false, Name=@"lastCard", DataFormat = global::ProtoBuf.DataFormat.ZigZag)]
-    [global::System.ComponentModel.DefaultValue(default(int))]
-    public int lastCard
+    private readonly global::System.Collections.Generic.List<int> _guiCard = new global::System.Collections.Generic.List<int>();
+    [global::ProtoBuf.ProtoMember(11, Name=@"guiCard", DataFormat = global::ProtoBuf.DataFormat.ZigZag)]
+    public global::System.Collections.Generic.List<int> guiCard
     {
-      get { return _lastCard; }
-      set { _lastCard = value; }
+      get { return _guiCard; }
     }
+  
     private global::ProtoBuf.IExtension extensionObject;
     global::ProtoBuf.IExtension global::ProtoBuf.IExtensible.GetExtensionObject(bool createIfMissing)
       { return global::ProtoBuf.Extensible.GetExtensionObject(ref extensionObject, createIfMissing); }

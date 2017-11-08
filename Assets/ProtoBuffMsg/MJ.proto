@@ -11,8 +11,8 @@ message GameOperStartSyn {
    optional sint32 dice2 = 7; //骰子2（1-6的随机数）
    optional sint32 seq = 8; //序列号,每一场游戏有一个唯一的序列号，方便错误跟踪
    optional bool reconnect = 9; //是否是断线重连
-   optional sint32 cardLeft = 12; //剩余牌数
-   optional sint32 lastCard = 13; //最后一张牌
+   optional sint32 cardLeft = 10; //剩余牌数
+   repeated sint32 guiCard = 11; //鬼牌
 }
 
 //同步某个的玩家手牌, operType=HANDCARDS

@@ -444,7 +444,7 @@ public partial class SocketGame : MonoBehaviour {
 
         Game.MJMgr.CardLeft = data.cardLeft + 13 * 4;
 
-        Game.MJMgr.cardHui = data.lastCard;        //TODO YC
+        Game.MJMgr.cardHui = data.guiCard[0];        //TODO YC
         //MJCardGroup.ShowHuiCard(data.lastCard);    //TODO YC
         //Game.MJMgr.Init();
         Game.Instance.Ting = false;
