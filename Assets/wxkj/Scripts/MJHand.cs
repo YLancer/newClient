@@ -284,6 +284,7 @@ public class MJHand : MonoBehaviour
         else if(type == 2)
         {
             //检验手中有没有card牌
+            player.handCardLayout.RemoveCard(cardG);
             bool isHandCard = false;
             List<int> pengGangCard  = player.handCardLayout.HandCards;
             for (int i = 0; i < pengGangCard.Count; i++)
@@ -324,7 +325,6 @@ public class MJHand : MonoBehaviour
                 player.dropCardLayout.RemoveLast();
                 player.tableCardLayout.AddCard(cardG); 
             }
-
             player.tableCardLayout.tableCardDoSort();            
             player.tableCardLayout.LineUp();
         }

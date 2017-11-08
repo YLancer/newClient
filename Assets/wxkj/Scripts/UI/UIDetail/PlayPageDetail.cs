@@ -17,6 +17,7 @@ public class PlayPageDetail
     public Button DismissButton_Button;
     public Image Image1_Image;
     public Image Image_Image;
+    public Image Image_Hui;     //ª·≈∆œ‘ æ
     public Text CardNum_Text;
     public Text Time_Text;
     public UIItem CtrlPanel_UIItem;

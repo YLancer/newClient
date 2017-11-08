@@ -13,6 +13,8 @@ public class PlayPage : PlayPageBase
     private void OnEnable()
     {
         Game.SocketGame.DoREADYL(1, 0);
+
+        Invoke("AfterSelect", 15f);
     }
 
     public override void InitializeScene()
@@ -463,7 +465,7 @@ public class PlayPage : PlayPageBase
     {
         Game.SoundManager.PlayClick();
         Game.Instance.Gang = true;
-        GangCount = 1;
+        GangCount = 1;  
         calAllGangCount();
         Game.MJMgr.MyPlayer.AnGang();
         detail.CtrlPanel_UIItem.gameObject.SetActive(false);
@@ -637,9 +639,15 @@ public class PlayPage : PlayPageBase
         {
             detail.CardNum_Text.text = Game.MJMgr.CardLeft.ToString();
             detail.Time_Text.text = System.DateTime.Now.ToString("HH:mm");
-           // detail.Image_Hui.sprite = Game.PoolManager.CardPool.Spawn(card.ToString());
-        }
-        
+            //ShouImageHui();
+        }        
+    }
+
+    public void ShouImageHui()
+    {
+        print( " 出来吧最后一张牌 " + Game.MJMgr.cardHui.ToString());
+        GameObject hui = PrefabUtils.GetPrefab(Game.MJMgr.cardHui.ToString(), MyPrefabType.MJ);
+        detail.Image_Hui.sprite = hui.transform.FindChild("Image").GetComponent<Image>().sprite;
     }
 
     void OnClickHostedBtn()

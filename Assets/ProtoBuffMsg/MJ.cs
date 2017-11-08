@@ -93,6 +93,14 @@ namespace packet.mj
       get { return _cardLeft; }
       set { _cardLeft = value; }
     }
+    private int _lastCard = default(int);
+    [global::ProtoBuf.ProtoMember(13, IsRequired = false, Name=@"lastCard", DataFormat = global::ProtoBuf.DataFormat.ZigZag)]
+    [global::System.ComponentModel.DefaultValue(default(int))]
+    public int lastCard
+    {
+      get { return _lastCard; }
+      set { _lastCard = value; }
+    }
     private global::ProtoBuf.IExtension extensionObject;
     global::ProtoBuf.IExtension global::ProtoBuf.IExtensible.GetExtensionObject(bool createIfMissing)
       { return global::ProtoBuf.Extensible.GetExtensionObject(ref extensionObject, createIfMissing); }

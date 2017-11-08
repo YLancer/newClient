@@ -12,6 +12,7 @@ message GameOperStartSyn {
    optional sint32 seq = 8; //序列号,每一场游戏有一个唯一的序列号，方便错误跟踪
    optional bool reconnect = 9; //是否是断线重连
    optional sint32 cardLeft = 12; //剩余牌数
+   optional sint32 lastCard = 13; //最后一张牌
 }
 
 //同步某个的玩家手牌, operType=HANDCARDS
@@ -40,7 +41,9 @@ message GameOperPlayerActionSyn {
   required sint32 position = 1; //玩家位置
   required sint32 action = 2; //操作编码 (0x01:吃) (0x02:碰) (0x04:暗杠) (0x08:补杠) (0x10:直杠) (0x20:出牌) (0x40:胡牌) (0x80:听牌) (0x100:取消)  (0x40000000:摸牌)
   repeated sint32 cardValue = 3;//出碰传一个牌, 吃和支对传2个牌
+
   optional sint32 seq = 5; //序列号,调试用
+
 }
 
 //服务器提示玩家操作 operType=ACTNOTIFY

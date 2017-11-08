@@ -54,6 +54,8 @@ public class MJMgr : MonoBehaviour {
     public int BaoDize = -1;
     public bool HangUp = false;
 
+    public int cardHui; // 需要一个会牌的值
+
     public int[] position = new int[4];
     public int[] indexs = new int[4];
 
@@ -134,6 +136,7 @@ public class MJMgr : MonoBehaviour {
 	public void Clear(){
 		//All.Clear();
         CardLeft = 0;
+        cardHui = 0;
 
         cardGroups[0].Clear();
         cardGroups[1].Clear();
@@ -262,7 +265,7 @@ public class MJMgr : MonoBehaviour {
         }
     }
 
-	public MJEntity MyDropMJEntity = null;
+    public MJEntity MyDropMJEntity = null;
     //public MJPlayer LastDropCardPlayer;
     public MJEntity LastDropCard;
 

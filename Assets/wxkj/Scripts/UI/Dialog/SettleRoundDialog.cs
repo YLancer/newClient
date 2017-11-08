@@ -111,6 +111,8 @@ public class SettleRoundDialog : SettleRoundDialogBase
         detail.M5_UIItem.gameObject.SetActive(MJUtils.HasWanfa(MJUtils.MODE_HONGZHONG));
         detail.M6_UIItem.gameObject.SetActive(MJUtils.HasWanfa(MJUtils.MODE_DAILOU));
         detail.M7_UIItem.gameObject.SetActive(MJUtils.HasWanfa(MJUtils.MODE_JIAHU));
+        
+        // TODO 结算界面
     }
 
     void SetupSub(RoundAccountSub sub, GameOperPlayerSettle settle, int huCard = -1)
