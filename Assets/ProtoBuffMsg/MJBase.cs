@@ -45,9 +45,6 @@ namespace packet.mj
       [global::ProtoBuf.ProtoEnum(Name=@"GameOperHandCardSyn", Value=7002)]
       GameOperHandCardSyn = 7002,
             
-      [global::ProtoBuf.ProtoEnum(Name=@"GameOperPublicInfoSyn", Value=7003)]
-      GameOperPublicInfoSyn = 7003,
-            
       [global::ProtoBuf.ProtoEnum(Name=@"GameOperPlayerHuSyn", Value=7004)]
       GameOperPlayerHuSyn = 7004,
             

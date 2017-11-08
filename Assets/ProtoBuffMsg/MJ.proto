@@ -23,13 +23,6 @@ message GameOperHandCardSyn {
 	repeated sint32 cardsBefore = 4; //打出的牌
 }
 
-//同步公共信息, operType=PUBLICINFO
-message GameOperPublicInfoSyn {
-    required sint32 cardLeft = 1; //剩余牌数
-	//optional sint32 baoCard = 2; //宝牌, 如果不能查看，则返回-1
-	//required sint32 bankerPos = 3; //庄家位置
-}
-
 //同步行动者信息 operType=ACTSYN
 message GameOperActorSyn {
 	required sint32 position = 1; //玩家位置

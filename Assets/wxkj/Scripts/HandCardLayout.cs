@@ -97,7 +97,7 @@ public class HandCardLayout : MonoBehaviour {
 
         HandCards.Add(card);
 
-        MJCardGroup.TryDragCard(true);
+        MJCardGroup.TryDragCard();
         return child.transform.position;
     }
 

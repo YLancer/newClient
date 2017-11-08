@@ -408,9 +408,6 @@ public partial class SocketGame : MonoBehaviour {
             case GameOperType.GameOperHandCardSyn:
                 //OnGameOperHandCardSyn(NetSerilizer.DeSerialize<GameOperHandCardSyn>(response.content));
                 break;
-            case GameOperType.GameOperPublicInfoSyn:
-                OnGameOperPublicInfoSyn(NetSerilizer.DeSerialize<GameOperPublicInfoSyn>(response.content));
-                break;
             case GameOperType.GameOperPlayerHuSyn:
                 OnGameOperPlayerHuSyn(NetSerilizer.DeSerialize<GameOperPlayerHuSyn>(response.content));
                 break;
@@ -442,7 +439,9 @@ public partial class SocketGame : MonoBehaviour {
         RoomMgr.gameOperStartSyn = data;
         Game.MJMgr.Clear();
 
-        Game.MJMgr.CardLeft = data.cardLeft + 13 * 4;
+        Game.MJMgr.CardLeft = data.cardLeft;
+
+        print("    ============ data.guiCard ==============   " + data.guiCard.Count + " / " + data.guiCard[0]);
 
         Game.MJMgr.cardHui = data.guiCard[0];        //TODO YC
         //MJCardGroup.ShowHuiCard(data.lastCard);    //TODO YC
@@ -521,14 +520,14 @@ public partial class SocketGame : MonoBehaviour {
             {
                 int sCard = hc.handCards[i];
                 player.handCardLayout.AddCard(sCard);
-                MJCardGroup.TryDragCard();
+                MJCardGroup.TryDragCard(countdown:false); //重现现场的时候的摸牌不减牌数，下同。
             }
 
             for (int i = 0; i < hc.cardsBefore.Count; i++)
             {
                 int sCard = hc.cardsBefore[i];
                 player.dropCardLayout.AddCard(sCard);
-                MJCardGroup.TryDragCard();
+                MJCardGroup.TryDragCard(countdown: false);
             }
 
             for (int i = 0; i < hc.downCards.Count; i++)
@@ -537,14 +536,30 @@ public partial class SocketGame : MonoBehaviour {
                 int card1 = (sCard & 0xff);
                 int card2 = ((sCard >> 8) & 0xff);
                 int card3 = ((sCard >> 16) & 0xff);
+                if(card3 == 0xf) //杠特殊处理 //TODO 技术债务
+                {
+                    player.tableCardLayout.AddCard(card1);
+                    player.tableCardLayout.AddCard(card1);
+                    player.tableCardLayout.AddCard(card1);
+                    player.tableCardLayout.AddCard(card1);
 
-                player.tableCardLayout.AddCard(card1);
-                player.tableCardLayout.AddCard(card2);
-                player.tableCardLayout.AddCard(card3);
+                    MJCardGroup.TryDragCard(countdown: false);
+                    MJCardGroup.TryDragCard(countdown: false);
+                    MJCardGroup.TryDragCard(countdown: false);
+                    MJCardGroup.TryDragCard(countdown: false);
+                    Game.Instance.Gang = true;
+                    MJCardGroup.TryDragCard(countdown: false);//杠摸
+                }
+                else
+                {
+                    player.tableCardLayout.AddCard(card1);
+                    player.tableCardLayout.AddCard(card2);
+                    player.tableCardLayout.AddCard(card3);
 
-                MJCardGroup.TryDragCard();
-                MJCardGroup.TryDragCard();
-                MJCardGroup.TryDragCard();
+                    MJCardGroup.TryDragCard(countdown: false);
+                    MJCardGroup.TryDragCard(countdown: false);
+                    MJCardGroup.TryDragCard(countdown: false);
+                }
             }
         }
     }
@@ -587,16 +602,6 @@ public partial class SocketGame : MonoBehaviour {
             }
         }
         return str;
-    }
-
-    void OnGameOperPublicInfoSyn(GameOperPublicInfoSyn data)
-    {
-        Debug.LogFormat("=== 剩余：{0}", data.cardLeft);
-        //Game.MJMgr.MakersPosition = data.bankerPos;
-        Game.MJMgr.CardLeft = data.cardLeft;
-        Game.MJMgr.cardHui = data.cardLeft;   //TODO YC
-        //Game.MJMgr.BaoCard = data.baoCard;
-        //EventDispatcher.DispatchEvent(MessageCommand.MJ_UpdatePlayPage);
     }
 
     string[] strs = new string[] { "北", "东", "南", "西" };

@@ -143,23 +143,6 @@ namespace packet.mj
       { return global::ProtoBuf.Extensible.GetExtensionObject(ref extensionObject, createIfMissing); }
   }
   
-  [global::System.Serializable, global::ProtoBuf.ProtoContract(Name=@"GameOperPublicInfoSyn")]
-  public partial class GameOperPublicInfoSyn : global::ProtoBuf.IExtensible
-  {
-    public GameOperPublicInfoSyn() {}
-    
-    private int _cardLeft;
-    [global::ProtoBuf.ProtoMember(1, IsRequired = true, Name=@"cardLeft", DataFormat = global::ProtoBuf.DataFormat.ZigZag)]
-    public int cardLeft
-    {
-      get { return _cardLeft; }
-      set { _cardLeft = value; }
-    }
-    private global::ProtoBuf.IExtension extensionObject;
-    global::ProtoBuf.IExtension global::ProtoBuf.IExtensible.GetExtensionObject(bool createIfMissing)
-      { return global::ProtoBuf.Extensible.GetExtensionObject(ref extensionObject, createIfMissing); }
-  }
-  
   [global::System.Serializable, global::ProtoBuf.ProtoContract(Name=@"GameOperActorSyn")]
   public partial class GameOperActorSyn : global::ProtoBuf.IExtensible
   {

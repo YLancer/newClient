@@ -3,7 +3,6 @@ package packet.mj;
 enum GameOperType{
     GameOperStartSyn = 7001; //游戏开始
 	GameOperHandCardSyn = 7002;   //手牌
-	GameOperPublicInfoSyn = 7003; //公共信息
 	GameOperPlayerHuSyn = 7004; //公共信息
 	GameOperPlayerActionNotify = 7005; //通知玩家操作
 	GameOperActorSyn = 7006; //广播当前正在操作的玩家

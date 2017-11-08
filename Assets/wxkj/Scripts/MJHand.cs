@@ -357,7 +357,7 @@ public class MJHand : MonoBehaviour
                 player.handCardLayout.RemoveCardAt(index3);
             }
             Game.PoolManager.CardPool.Despawn(Game.MJMgr.LastDropCard.gameObject);
-        }        
+        }
         player.handCardLayout.LineUp();
 
         Game.MJMgr.targetFlag.gameObject.SetActive(false);
@@ -473,14 +473,14 @@ public class MJHand : MonoBehaviour
             {
                 Game.SoundManager.PlayDropCard();
                 player.dropCardLayout.AddCard(card, child);
-                MJCardGroup.TryDragCard(true);
+                MJCardGroup.TryDragCard();
                 //MJCardGroup.DragBaoCard(dice);
                 Game.Delay(0.5f, () => { PutBao(); });
             };
         }
         else
         {
-            MJCardGroup.TryDragCard(true);
+            MJCardGroup.TryDragCard();
             //MJCardGroup.DragBaoCard();
             PutBao();
         }

@@ -152,11 +152,11 @@ public class MJCardGroup : MonoBehaviour {
         list.Add(child.transform);
     }
 
-    public static void TryDragCard(bool countdown = false)
+    public static void TryDragCard(bool countdown = true)
     {
         MJCardGroup group = Game.MJMgr.ActiveGroup;
         print(" Gang Gang Gang Gang" + MJUtils.ACT_AN_GANG + MJUtils.ACT_BU_GANG + MJUtils.ACT_ZHI_GANG);
-        if (Game.Instance.Gang ==true)
+        if (Game.Instance.Gang == true)
         {
             group.doGangDragCard(countdown);
         }
@@ -211,7 +211,7 @@ public class MJCardGroup : MonoBehaviour {
     private void doGangDragCard(bool countdown)
     {
         int gangCount =  FindObjectOfType<PlayPage>().allGangCount;
-        int index=0;        
+        int index=0;
         if (LastGroup.list.Count>=0 && LastGroup.list.Count - gangCount >= 0)
         {
             for (int i = 1; i <= gangCount; i++)
