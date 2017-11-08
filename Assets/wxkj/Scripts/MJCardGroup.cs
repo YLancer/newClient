@@ -260,20 +260,20 @@ public class MJCardGroup : MonoBehaviour {
     //显示会牌
     public static void ShowHuiCard(int cardPoint)
     {
-        print(" <<<<<<<<<<< >>>>>>>>>> " + Game.MJMgr.ActiveGroup);
         MJCardGroup group = Game.MJMgr.ActiveGroup;
         group.DOShowHuiPai(cardPoint);
     }
     private  void  DOShowHuiPai(int cardPoint)  
     {
         print(" >>>>>>>>>>>>> 展示会牌 <<<<<<<<<<<<<<<" + Game.PoolManager.CardPool.Spawn(cardPoint.ToString()));
-        if (MJUtils.MODE_DAIHUI !=0)   // TODO  问题
+        if (MJUtils.MODE_DAIHUI !=0)   
         {
             if (LastGroup.list.Count >= 0)
             {
                 Transform cardHui = LastGroup.list[LastGroup.list.Count - 2];
                 cardHui.GetComponent<MeshFilter>().mesh = Game.PoolManager.CardPool.Spawn(cardPoint.ToString()).GetComponent<MeshFilter>().mesh;
-                cardHui.transform.Rotate(new Vector3(-180, 0, 0));
+                //cardHui.transform.Rotate(new Vector3(-180, 0, 0));
+                cardHui.transform.rotation = Quaternion.Euler(new Vector3(-180, 0, 0));
             }
         }
     }
