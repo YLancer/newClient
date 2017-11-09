@@ -703,7 +703,10 @@ public partial class SocketGame : MonoBehaviour {
         MJPlayer player = Game.MJMgr.GetPlayerByPosition(data.position);
         bool isMy = player.index == 0;
 
-        MJCardGroup.ShowHuiCard(Game.MJMgr.cardHui); 
+        if(Game.MJMgr.cardHui!=-1)                   //根据传来的会牌值   判断是否要显示最后一张牌
+        {
+            MJCardGroup.ShowHuiCard(Game.MJMgr.cardHui);
+        }
 
         if (MJUtils.DragCard(data.action))
         {

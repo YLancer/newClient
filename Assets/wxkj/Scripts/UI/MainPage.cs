@@ -56,6 +56,7 @@ public class MainPage : MainPageBase
 
     private void OnClickShare()
     {
+        print(" 分享功能 》》》》》》》》》");
         Game.SoundManager.PlayClick();
         Game.AndroidUtil.Share();
     }

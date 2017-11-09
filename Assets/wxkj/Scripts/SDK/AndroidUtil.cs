@@ -87,8 +87,8 @@ public class AndroidUtil : MonoBehaviour
         AndroidJavaObject.Call("WeChatShare",
             new object[] {
             "http://www.daqingxinshikong.com/WebServer/?from=singlemessage&isappinstalled=1",
-            "新时空大庆麻将3D",
-            "今天玩了一个很好玩的游戏——大庆麻将3D，你也来试试吧！哈哈!"+room
+            "西凉麻将3D",
+            "今天玩了一个很好玩的游戏——西凉麻将3D，你也来试试吧！哈哈!"+room
             });
     }
 

@@ -82,6 +82,7 @@ public class LoginPage : LoginPageBase {
                     Wechatloginfo.language = (string)data["unionid"];
                     Wechatloginfo.province = (string)data["province"];
                     Wechatloginfo.city = (string)data["city"];
+                    Wechatloginfo.sex = int.Parse(data["sex"].ToString());
                     Debug.Log("Wechatloginfo.openid" + Wechatloginfo.openid + "Wechatloginfo.nickName" + Wechatloginfo.nickname + "city" + Wechatloginfo.city);
                     //  username=(string)data["openid"]; //oppenid
                     //  password=(string)data["unionid"]; //token

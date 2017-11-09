@@ -265,8 +265,9 @@ public class MJCardGroup : MonoBehaviour {
     }
     private  void  DOShowHuiPai(int cardPoint)  
     {
+        int GangCount = FindObjectOfType<PlayPage>().allGangCount;
         print(" >>>>>>>>>>>>> 展示会牌 <<<<<<<<<<<<<<<" + Game.PoolManager.CardPool.Spawn(cardPoint.ToString()));
-        if (MJUtils.MODE_DAIHUI !=0)   
+        if (GangCount == 0)   
         {
             if (LastGroup.list.Count >= 0)
             {

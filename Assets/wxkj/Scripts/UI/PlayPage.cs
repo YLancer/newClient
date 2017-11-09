@@ -637,15 +637,23 @@ public class PlayPage : PlayPageBase
         {
             detail.CardNum_Text.text = Game.MJMgr.CardLeft.ToString();
             detail.Time_Text.text = System.DateTime.Now.ToString("HH:mm");
+
             ShouImageHui();
         }        
     }
-
-    public void ShouImageHui()
+     
+    public void ShouImageHui()                                 //根据传来的会牌值   决定是否显示会牌图片
     {
-        print( " 出来吧最后一张牌 " + Game.MJMgr.cardHui.ToString());
-        GameObject hui = PrefabUtils.GetPrefab(Game.MJMgr.cardHui.ToString(), MyPrefabType.MJ);
-        detail.Image_Hui.sprite = hui.transform.FindChild("Image").GetComponent<Image>().sprite;
+        if(Game.MJMgr.cardHui!=-1)
+        {
+            print(" 出来吧最后一张牌 " + Game.MJMgr.cardHui.ToString());
+            GameObject hui = PrefabUtils.GetPrefab(Game.MJMgr.cardHui.ToString(), MyPrefabType.MJ);
+            detail.Image_Hui.sprite = hui.transform.FindChild("Image").GetComponent<Image>().sprite;
+        }
+        else
+        {
+            detail.Image_Hui.gameObject.SetActive(false);
+        }
     }
 
     void OnClickHostedBtn()
