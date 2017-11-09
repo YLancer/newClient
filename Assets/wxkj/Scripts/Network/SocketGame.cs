@@ -443,8 +443,7 @@ public partial class SocketGame : MonoBehaviour {
 
         print("    ============ data.guiCard ==============   " + data.guiCard.Count + " / " + data.guiCard[0]);
 
-        Game.MJMgr.cardHui = data.guiCard[0];        //TODO YC
-        //MJCardGroup.ShowHuiCard(data.lastCard);    //TODO YC
+        Game.MJMgr.cardHui = data.guiCard[0];     
         //Game.MJMgr.Init();
         Game.Instance.Ting = false;
         //Game.IsBusy = false;
@@ -604,7 +603,7 @@ public partial class SocketGame : MonoBehaviour {
         return str;
     }
 
-    string[] strs = new string[] { "北", "东", "南", "西" };
+    string[] strs = new string[] { "东", "南", "西", "北" };
     public void OnGameOperPlayerActionNotify(GameOperPlayerActionNotify data)
     {
         if (RoomMgr.actionNotify != null && ((RoomMgr.actionNotify.actions & MJUtils.ACT_SHUAIJIUYAO) != 0)) //TODO WXD 额外添加甩九幺标记，防止被覆盖。
@@ -704,7 +703,7 @@ public partial class SocketGame : MonoBehaviour {
         MJPlayer player = Game.MJMgr.GetPlayerByPosition(data.position);
         bool isMy = player.index == 0;
 
-        //MJCardGroup.ShowHuiCard(data.cardValue[0]);  //TODO YC
+        MJCardGroup.ShowHuiCard(Game.MJMgr.cardHui); 
 
         if (MJUtils.DragCard(data.action))
         {

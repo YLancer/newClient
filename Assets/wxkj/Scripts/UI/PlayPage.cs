@@ -13,8 +13,6 @@ public class PlayPage : PlayPageBase
     private void OnEnable()
     {
         Game.SocketGame.DoREADYL(1, 0);
-
-        Invoke("AfterSelect", 15f);
     }
 
     public override void InitializeScene()
@@ -639,7 +637,7 @@ public class PlayPage : PlayPageBase
         {
             detail.CardNum_Text.text = Game.MJMgr.CardLeft.ToString();
             detail.Time_Text.text = System.DateTime.Now.ToString("HH:mm");
-            //ShouImageHui();
+            ShouImageHui();
         }        
     }
 
