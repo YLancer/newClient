@@ -754,6 +754,11 @@ public class PlayPage : PlayPageBase
 
     private void AfterSelect()
     {
+        if(!detail.ShuaiJiuYao_panel.gameObject.activeSelf)
+        {
+            return;
+        }
+
         // 扔完九幺牌，确定按钮之后
         detail.Text_tishi.text = "";
         detail.ShuaiJiuYao_panel.gameObject.SetActive(false);
