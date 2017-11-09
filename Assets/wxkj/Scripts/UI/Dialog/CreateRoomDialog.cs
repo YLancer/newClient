@@ -69,13 +69,13 @@ public class CreateRoomDialog : CreateRoomDialogBase
         });
     }
 
-    private void OnJinChangClickCreate()  // 创建金昌麻将房间   
+    private void OnJinChangClickCreate()  // 创建金昌麻将房间
     {
         Game.SoundManager.PlayClick();
         bool is2Player = detail.PlayerNum2_Jinchang.IsSelected;
         int vipRoomType = is2Player ? 2 : 4;
         int quanNum = detail.Round4_Jinchang.IsSelected ? 4 : 8;
-        int wanfa = 0;
+        int wanfa = MJUtils.MODE_CHI;
         if (detail.Mode0_Fengpai_Jinchang.IsSelected)
         {
             wanfa = wanfa | MJUtils.MODE_FENGPAI;
@@ -104,7 +104,7 @@ public class CreateRoomDialog : CreateRoomDialogBase
         } );
     }
 
-    private void OnJiuYaoClickCreate()  // 创建九幺麻将房间   
+    private void OnJiuYaoClickCreate()  // 创建九幺麻将房间
     {
         Game.SoundManager.PlayClick();
         bool is2Player = detail.PlayerNum2_Jiuyao.IsSelected;
@@ -129,7 +129,7 @@ public class CreateRoomDialog : CreateRoomDialogBase
         });
     }
 
-    private void OnTuiDaoHuClickCreate()  // 创建推倒胡麻将房间   
+    private void OnTuiDaoHuClickCreate()  // 创建推倒胡麻将房间
     {
         Game.SoundManager.PlayClick();
         bool is2Player = detail.PlayerNum2_Tuidaohu.IsSelected;
@@ -143,6 +143,10 @@ public class CreateRoomDialog : CreateRoomDialogBase
         if (detail.Mode1_Daihui_Tuidaohu.IsSelected)
         {
             wanfa = wanfa | MJUtils.MODE_DAIHUI;
+        }
+        else //带会的玩法不能吃，不带会的玩法能吃
+        {
+            wanfa = wanfa | MJUtils.MODE_CHI;
         }
         if (detail.Mode2_Baoting_Tuidaohu.IsSelected)
         {
