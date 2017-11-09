@@ -243,6 +243,7 @@ public partial class SocketGame : MonoBehaviour {
 
         str += GetWanfaOne(wanfa, MJUtils.MODE_FENGPAI, "带风");
         str += GetWanfaOne(wanfa, MJUtils.MODE_BAOTING, "报听");
+        str += GetWanfaOne(wanfa, MJUtils.MODE_CHI, "能吃");
         str += GetWanfaOne(wanfa, MJUtils.MODE_SEVENPAIR, "七对");
         str += GetWanfaOne(wanfa, MJUtils.MODE_DAIHUI, "带会");
         str += GetWanfaOne(wanfa, MJUtils.MODE_ZIMOHU, "自摸");

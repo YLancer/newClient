@@ -35,15 +35,16 @@ public class MJUtils
     public const int MODE_DAILOU = 0x40;      // 带漏的
     public const int MODE_JIAHU = 0x80;      // 不夹不胡
 
-    //新增玩法 FOR 西凉/金昌麻将（0x01:风牌，0x02:报听，0x04:七小对，0x08:带会，0x10:自摸胡，0x20:清一色一条龙，0x40:甩九幺，0x80:收炮）
+    //新增玩法 FOR 西凉/金昌麻将（0x01:风牌，0x02:报听，0x04:能吃牌，0x08:七小对，0x10:带会，0x20:自摸胡，0x1000:清一色一条龙，0x2000:甩九幺，0x4000:收炮）
     public const int MODE_FENGPAI = 0x01;        //风牌
     public const int MODE_BAOTING = 0x02;        //报听
-    public const int MODE_SEVENPAIR = 0x04;      //七小对
-    public const int MODE_DAIHUI = 0x08;         //带会
-    public const int MODE_ZIMOHU = 0x10;         //自摸胡
-    public const int MODE_ONECOLORTRAIN = 0x20;  //清一色一条龙
-    public const int MODE_SHUAIJIUYAO = 0x40;    //甩九幺
-    public const int MODE_SHOUPAO = 0x80;        //收炮
+    public const int MODE_CHI = 0x04;            //能吃牌
+    public const int MODE_SEVENPAIR = 0x08;      //七小对
+    public const int MODE_DAIHUI = 0x10;         //带会
+    public const int MODE_ZIMOHU = 0x20;         //自摸胡
+    public const int MODE_ONECOLORTRAIN = 0x1000;//清一色一条龙
+    public const int MODE_SHUAIJIUYAO = 0x2000;  //甩九幺
+    public const int MODE_SHOUPAO = 0x4000;      //收炮
     
     //0x0001:点炮    0x100000:胡牌      0x200000:输了    0x400000:流局    0x800000:收炮    0x1000:摸宝胡     0x4000:宝中宝      0x8000刮大风      0x10000:开牌炸     0x20000:红中满天飞        0x40000:带漏胡
     public const int HU_Pao = 0x0001;// 点炮
