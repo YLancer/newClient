@@ -155,7 +155,6 @@ public class MJCardGroup : MonoBehaviour {
     public static void TryDragCard(bool countdown = true)
     {
         MJCardGroup group = Game.MJMgr.ActiveGroup;
-        print(" Gang Gang Gang Gang" + MJUtils.ACT_AN_GANG + MJUtils.ACT_BU_GANG + MJUtils.ACT_ZHI_GANG);
         if (Game.Instance.Gang == true)
         {
             group.doGangDragCard(countdown);
