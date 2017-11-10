@@ -1,7 +1,7 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="com.yueqing.mz"
-    android:versionCode="100"
-    android:versionName="1.0.0" >
+    package="com.YC.TestShareSDK"
+    android:versionCode="2"
+    android:versionName="2.0" >
 
     <uses-permission android:name="android.permission.GET_TASKS" />
     <uses-permission android:name="android.permission.INTERNET" />
@@ -18,7 +18,7 @@
     
     <uses-sdk
         android:minSdkVersion="8"
-        android:targetSdkVersion="19" />
+        android:targetSdkVersion="17" />
 
     <application>
         <activity
@@ -47,7 +47,7 @@
 		
         <!-- 微信分享回调 -->
         <activity
-            android:name=".wxapi.WXEntryActivity"
+            android:name="com.YC.TestShareSDK.wxapi.WXEntryActivity"
             android:theme="@android:style/Theme.Translucent.NoTitleBar"
             android:configChanges="keyboardHidden|orientation|screenSize"
             android:exported="true" />

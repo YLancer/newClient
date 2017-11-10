@@ -637,8 +637,15 @@ public class PlayPage : PlayPageBase
         {
             detail.CardNum_Text.text = Game.MJMgr.CardLeft.ToString();
             detail.Time_Text.text = System.DateTime.Now.ToString("HH:mm");
-
-            ShouImageHui();
+            if (Game.MJMgr.cardHui != -1)
+            {
+                detail.Image_Hui.sprite = PrefabUtils.GetPrefab(Game.MJMgr.cardHui.ToString(), MyPrefabType.MJ).transform.FindChild("Image").GetComponent<Image>().sprite;
+            }
+            else
+            {
+                detail.Image_Hui.gameObject.SetActive(false);
+            }
+                //ShouImageHui();
         }        
     }
      
@@ -752,7 +759,7 @@ public class PlayPage : PlayPageBase
         }  
         else 
         {
-            detail.Text_tishi.text = "九幺牌不足三张，不甩牌！";
+            detail.Text_tishi.text = "九幺牌不足三张，不甩牌！请按确定按钮";
             detail.Text_tishi.color = Color.red;
             AfterSelect();
         }
@@ -793,5 +800,10 @@ public class PlayPage : PlayPageBase
         }
         handCardLayout.LineUp(true);
         throwCardList.Clear();
+    }
+
+    public void HideJiuYao()
+    {
+        Invoke("AfterSelect", 12f);
     }
 }

@@ -17,14 +17,11 @@ namespace cn.sharesdk.unity3d
 		//配置ShareSDK AppKey
 		//注:此处区分仅为demo测试而区分，实际使用时可以不区分安卓或iOS
 		#if UNITY_ANDROID
-		//public string appKey = "androidv1101";
-	    //public string appKey = "1e85578731960";
-        public string appKey = "20792ee1d54d0";
-
-#elif UNITY_IPHONE
+		public string appKey = "androidv1101";
+		#elif UNITY_IPHONE
 		public string appKey = "iosv1101";
-#endif
-        public DevInfoSet devInfo;
+		#endif
+		public DevInfoSet devInfo;
 		public ShareSDKImpl shareSDKUtils;
 
 		public EventHandler authHandler;
@@ -63,9 +60,8 @@ namespace cn.sharesdk.unity3d
 			#elif UNITY_IPHONE
 			shareSDKUtils = new iOSImpl(gameObject);
 			#endif
-            //ranger 8,16 注释
-            //shareSDKUtils.InitSDK(appKey);
-            //shareSDKUtils.SetPlatformConfig(platformConfigs);
+			shareSDKUtils.InitSDK(appKey);
+			shareSDKUtils.SetPlatformConfig(platformConfigs);
 		}
 		
 		/// <summary>
@@ -433,48 +429,6 @@ namespace cn.sharesdk.unity3d
 		}
 
 		/// <summary>
-		/// share according to the name of node<Content> in ShareContent.xml(you can find it in Xcode) [only valid in iOS temporarily][此接口暂时仅支持iOS环境]
-		/// </summary>
-		/// <param name='platform'>
-		/// Platform Type
-		/// </param>
-		/// <param name='contentName'>
-		/// the name of node<Content> in ShareContent.xml file
-		/// </param>
-		/// <param name='customFields'>
-		/// your share customFields which will be replace in ShareContent.xml
-		/// </param>
-		public int ShareWithContentName (PlatformType platform, string contentName, Hashtable customFields)
-		{
-			reqID++;
-			shareSDKUtils.ShareWithContentName (reqID, platform, contentName, customFields);
-			return reqID;
-		}
-
-		/// <summary>
-		/// share according to the name of node<Content> in ShareContent.xml(you can find it in Xcode)   (only valid in iOS temporarily)(此接口暂时仅支持iOS环境)
-		/// </summary>
-		/// </param>
-		/// <param name='contentName'>
-		/// the name of node<Content> in ShareContent.xml file
-		/// </param>
-		/// <param name='customFields'>
-		/// your share customFields which will be replace in ShareContent.xml
-		/// </param>
-		/// <param name='platforms'>
-		/// Platform Types
-		/// </param>
-		/// <param name='x','y'>
-		/// the coordinates of the share menu
-		/// </param>
-		public int ShowPlatformListWithContentName (string contentName, Hashtable customFields, PlatformType[] platforms, int x, int y)
-		{
-			reqID++;
-			shareSDKUtils.ShowPlatformListWithContentName (reqID, contentName, customFields, platforms, x, y);
-			return reqID;
-		}
-
-		/// <summary>
 		/// share according to the name of node<Content> in ShareContent.xml file  (only valid in iOS temporarily)(此接口暂时仅支持iOS环境)
 		/// </summary>
 		/// <param name='platform'>
@@ -486,10 +440,10 @@ namespace cn.sharesdk.unity3d
 		/// <param name='customFields'>
 		/// your share customFields which will be replace in ShareContent.xml
 		/// </param>
-		public int ShowShareContentEditorWithContentName (PlatformType platform, string contentName, Hashtable customFields)
+		public int ShareWithContentName(PlatformType platform, string contentName, Hashtable customFields)
 		{
 			reqID++;
-			shareSDKUtils.ShowShareContentEditorWithContentName (reqID, platform, contentName, customFields);
+			shareSDKUtils.ShareWithContentName (reqID, platform, contentName, customFields);
 			return reqID;
 		}
 		/// <summary>

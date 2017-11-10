@@ -49,8 +49,7 @@ namespace cn.sharesdk.unity3d
 
 		public override void CancelAuthorize (PlatformType platform) 
 		{
-            Debug.Log("AndroidImpl  ===>>>  CancelAuthorize");
-            if (ssdk != null) 
+			if (ssdk != null) 
 			{
 				ssdk.Call("removeAccount", (int)platform);
 			}
@@ -154,16 +153,6 @@ namespace cn.sharesdk.unity3d
 		}
 
 		public override void ShareWithContentName (int reqId, PlatformType platform, string contentName, Hashtable customFields)
-		{
-			Debug.Log("#WARING : Do not support this feature in Android temporarily" );
-		}
-		
-		public override void ShowPlatformListWithContentName (int reqId, string contentName, Hashtable customFields, PlatformType[] platforms, int x, int y)
-		{
-			Debug.Log("#WARING : Do not support this feature in Android temporarily" );
-		}
-
-		public override void ShowShareContentEditorWithContentName (int reqId, PlatformType platform, string contentName, Hashtable customFields)
 		{
 			Debug.Log("#WARING : Do not support this feature in Android temporarily" );
 		}
