@@ -40,12 +40,7 @@ public class SettleRoundDialog : SettleRoundDialogBase
         Game.SoundManager.PlayClick();
         print(" <<<<<<<<<<<<<< + 继续游戏的按钮  + >>>>>>>>>>>");
         FindObjectOfType<PlayPage>().allGangCount = 0;    //将杠牌的统计重置为0
-        if (!RoomMgr.IsVipRoom())
-        {
-            Game.SocketGame.DoREADYL(1, 0);
-        }
-        //else
-        //    Game.SocketGame.DoREADYL(1, 1);
+        Game.SocketGame.DoREADYL(1, 0);
         OnBackPressed();
     }
 
