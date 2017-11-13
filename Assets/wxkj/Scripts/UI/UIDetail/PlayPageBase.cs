@@ -20,6 +20,7 @@ public class PlayPageBase : UISceneBase
         detail.DismissButton_Button = transform.Find("DismissButton").gameObject.GetComponent<Button>();
         detail.Image_Image = transform.Find("Image (1)/Image").gameObject.GetComponent<Image>();
         detail.Image_Hui= transform.Find("Image (1)/Image_HUI").gameObject.GetComponent<Image>();                      //»áÅÆµÄÍ¼Æ¬
+        detail.Image_BG = transform.Find("Image (1)/Image_BG").gameObject.GetComponent<Image>();
         detail.CardNum_Text = transform.Find("Image (1)/CardNum").gameObject.GetComponent<Text>();
         detail.Time_Text = transform.Find("Image (1)/Time").gameObject.GetComponent<Text>();
         detail.Image1_Image = transform.Find("Image (1)").gameObject.GetComponent<Image>();

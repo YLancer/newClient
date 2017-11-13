@@ -18,6 +18,7 @@ public class PlayPageDetail
     public Image Image1_Image;
     public Image Image_Image;
     public Image Image_Hui;     //ª·≈∆œ‘ æ
+    public Image Image_BG;
     public Text CardNum_Text;
     public Text Time_Text;
     public UIItem CtrlPanel_UIItem;

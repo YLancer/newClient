@@ -45,6 +45,8 @@ public class MJTable : MonoBehaviour
             if (time < 0)
             {
                 time = 0;
+                //PlayPage playPage = FindObjectOfType<PlayPage>();
+                //playPage.OnClickHostedBtn();
             }
             return Mathf.FloorToInt(time);
         }

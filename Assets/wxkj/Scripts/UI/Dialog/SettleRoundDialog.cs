@@ -38,8 +38,8 @@ public class SettleRoundDialog : SettleRoundDialogBase
     private void OnClickContinue()  // 继续游戏的按钮  
     {
         Game.SoundManager.PlayClick();
-        print(" <<<<<<<<<<<<<< + 继续游戏的按钮  + >>>>>>>>>>>");
-        FindObjectOfType<PlayPage>().allGangCount = 0;    //将杠牌的统计重置为0
+        print(" <<<<<<<<<<<<<< + 继续游戏的按钮  + >>>>>>>>>>>" + Game.Instance.allGangCount);
+        //FindObjectOfType<PlayPage>().allGangCount = 0;    //将杠牌的统计重置为0
         Game.SocketGame.DoREADYL(1, 0);
         OnBackPressed();
     }
@@ -95,17 +95,17 @@ public class SettleRoundDialog : SettleRoundDialogBase
         }
 
         PrefabUtils.ClearChild(detail.SingleCard_UIItem);
-        SpawnCard(detail.SingleCard_UIItem.transform, RoomMgr.huSyn.bao);
+        SpawnCard(detail.SingleCard_UIItem.transform, Game.MJMgr.cardHui); //TODO wxd 结算界面的显示
 
-        detail.M0_UIItem.gameObject.SetActive(MJUtils.HasWanfa(MJUtils.MODE_ZHA));
-        detail.M1_UIItem.gameObject.SetActive(MJUtils.HasWanfa(MJUtils.MODE_ZHIDUI));
-        detail.M2_UIItem.gameObject.SetActive(MJUtils.HasWanfa(MJUtils.MODE_37JIA));
-        detail.M3_UIItem.gameObject.SetActive(MJUtils.HasWanfa(MJUtils.MODE_DANDIAOJIA));
+        detail.M0_UIItem.gameObject.SetActive(MJUtils.HasWanfa(MJUtils.MODE_DAIHUI));
+        detail.M1_UIItem.gameObject.SetActive(false);
+        detail.M2_UIItem.gameObject.SetActive(false);
+        detail.M3_UIItem.gameObject.SetActive(false);
 
-        detail.M4_UIItem.gameObject.SetActive(MJUtils.HasWanfa(MJUtils.MODE_DAFENG));
-        detail.M5_UIItem.gameObject.SetActive(MJUtils.HasWanfa(MJUtils.MODE_HONGZHONG));
-        detail.M6_UIItem.gameObject.SetActive(MJUtils.HasWanfa(MJUtils.MODE_DAILOU));
-        detail.M7_UIItem.gameObject.SetActive(MJUtils.HasWanfa(MJUtils.MODE_JIAHU));
+        detail.M4_UIItem.gameObject.SetActive(false);
+        detail.M5_UIItem.gameObject.SetActive(false);
+        detail.M6_UIItem.gameObject.SetActive(false);
+        detail.M7_UIItem.gameObject.SetActive(false);
         
         // TODO 结算界面
     }

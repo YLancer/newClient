@@ -453,11 +453,10 @@ public class PlayPage : PlayPageBase
         detail.CtrlPanel_UIItem.gameObject.SetActive(false);
     }
 
-    private  int  GangCount;
-    public int allGangCount;
+    public int GangCount;
     private void calAllGangCount()
     {
-        allGangCount += GangCount;
+        Game.Instance.allGangCount += GangCount;
     }
     void OnClickAnGangBtn()
     {
@@ -640,15 +639,18 @@ public class PlayPage : PlayPageBase
             if (Game.MJMgr.cardHui != -1)
             {
                 detail.Image_Hui.sprite = PrefabUtils.GetPrefab(Game.MJMgr.cardHui.ToString(), MyPrefabType.MJ).transform.FindChild("Image").GetComponent<Image>().sprite;
+
+                detail.Image_BG.gameObject.SetActive(true);
             }
             else
             {
                 detail.Image_Hui.gameObject.SetActive(false);
+                detail.Image_BG.gameObject.SetActive(false);
             }
                 //ShouImageHui();
         }        
     }
-     
+#region
     public void ShouImageHui()                                 //根据传来的会牌值   决定是否显示会牌图片
     {
         if(Game.MJMgr.cardHui!=-1)
@@ -656,14 +658,17 @@ public class PlayPage : PlayPageBase
             print(" 出来吧最后一张牌 " + Game.MJMgr.cardHui.ToString());
             GameObject hui = PrefabUtils.GetPrefab(Game.MJMgr.cardHui.ToString(), MyPrefabType.MJ);
             detail.Image_Hui.sprite = hui.transform.FindChild("Image").GetComponent<Image>().sprite;
+            detail.Image_BG.gameObject.SetActive(true);
         }
         else
         {
             detail.Image_Hui.gameObject.SetActive(false);
+            detail.Image_BG.gameObject.SetActive(false);
         }
     }
+#endregion
 
-    void OnClickHostedBtn()
+    public void OnClickHostedBtn()   //托管
     {
         Game.SoundManager.PlayClick();
         detail.PopupMenu_UIItem.gameObject.SetActive(false);

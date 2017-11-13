@@ -301,7 +301,7 @@ public class MainPage : MainPageBase
             }
             else
             {
-                detail.NoticeSub_Image.gameObject.SetActive(false);
+                detail.NoticeSub_Image.gameObject.SetActive(true);
             }
         }
     }

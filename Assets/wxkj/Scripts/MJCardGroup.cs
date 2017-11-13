@@ -209,7 +209,8 @@ public class MJCardGroup : MonoBehaviour {
     //杠牌的摸牌方式
     private void doGangDragCard(bool countdown)
     {
-        int gangCount =  FindObjectOfType<PlayPage>().allGangCount;
+        //int gangCount =  FindObjectOfType<PlayPage>().allGangCount;
+        int gangCount = Game.Instance.allGangCount;
         int index=0;
         if (LastGroup.list.Count>=0 && LastGroup.list.Count - gangCount >= 0)
         {
@@ -264,7 +265,8 @@ public class MJCardGroup : MonoBehaviour {
     }
     private  void  DOShowHuiPai(int cardPoint)  
     {
-        int GangCount = FindObjectOfType<PlayPage>().allGangCount;
+        //int GangCount = FindObjectOfType<PlayPage>().allGangCount;
+        int GangCount = Game.Instance.allGangCount; ;
         print(" >>>>>>>>>>>>> 展示会牌 <<<<<<<<<<<<<<<" + Game.PoolManager.CardPool.Spawn(cardPoint.ToString()));
         if (GangCount == 0)   
         {

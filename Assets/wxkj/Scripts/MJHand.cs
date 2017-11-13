@@ -343,11 +343,13 @@ public class MJHand : MonoBehaviour
             }
             else
             {
+                player.dropCardLayout.RemoveLast();
+
                 int count = player.handCardLayout.HandCards.Count;
                 int index = UnityEngine.Random.Range(0, count);
                 int index2 = index - 1;
                 int index3 = index - 2;
-                if (index <= 0)
+                if (index <=1 )
                 {
                     index2 = index + 1;
                     index3 = index + 2;
@@ -358,8 +360,8 @@ public class MJHand : MonoBehaviour
             }
             Game.PoolManager.CardPool.Despawn(Game.MJMgr.LastDropCard.gameObject);
         }
-        player.handCardLayout.LineUp();
 
+        player.handCardLayout.LineUp();
         Game.MJMgr.targetFlag.gameObject.SetActive(false);
         EventDispatcher.DispatchEvent(MessageCommand.PlayEffect, position, "gangUI_EF");
 
