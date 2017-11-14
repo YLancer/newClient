@@ -7,19 +7,22 @@ using cn.sharesdk.unity3d;
 public class LoginPage : LoginPageBase {
     //登录类型 1 游客  2 用户名密码 3微信 4QQ
     private int loginType = 3;
-    private string username = "kane";
-    private string password = "";
+    private WeChatLoginInfo loginInfo = null;
+    public ShareSDK shareSdk = null;
 
-
-    public void OnEnable() 
+    public void OnEnable()
     {
+        if (shareSdk != null)
+        {
+            shareSdk.showUserHandler = getUserInforCallback;
+        }
         ////wx 2017.7.22*****
         //if (detail.ShareSDK!=null)
         //{
         //    detail.ShareSDK.showUserHandler = getUserInforCallback;
         //    Debug.Log ("注册微信回调函数");
         //}
-        
+
     }
     public override void InitializeScene ()
 	{
@@ -27,7 +30,6 @@ public class LoginPage : LoginPageBase {
 
 		detail.WxButton_Button.onClick.AddListener (OnClickWX);  //微信登录点击事件
         detail.AccountButton_Button.onClick.AddListener(OnClickAccount);  //账号登录点击事件
-       
     }
 
     public override void OnSceneOpened(params object[] sceneData)
@@ -53,60 +55,43 @@ public class LoginPage : LoginPageBase {
 
     void OnClickWX(){
         loginType = 3;
-        Game.SoundManager.PlayClick();       
-     //   Game.AndroidUtil.AndroidJavaObject.Call("RequestLogin");
-        //wx 2017.7.22***** 微信登录 单例里返回token和openid
-        MyShareSDK.MyshareSDK.shareSdk.GetUserInfo(PlatformType.WeChat);
-        Hashtable authinfo = MyShareSDK.MyshareSDK.shareSdk.GetAuthInfo(PlatformType.WeChat);
-        print("GetAuthInfo" + MiniJSON.jsonEncode(authinfo));
-      
-        username = MyShareSDK.MyshareSDK.Username();
-       // password = MyShareSDK.MyshareSDK.Password();
-        password = (string)authinfo["token"];
-        doLogin();
-        Debug.Log("OnClickWeChatLogin.."+"发送账号"+username+"发送密码"+password);
+        Game.SoundManager.PlayClick();
+        
+        shareSdk.GetUserInfo(PlatformType.WeChat);
+        Debug.Log("OnClickWeChatLogin.."+"发送账号"+ loginInfo.nickname + "发送密码" + loginInfo.openid);
     }
-    //wx 2017.7.22*****
+
     //微信成功登陆回调
     void getUserInforCallback(int reqID, ResponseState state, PlatformType type, Hashtable data) 
     {
-            if (data != null)
+        if (data != null)
+        {
+            Debug.Log("微信回调成功 data: [" + data.toJson() + "]");
+            loginInfo = new WeChatLoginInfo();
+            try
             {
-                Debug.Log(data.toJson());
-                WeChatLoginInfo Wechatloginfo = new WeChatLoginInfo();
-                try
-                {
-                    Wechatloginfo.openid = (string)data["openid"];
-                    Wechatloginfo.nickname = (string)data["nickname"];
-                    Wechatloginfo.headimgurl = (string)data["headimgurl"];
-                    Wechatloginfo.language = (string)data["unionid"];
-                    Wechatloginfo.province = (string)data["province"];
-                    Wechatloginfo.city = (string)data["city"];
-                    Wechatloginfo.sex = int.Parse(data["sex"].ToString());
-                    Debug.Log("Wechatloginfo.openid" + Wechatloginfo.openid + "Wechatloginfo.nickName" + Wechatloginfo.nickname + "city" + Wechatloginfo.city);
-                    //  username=(string)data["openid"]; //oppenid
-                    //  password=(string)data["unionid"]; //token
-                    //  print("ranger****username" + username+"password"+password);
-                    // //发送到服务器
-                    //// Game.SocketHall.LoginMsg((string)data["openid"], (string)data["unionid"], loginType);
-                    // //服务器回调 
-
-                    // //跳转界面
-                    //  Game.UIMgr.PushScene(UIPage.MainPage);
-                    //  doLogin();
-                }
-                catch (System.Exception e)
-                {
-                    Debug.Log("微信接口有变动！" + e.Message);
-                    return;
-                }               
+                loginInfo.openid = (string)data["openid"];
+                loginInfo.nickname = (string)data["nickname"];
+                loginInfo.headimgurl = (string)data["headimgurl"];
+                loginInfo.unionid = (string)data["unionid"];
+                loginInfo.province = (string)data["province"];
+                loginInfo.city = (string)data["city"];
+                loginInfo.sex = int.Parse(data["sex"].ToString());
+                Debug.Log("Wechatloginfo.openid" + loginInfo.openid + "Wechatloginfo.nickName" + loginInfo.nickname + "city" + loginInfo.city);
+                doWXLogin();
             }
-            else
+            catch (System.Exception e)
             {
-                Debug.Log("微信date数据为空");
-            }   
-         Debug.Log("微信回调成功");
+                Debug.Log("微信接口有变动！" + e.Message);
+                return;
+            }
+        }
+        else
+        {
+            Debug.Log("微信date数据为空");
+        }
     }
+
 	void OnClickQQ(){
         //loginType = 4;
         //doLogin();
@@ -122,11 +107,12 @@ public class LoginPage : LoginPageBase {
 
     }
 
-    void doLogin()
+    void doWXLogin()
     {
-        if (Game.SocketHall.SocketNetTools.Connected)
+        print("   doWXLogin  " + loginInfo.nickname + "  connect " + Game.SocketHall.SocketNetTools.Connected);
+        if (Game.SocketHall.SocketNetTools.Connected && loginInfo != null)
         {
-            Game.SocketHall.LoginMsg(username, password, loginType);
+            Game.SocketHall.WXLoginMsg(loginInfo, loginType);
         }
         else
         {
@@ -138,11 +124,18 @@ public class LoginPage : LoginPageBase {
 
     void OnConnect()
     {
+        print("   on connect  ????  " + Game.SocketHall.SocketNetTools.Connected);
         Game.SocketHall.SocketNetTools.OnConnect -= OnConnect;
 
+        if (loginInfo == null)
+        {
+            print(" WXlogin error no data "); //TODO wxd log bug
+            Game.DialogMgr.PushDialog(UIDialog.SingleBtnDialog, "微信数据出错！");
+            return;
+        }
         if (Game.SocketHall.SocketNetTools.Connected)
         {
-            Game.SocketHall.LoginMsg(username, password, loginType);
+            Game.SocketHall.WXLoginMsg(loginInfo, loginType);
         }
         else
         {
@@ -181,18 +174,4 @@ public class LoginPage : LoginPageBase {
             Game.DialogMgr.PushDialog(UIDialog.SingleBtnDialog, msg.msg);
         }
     }
-
-    #region SDK
-    public void OnWeChatLogin(string openid, string access_token)
-    {
-        username = openid;
-        password = access_token;
-        doLogin();
-    }
-
-    public void OnClickWXShare()
-    {
-        Game.AndroidUtil.AndroidJavaObject.Call("WeChatShare", new object[] { "http://www.daqingxinshikong.com/WebServer/?from=singlemessage&isappinstalled=1", "测试主题11", "测试内容22" });
-    }
-    #endregion
 }

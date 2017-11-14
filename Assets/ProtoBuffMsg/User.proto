@@ -8,6 +8,14 @@ message LoginRequest
 	required sint32 type = 3; //登录类型 1 游客  2 用户名密码 3微信
 	optional string version = 4; //客户端版本号
 	optional sint32 deviceFlag = 5; //设备号  1:ios 2:android 3:winphon  4:other
+	//微信数据结构：
+	optional string openid = 6;
+	optional string nickname = 7;
+	optional string headimgurl = 8;
+	optional string unionid = 9;
+	optional string province = 10;
+	optional string city = 11;
+	optional sint32 sex = 12;
 }
 
 message LoginResponse
