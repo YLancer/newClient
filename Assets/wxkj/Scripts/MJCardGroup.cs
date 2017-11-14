@@ -13,6 +13,7 @@ public class MJCardGroup : MonoBehaviour {
 
     public static int activeGroupIndex = -1;
     public static int firstGroupIndex = -1;
+    private static bool firstDrag = false;//首次摸牌的标记，用firstGroupIndex判断会有循环回来到第一组的时候判断出错。
 
     public int index;
     int LastGroupindex;
@@ -46,6 +47,7 @@ public class MJCardGroup : MonoBehaviour {
 
         firstGroupIndex = startGroup;
         activeGroupIndex = startGroup;
+        firstDrag = true;
     }
 
     public bool IsFirstGroup
@@ -167,7 +169,7 @@ public class MJCardGroup : MonoBehaviour {
     private void doTryDragCard(bool countdown)
     {
         print("  trt drag card  loop  " + countdown + " - " + Game.MJTable.DiceNum + " = " + list.Count + " | " + IsFirstGroup + " - " + firstGroupIndex + " ] ");
-        if (IsFirstGroup)
+        if (firstDrag && IsFirstGroup) //使得第一组剩余牌为diceNum * 2
         {
             int zhuangNum = Game.MJTable.DiceNum * 2;
             if (list.Count <= zhuangNum)
@@ -188,6 +190,7 @@ public class MJCardGroup : MonoBehaviour {
         }
         else
         {
+            firstDrag = false;//TODO WXD 时机不准确
             if (list.Count > 0)
             {
                 Transform card = list[0];
