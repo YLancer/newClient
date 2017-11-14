@@ -112,15 +112,3 @@ public class AndroidUtil : MonoBehaviour
         StartCoroutine(GetCapture());
     }
 }
-
-[SerializeField]
-public class WeChatLoginInfo
-{
-    public string openid;
-    public string nickname;
-    public int sex;
-    public string language;
-    public string city;
-    public string province;
-    public string headimgurl;
-}

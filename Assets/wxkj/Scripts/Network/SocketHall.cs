@@ -8,10 +8,8 @@ using System;
 using UnityEngine.SceneManagement;
 
 public class SocketHall : MonoBehaviour {
-    //public string address = "121.40.177.10";    //老地址
-    //public int port = 5000;
-    public string address = "112.74.52.173";     //自有新地址
-    public int port = 9999;
+    public string address = "";     //自有新地址
+    public int port = 0;
 
     public bool NeedAuth = false;
 
@@ -104,6 +102,31 @@ public class SocketHall : MonoBehaviour {
         //设备号  1:ios 2:android 3:winphon 4:other
         int deviceFlag = GlobalConfig.GetPlatformId;
         LoginRequest request = new LoginRequest() { username = username, passward = password, type = type, version = GlobalConfig.GetVersion, deviceFlag= deviceFlag };
+        msg.data = NetSerilizer.Serialize(request);
+        SocketNetTools.SendMsg(msg);
+    }
+
+    public void WXLoginMsg(WeChatLoginInfo data, int type)
+    {
+        PacketBase msg = new PacketBase() { packetType = PacketType.LoginRequest };
+        //设备号  1:ios 2:android 3:winphon 4:other
+        int deviceFlag = GlobalConfig.GetPlatformId;
+        LoginRequest request = new LoginRequest()
+        {
+            username = "",
+            passward = "",
+            type = type,
+            version = GlobalConfig.GetVersion,
+            deviceFlag = deviceFlag,
+
+            openid = data.openid,
+            nickname = data.nickname,
+            headimgurl = data.headimgurl,
+            unionid = data.unionid,
+            province = data.province,
+            city = data.city,
+            sex = data.sex,
+        };
         msg.data = NetSerilizer.Serialize(request);
         SocketNetTools.SendMsg(msg);
     }

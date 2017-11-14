@@ -52,6 +52,62 @@ namespace packet.user
       get { return _deviceFlag; }
       set { _deviceFlag = value; }
     }
+    private string _openid = "";
+    [global::ProtoBuf.ProtoMember(6, IsRequired = false, Name=@"openid", DataFormat = global::ProtoBuf.DataFormat.Default)]
+    [global::System.ComponentModel.DefaultValue("")]
+    public string openid
+    {
+      get { return _openid; }
+      set { _openid = value; }
+    }
+    private string _nickname = "";
+    [global::ProtoBuf.ProtoMember(7, IsRequired = false, Name=@"nickname", DataFormat = global::ProtoBuf.DataFormat.Default)]
+    [global::System.ComponentModel.DefaultValue("")]
+    public string nickname
+    {
+      get { return _nickname; }
+      set { _nickname = value; }
+    }
+    private string _headimgurl = "";
+    [global::ProtoBuf.ProtoMember(8, IsRequired = false, Name=@"headimgurl", DataFormat = global::ProtoBuf.DataFormat.Default)]
+    [global::System.ComponentModel.DefaultValue("")]
+    public string headimgurl
+    {
+      get { return _headimgurl; }
+      set { _headimgurl = value; }
+    }
+    private string _unionid = "";
+    [global::ProtoBuf.ProtoMember(9, IsRequired = false, Name=@"unionid", DataFormat = global::ProtoBuf.DataFormat.Default)]
+    [global::System.ComponentModel.DefaultValue("")]
+    public string unionid
+    {
+      get { return _unionid; }
+      set { _unionid = value; }
+    }
+    private string _province = "";
+    [global::ProtoBuf.ProtoMember(10, IsRequired = false, Name=@"province", DataFormat = global::ProtoBuf.DataFormat.Default)]
+    [global::System.ComponentModel.DefaultValue("")]
+    public string province
+    {
+      get { return _province; }
+      set { _province = value; }
+    }
+    private string _city = "";
+    [global::ProtoBuf.ProtoMember(11, IsRequired = false, Name=@"city", DataFormat = global::ProtoBuf.DataFormat.Default)]
+    [global::System.ComponentModel.DefaultValue("")]
+    public string city
+    {
+      get { return _city; }
+      set { _city = value; }
+    }
+    private int _sex = default(int);
+    [global::ProtoBuf.ProtoMember(12, IsRequired = false, Name=@"sex", DataFormat = global::ProtoBuf.DataFormat.ZigZag)]
+    [global::System.ComponentModel.DefaultValue(default(int))]
+    public int sex
+    {
+      get { return _sex; }
+      set { _sex = value; }
+    }
     private global::ProtoBuf.IExtension extensionObject;
     global::ProtoBuf.IExtension global::ProtoBuf.IExtensible.GetExtensionObject(bool createIfMissing)
       { return global::ProtoBuf.Extensible.GetExtensionObject(ref extensionObject, createIfMissing); }
