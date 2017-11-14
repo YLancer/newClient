@@ -89,7 +89,7 @@ public class HandCardLayout : MonoBehaviour {
         {
             pos = newPos.localPosition;
         }
-        child.transform.localPosition = pos + Vector3.right * width * 1.2f;
+        child.transform.localPosition = pos + Vector3.right * width * 1.5f;
 
         last = child.GetComponent<MJEntity>();
         last.Card = card;
@@ -194,15 +194,15 @@ public class HandCardLayout : MonoBehaviour {
                 Vector3[] path = new Vector3[] { lcPos , upPos , leftUpPos ,toPos};
                 //trans.trans.DOLocalPath(path,1);
                 trans.transform.DOLocalMove(upPos, 0.3f).OnComplete(()=> {
-                    trans.transform.DOLocalMove(leftUpPos, 0.3f).OnComplete(()=> {
-                        trans.transform.DOLocalMove(toPos, 0.5f);
+                    trans.transform.DOLocalMove(leftUpPos, 0.5f).OnComplete(()=> {
+                        trans.transform.DOLocalMove(toPos, 0.4f);
                     });
                 });
             }
             else
             {
                 //trans.transform.DOLocalMove(toPos, 0.3f).SetDelay(0.5f);
-                trans.transform.DOLocalMoveX(toPos.x, 0.3f).SetDelay(0.5f);
+                trans.transform.DOLocalMoveX(toPos.x, 0.3f).SetDelay(0.4f);
             }
         }
 
