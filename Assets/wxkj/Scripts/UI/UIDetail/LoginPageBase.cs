@@ -14,6 +14,6 @@ public class LoginPageBase : UISceneBase
         detail.AccountButton_Image = transform.Find("AccountButton").gameObject.GetComponent<Image>();
         detail.AccountButton_Button = transform.Find("AccountButton").gameObject.GetComponent<Button>();
         
-        detail.ShareSDK =  GameObject .Find("ShardSDK").GetComponent<ShareSDK>();
+        //detail.ShareSDK =  GameObject .Find("ShardSDK").GetComponent<ShareSDK>();
     }
 }

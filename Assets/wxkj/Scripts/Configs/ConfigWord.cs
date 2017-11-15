@@ -61,6 +61,7 @@ public class ConfigWord : ConfigBase
 
     public static void FromJson(string json)
     {
+        Debug.Log(" <<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<" + _map + _datas);
         List<object> list = json.listFromJson();
         _map = new Dictionary<int, ConfigWord>(list.Count);
         _datas = new List<ConfigWord>(list.Count);

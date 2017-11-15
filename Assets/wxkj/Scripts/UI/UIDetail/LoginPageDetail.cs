@@ -11,5 +11,5 @@ public class LoginPageDetail
     public Image AccountButton_Image;
     public Button AccountButton_Button;
 
-    public ShareSDK ShareSDK;
+    //public ShareSDK ShareSDK;
 }

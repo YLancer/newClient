@@ -4,14 +4,17 @@ using packet.msgbase;
 using packet.user;
 using packet.game;
 using cn.sharesdk.unity3d;
+using UnityEngine.UI;
 public class LoginPage : LoginPageBase {
     //登录类型 1 游客  2 用户名密码 3微信 4QQ
     private int loginType = 3;
     private WeChatLoginInfo loginInfo = null;
     public ShareSDK shareSdk = null;
+    public Text text;
 
     public void OnEnable()
     {
+        text.text = "wj";
         if (shareSdk != null)
         {
             shareSdk.showUserHandler = getUserInforCallback;
@@ -56,16 +59,16 @@ public class LoginPage : LoginPageBase {
     void OnClickWX(){
         loginType = 3;
         Game.SoundManager.PlayClick();
-        
         shareSdk.GetUserInfo(PlatformType.WeChat);
-        Debug.Log("OnClickWeChatLogin.."+"发送账号"+ loginInfo.nickname + "发送密码" + loginInfo.openid);
     }
 
     //微信成功登陆回调
     void getUserInforCallback(int reqID, ResponseState state, PlatformType type, Hashtable data) 
     {
+        text.text += loginInfo.nickname + loginInfo.openid + "1.2";
         if (data != null)
         {
+            text.text += loginInfo.nickname + loginInfo.openid + "1.5";
             Debug.Log("微信回调成功 data: [" + data.toJson() + "]");
             loginInfo = new WeChatLoginInfo();
             try
@@ -78,6 +81,7 @@ public class LoginPage : LoginPageBase {
                 loginInfo.city = (string)data["city"];
                 loginInfo.sex = int.Parse(data["sex"].ToString());
                 Debug.Log("Wechatloginfo.openid" + loginInfo.openid + "Wechatloginfo.nickName" + loginInfo.nickname + "city" + loginInfo.city);
+                text.text += loginInfo.openid +"|"+ loginInfo.openid + "|\r\n"+ loginInfo.nickname + " | "+ loginInfo.headimgurl + "|\r\n" + loginInfo.unionid + "|"+ loginInfo.province+ "7777.215";
                 doWXLogin();
             }
             catch (System.Exception e)
@@ -109,6 +113,7 @@ public class LoginPage : LoginPageBase {
 
     void doWXLogin()
     {
+        text.text += loginInfo.nickname + loginInfo.openid + "5";
         print("   doWXLogin  " + loginInfo.nickname + "  connect " + Game.SocketHall.SocketNetTools.Connected);
         if (Game.SocketHall.SocketNetTools.Connected && loginInfo != null)
         {
