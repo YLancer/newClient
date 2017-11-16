@@ -1,5 +1,5 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="com.YC.TestShareSDK"
+    package="com.wanyu.mj"
     android:versionCode="2"
     android:versionName="2.0" >
 
@@ -47,13 +47,13 @@
 		
         <!-- 微信分享回调 -->
         <activity
-            android:name="com.YC.TestShareSDK.wxapi.WXEntryActivity"
+            android:name="com.wanyu.mj.wxapi.WXEntryActivity"
             android:theme="@android:style/Theme.Translucent.NoTitleBar"
             android:configChanges="keyboardHidden|orientation|screenSize"
             android:exported="true" />
         <!-- 易信分享回调 -->
         <activity
-            android:name=".yxapi.YXEntryActivity"
+            android:name="com.zm.mj.yxapi.YXEntryActivity"
             android:theme="@android:style/Theme.Translucent.NoTitleBar"
             android:configChanges="keyboardHidden|orientation|screenSize"
             android:excludeFromRecents="true"
@@ -61,7 +61,7 @@
             android:launchMode="singleTop" />			
         <!-- 支付宝分享回调 -->
         <activity
-            android:name=".apshare.ShareEntryActivity"
+            android:name="com.zm.mj.apshare.ShareEntryActivity"
             android:theme="@android:style/Theme.Translucent.NoTitleBar"
             android:configChanges="keyboardHidden|orientation|screenSize"
             android:exported="true"/>

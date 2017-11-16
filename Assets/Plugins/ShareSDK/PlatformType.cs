@@ -56,8 +56,7 @@ namespace cn.sharesdk.unity3d
 		KakaoStory = 45,        //KakaoStory 
 		FacebookMessenger = 46, //FacebookMessenger
 		Bluetooth = 48,         //Bluetooth
-		Alipay = 50,            //Alipay
-		AlipayMoments = 51,     //AlipayMoments
+		Alipay = 50,
 
         #if UNITY_ANDROID
 		KakaoPlatform = 44,    
