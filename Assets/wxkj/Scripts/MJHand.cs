@@ -430,7 +430,21 @@ public class MJHand : MonoBehaviour
 
     internal void PlayShuaiJiuYao(int[] list, bool isMy)
     {
-        //TODO WXD
+        var handCardLayout = Game.MJMgr.MyPlayer.handCardLayout;
+        for (int i = 0; i < list.Length; i++) //可以利用有序数组优化成一次for
+        {
+            for (int j = 0; j < handCardLayout.list.Count; j++)
+            {
+                var card = handCardLayout.list[j];
+                if (card.Card == list[i])
+                {
+                    handCardLayout.list.Remove(card);
+                    Destroy(card.gameObject);//需参照出牌的地方，做这里的删除。
+                    break;
+                }
+            }
+        }
+        handCardLayout.LineUp(true);
     }
 
     public void Bao(int dice, int oldBao)

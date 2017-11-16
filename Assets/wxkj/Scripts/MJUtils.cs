@@ -137,7 +137,7 @@ public class MJUtils
     // 甩九幺 
     public static bool ShuaiJiuYao(int actions=-1)
     {
-        return CanAct(ACT_SHUAIJIUYAO, actions) && Game.MJMgr.isShuaiJiuYao == true; //TODO 技术债务 临时处理 
+        return CanAct(ACT_SHUAIJIUYAO, actions);
     }
 
     public static bool HasWanfa(int act)

@@ -29,8 +29,6 @@ public class MJMgr : MonoBehaviour {
         }
     }
 
-    public bool isShuaiJiuYao = false;
-
     //public List<int> All = new List<int>();
     public List<MJPlayer> players = new List<MJPlayer>();
     public int makersIndex = -1;
@@ -248,16 +246,9 @@ public class MJMgr : MonoBehaviour {
 
             MJCardGroup.TryDragCard();
         }
-        //TODO WXD Add ShuaiJiuYao
         if ((RoomMgr.playerGamingSyn != null) && ((RoomMgr.playerGamingSyn.wanfa & MJUtils.MODE_SHUAIJIUYAO) != 0))
         {
-            GameOperPlayerActionNotify packet = RoomMgr.actionNotify;
-            if (packet == null)
-            {
-                packet = new GameOperPlayerActionNotify();
-            }
-            packet.actions |= MJUtils.ACT_SHUAIJIUYAO;
-            Game.SocketGame.OnGameOperPlayerActionNotify(packet); //模拟发包
+            Game.UIMgr.PushScene(UIPage.JiuYaoPage);
         }
         else //跳过界面，直接准备完成
         {
