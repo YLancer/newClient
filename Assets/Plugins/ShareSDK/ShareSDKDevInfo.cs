@@ -7,7 +7,7 @@ namespace cn.sharesdk.unity3d
 	[Serializable]
 	public class DevInfoSet
 
-	{/*
+    {/*
         public SinaWeiboDevInfo sinaweibo;
         public TencentWeiboDevInfo tencentweibo;
         public Facebook facebook;
@@ -32,12 +32,12 @@ namespace cn.sharesdk.unity3d
         public Pinterest pinterest;
         public Mingdao mingdao;
         public KakaoTalk kakaoTalk;
-        public KakaoStory kakaoStory;*/
+        public KakaoStory kakaoStory;
         public QQ qq;
-        public QZone qzone;  
-        public WeChat wechat;  /*
+        public QZone qzone;  */
+        public WeChat wechat;  
         public WeChatMoments wechatMoments;
-        public WeChatFavorites wechatFavorites;
+        public WeChatFavorites wechatFavorites;/*
         public Yixin yixin;
         public YixinMoments yixinMoments;
         public FacebookMessenger facebookMessenger;
@@ -143,7 +143,7 @@ namespace cn.sharesdk.unity3d
 		public const int type = (int) PlatformType.WeChat;
 		public string AppId = "wx4868b35061f87885";
 		public string AppSecret = "64020361b8ec4c99936c0e3999a9f249";
-		public bool BypassApproval = true;
+		public bool BypassApproval = false;
 		#elif UNITY_IPHONE
 		public const int type = (int) PlatformType.WeChat;
 		public string app_id = "wx4868b35061f87885";

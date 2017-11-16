@@ -698,7 +698,9 @@ public class PlayPage : PlayPageBase
         {
             deskId = RoomMgr.playerGamingSyn.deskId;
         }
-        Game.AndroidUtil.Share(deskId);
+        Game.AndroidUtil.OnShareClick(deskId);
+        //Game.AndroidUtil.Share(deskId);
+
     }
 
     public List<MJEntity> CardList = new List<MJEntity>(); //弹上去幺九牌集合

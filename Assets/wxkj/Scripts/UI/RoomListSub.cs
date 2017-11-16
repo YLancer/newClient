@@ -12,7 +12,8 @@ public class RoomListSub : RoomListSubBase
         detail.PlayerNum_Text.text = string.Format("{0}/{1}", room.players.Count, room.roomType);
 
         detail.WxButton_Button.onClick.AddListener(()=> {
-            Game.AndroidUtil.Share(room.code);
+            //Game.AndroidUtil.Share(room.code);
+            Game.AndroidUtil.OnShareClick(room.code);
         });
     }
 }
