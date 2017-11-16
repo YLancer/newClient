@@ -615,6 +615,8 @@ public class PlayPage : PlayPageBase
         {
             deskId = RoomMgr.playerGamingSyn.deskId;
         }
-        Game.AndroidUtil.Share(deskId);
+        Game.AndroidUtil.OnShareClick(deskId);
+        //Game.AndroidUtil.Share(deskId);
+
     }
 }
