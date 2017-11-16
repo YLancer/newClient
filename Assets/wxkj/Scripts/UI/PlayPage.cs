@@ -243,6 +243,7 @@ public class PlayPage : PlayPageBase
         }
 
         OnUpdateCtrlPanel();
+        ShouImageHui();
 
         foreach (PlayerSub sub in players)
         {
@@ -393,18 +394,11 @@ public class PlayPage : PlayPageBase
         Game.MJMgr.MyPlayer.Hu();
         detail.CtrlPanel_UIItem.gameObject.SetActive(false);
     }
-
-    public int GangCount;
-    private void calAllGangCount()
-    {
-        Game.Instance.allGangCount += GangCount;
-    }
+    
     void OnClickAnGangBtn()
     {
         Game.SoundManager.PlayClick();
         Game.Instance.Gang = true;
-        GangCount = 1;  
-        calAllGangCount();
         Game.MJMgr.MyPlayer.AnGang();
         detail.CtrlPanel_UIItem.gameObject.SetActive(false);
     }
@@ -413,8 +407,6 @@ public class PlayPage : PlayPageBase
     {
         Game.SoundManager.PlayClick();
         Game.Instance.Gang = true;
-        GangCount = 1;
-        calAllGangCount();
         Game.MJMgr.MyPlayer.BuGang();
         detail.CtrlPanel_UIItem.gameObject.SetActive(false);
     }
@@ -423,8 +415,6 @@ public class PlayPage : PlayPageBase
     {
         Game.SoundManager.PlayClick();
         Game.Instance.Gang = true;
-        GangCount = 1;
-        calAllGangCount();
         Game.MJMgr.MyPlayer.ZhiGang();
         detail.CtrlPanel_UIItem.gameObject.SetActive(false);
     }
@@ -577,26 +567,13 @@ public class PlayPage : PlayPageBase
         {
             detail.CardNum_Text.text = Game.MJMgr.CardLeft.ToString();
             detail.Time_Text.text = System.DateTime.Now.ToString("HH:mm");
-            if (Game.MJMgr.cardHui != -1)
-            {
-                detail.Image_Hui.sprite = PrefabUtils.GetPrefab(Game.MJMgr.cardHui.ToString(), MyPrefabType.MJ).transform.FindChild("Image").GetComponent<Image>().sprite;
-
-                detail.Image_BG.gameObject.SetActive(true);
-            }
-            else
-            {
-                detail.Image_Hui.gameObject.SetActive(false);
-                detail.Image_BG.gameObject.SetActive(false);
-            }
-                //ShouImageHui();
-        }        
+        }
     }
-#region
+
     public void ShouImageHui()                                 //根据传来的会牌值   决定是否显示会牌图片
     {
         if(Game.MJMgr.cardHui!=-1)
         {
-            print(" 出来吧最后一张牌 " + Game.MJMgr.cardHui.ToString());
             GameObject hui = PrefabUtils.GetPrefab(Game.MJMgr.cardHui.ToString(), MyPrefabType.MJ);
             detail.Image_Hui.sprite = hui.transform.FindChild("Image").GetComponent<Image>().sprite;
             detail.Image_BG.gameObject.SetActive(true);
@@ -607,7 +584,6 @@ public class PlayPage : PlayPageBase
             detail.Image_BG.gameObject.SetActive(false);
         }
     }
-#endregion
 
     public void OnClickHostedBtn()   //托管
     {
