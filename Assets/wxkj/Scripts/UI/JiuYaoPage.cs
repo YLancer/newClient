@@ -104,6 +104,7 @@ public class JiuYaoPage : JiuYaoPageBase
             RoomMgr.actionNotify = new GameOperPlayerActionNotify();
         }
         Game.SocketGame.DoGameOperPlayerActionSyn(MJUtils.ACT_SHUAIJIUYAO, throwList.ToArray());
+        CancelInvoke("OnBackPressed");
         OnBackPressed();
     }
 }

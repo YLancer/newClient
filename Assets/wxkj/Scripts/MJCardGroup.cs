@@ -11,6 +11,8 @@ public class MJCardGroup : MonoBehaviour {
     public int col = 18;
     private int gangIndex = 1;
 
+    private int headIndex = 0;
+
     public static int activeGroupIndex = -1;
     public static int firstGroupIndex = -1;
     private static bool firstDrag = false;//首次摸牌的标记，用firstGroupIndex判断会有循环回来到第一组的时候判断出错。
@@ -88,24 +90,6 @@ public class MJCardGroup : MonoBehaviour {
 			return Game.MJMgr.cardGroups[nextIndex];
 		}
 	}
-    //由第一牌组得知最后一个牌组   确定下来！！！
-    public MJCardGroup LastGroup
-    {
-        get
-        {
-            int lastIndex = firstGroupIndex;
-            //int lastIndex = firstGroupIndex - 3;
-            //if (lastIndex == -3)
-            //{
-            //    lastIndex = 3;
-            //}
-            //else
-            //{
-            //    lastIndex += 2;
-            //}
-            return Game.MJMgr.cardGroups[lastIndex];
-        }
-    }
 
     public void Clear()
     {
@@ -166,13 +150,14 @@ public class MJCardGroup : MonoBehaviour {
             group.doTryDragCard(countdown);
         }
     }
+
     private void doTryDragCard(bool countdown)
     {
         print("  trt drag card  loop  " + countdown + " - " + Game.MJTable.DiceNum + " = " + list.Count + " | " + IsFirstGroup + " - " + firstGroupIndex + " ] ");
-        if (firstDrag && IsFirstGroup) //使得第一组剩余牌为diceNum * 2
+        if (firstDrag && IsFirstGroup) //从第一组顺序为diceNum * 2的牌开始摸
         {
             int zhuangNum = Game.MJTable.DiceNum * 2;
-            if (list.Count <= zhuangNum)
+            if (list.Count <= zhuangNum) //因为是从zhuangNum开始摸的，所以摸完的条件是list剩余牌数<=zhuangNum。
             {
                 NextGroup.SetActive();
                 NextGroup.doTryDragCard(countdown);
@@ -212,47 +197,26 @@ public class MJCardGroup : MonoBehaviour {
     //杠牌的摸牌方式
     private void doGangDragCard(bool countdown)
     {
-        //int gangCount =  FindObjectOfType<PlayPage>().allGangCount;
-        int gangCount = Game.Instance.allGangCount;
-        int index=0;
-        if (LastGroup.list.Count>=0 && LastGroup.list.Count - gangCount >= 0)
+        var lastGroup = Game.MJMgr.cardGroups[firstGroupIndex];
+        for(int i = 0; i < 5; i++) //找到末尾的牌堆。
         {
-            for (int i = 1; i <= gangCount; i++)
+            if(lastGroup.list.Count > 0)
             {
-                if (i % 2 == 0)
-                {
-                    index = i - 1;
-                }
-                else
-                {
-                    index = i + 1;
-                }
+                break;
             }
-            LastGroup.SetActive();
-            //PrevGroup.doGangDragCard(countdown);
-            Transform card = LastGroup.list[LastGroup.list.Count - index];
-            Game.PoolManager.CardPool.Despawn(card.gameObject);
-            LastGroup.list.RemoveAt(LastGroup.list.Count - index);
+            lastGroup = lastGroup.PrevGroup;
         }
-        else
+        if(lastGroup.list.Count <= 0)//牌摸完了。
         {
-            LastGroup.PrevGroup.SetActive();
-            //PrevGroup.PrevGroup.doGangDragCard(countdown);
-            for (int j = 1;j <= gangCount- LastGroup.list.Count; j++)
-            {
-                if (j % 2 == 0)
-                {
-                    index = j - 1;
-                }
-                else
-                {
-                    index = j + 1;
-                }
-            }
-            Transform card = LastGroup.PrevGroup.list[LastGroup.PrevGroup.list.Count - index];
-            Game.PoolManager.CardPool.Despawn(card.gameObject);
-            LastGroup.PrevGroup.list.RemoveAt(LastGroup.PrevGroup.list.Count - index);
-        }    
+            return;
+        }
+
+        int len = lastGroup.list.Count;
+        int removeIdx = len - (2 - (len & 1));
+        Transform card = lastGroup.list[removeIdx];
+        Game.PoolManager.CardPool.Despawn(card.gameObject);
+        lastGroup.list.RemoveAt(removeIdx);
+        
         if (countdown)
         {
             Game.MJMgr.CardLeft--;
@@ -266,21 +230,14 @@ public class MJCardGroup : MonoBehaviour {
         MJCardGroup group = Game.MJMgr.ActiveGroup;
         group.DOShowHuiPai(cardPoint);
     }
-    private  void  DOShowHuiPai(int cardPoint)  
+    private void DOShowHuiPai(int cardPoint)  
     {
-        //int GangCount = FindObjectOfType<PlayPage>().allGangCount;
-        int GangCount = Game.Instance.allGangCount; ;
-        print(" >>>>>>>>>>>>> 展示会牌 <<<<<<<<<<<<<<<" + Game.PoolManager.CardPool.Spawn(cardPoint.ToString()));
-        if (GangCount == 0)   
-        {
-            if (LastGroup.list.Count >= 0)
-            {
-                Transform cardHui = LastGroup.list[LastGroup.list.Count - 2];
-                cardHui.GetComponent<MeshFilter>().mesh = Game.PoolManager.CardPool.Spawn(cardPoint.ToString()).GetComponent<MeshFilter>().mesh;
-                //cardHui.transform.Rotate(new Vector3(-180, 0, 0));
-                cardHui.transform.rotation = Quaternion.Euler(new Vector3(-180, 0, 0));
-            }
-        }
+        var lastGroup = Game.MJMgr.cardGroups[firstGroupIndex];
+        Debug.Assert(lastGroup.list.Count >= 0);
+
+        Transform cardHui = lastGroup.list[lastGroup.list.Count - 2];
+        cardHui.GetComponent<MeshFilter>().mesh = Game.PoolManager.CardPool.Spawn(cardPoint.ToString()).GetComponent<MeshFilter>().mesh;
+        cardHui.transform.rotation = Quaternion.Euler(new Vector3(-180, 0, 0));
     }
 
     internal static void DragBaoCard(int dice = -1)

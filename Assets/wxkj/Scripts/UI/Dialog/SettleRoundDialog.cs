@@ -38,8 +38,6 @@ public class SettleRoundDialog : SettleRoundDialogBase
     private void OnClickContinue()  // 继续游戏的按钮  
     {
         Game.SoundManager.PlayClick();
-        print(" <<<<<<<<<<<<<< + 继续游戏的按钮  + >>>>>>>>>>>" + Game.Instance.allGangCount);
-        //FindObjectOfType<PlayPage>().allGangCount = 0;    //将杠牌的统计重置为0
         Game.SocketGame.DoREADYL(1, 0);
         OnBackPressed();
     }

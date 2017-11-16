@@ -249,7 +249,6 @@ public class Game : MonoBehaviour
     public GameState state = GameState.Null;
     public bool Ting = false;   // 是否已经听
     public bool Gang = false;   //是否杠了
-    public int allGangCount=0 ;  //杠的次数
 
     public int playerId = -1;
     public static bool IsSelf(int playerId)
@@ -534,7 +533,6 @@ public class Game : MonoBehaviour
         Instance.score = 0;
         Instance.state = GameState.Hall;
         Instance.Ting = false;   // 是否已经听
-        Instance.allGangCount = 0;
     }
 
     public static void OnServerChangeSyn(PacketBase msg)

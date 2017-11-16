@@ -276,10 +276,26 @@ public class MJHand : MonoBehaviour
             player.tableCardLayout.AddCard(cardG);
             player.tableCardLayout.AddCard(cardG);
 
-            player.handCardLayout.RemoveCard(cardG);
-            player.handCardLayout.RemoveCard(cardG);
-            player.handCardLayout.RemoveCard(cardG);
-            player.handCardLayout.RemoveCard(cardG);
+            if (!isMy)
+            {
+                int count = player.handCardLayout.HandCards.Count;
+                int index = UnityEngine.Random.Range(0, count);
+                if (index < 3)
+                {
+                    index = 3;
+                }
+                player.handCardLayout.RemoveCardAt(index);
+                player.handCardLayout.RemoveCardAt(index - 1);
+                player.handCardLayout.RemoveCardAt(index - 2);
+                player.handCardLayout.RemoveCardAt(index - 3);
+            }
+            else
+            {
+                player.handCardLayout.RemoveCard(cardG);
+                player.handCardLayout.RemoveCard(cardG);
+                player.handCardLayout.RemoveCard(cardG);
+                player.handCardLayout.RemoveCard(cardG);
+            }
         }
         else if(type == 2)
         {
@@ -378,6 +394,7 @@ public class MJHand : MonoBehaviour
         Game.PoolManager.EffectPool.Despawn(eff, 2);
 
         anim.Play("PutTable");
+        Game.Instance.Gang = true;
     }
     
 
@@ -385,7 +402,7 @@ public class MJHand : MonoBehaviour
     internal void PlayShouPao(int cardSP, bool isMy)
     {
         Game.SoundManager.PlayHu(position);
-        if (isMy)  
+        if (isMy)
         {// ture
             player.shouPaoCardLayout.AddCard(cardSP);
         }

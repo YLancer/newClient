@@ -108,8 +108,6 @@ public class MJTable : MonoBehaviour
 
     public int Dice(int diceIndex1, int diceIndex2)
     {
-        //int diceIndex1 = Random.Range(1, 6);
-        //int diceIndex2 = Random.Range(1, 6);
         DiceAnimation.Play("Dice");
         Debug.LogFormat("Dice:[{0},{1}]", diceIndex1, diceIndex2);
         dice1.SetDice(diceIndex1);

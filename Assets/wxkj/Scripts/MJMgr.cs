@@ -53,6 +53,7 @@ public class MJMgr : MonoBehaviour {
     public bool HangUp = false;
 
     public int cardHui; // 需要一个会牌的值
+    public int tmpHui; //TODO WXD hui 临时值。需要分析处理。
 
     public int[] position = new int[4];
     public int[] indexs = new int[4];
@@ -135,6 +136,7 @@ public class MJMgr : MonoBehaviour {
 		//All.Clear();
         CardLeft = 0;
         cardHui = 0;
+        tmpHui = 0;
 
         cardGroups[0].Clear();
         cardGroups[1].Clear();
@@ -246,6 +248,8 @@ public class MJMgr : MonoBehaviour {
 
             MJCardGroup.TryDragCard();
         }
+        //yield 可能要yield。
+        //刚摸完牌的时候：
         if ((RoomMgr.playerGamingSyn != null) && ((RoomMgr.playerGamingSyn.wanfa & MJUtils.MODE_SHUAIJIUYAO) != 0))
         {
             Game.UIMgr.PushScene(UIPage.JiuYaoPage);
@@ -253,6 +257,13 @@ public class MJMgr : MonoBehaviour {
         else //跳过界面，直接准备完成
         {
             Game.SocketGame.DoREADYL(1, 2);
+        }
+        
+        if (tmpHui != -1)                   //根据传来的会牌值   判断是否要显示最后一张牌
+        {
+            cardHui = tmpHui;
+            MJCardGroup.ShowHuiCard(cardHui);
+            EventDispatcher.DispatchEvent(MessageCommand.MJ_UpdatePlayPage);
         }
     }
 

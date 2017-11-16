@@ -434,7 +434,7 @@ public partial class SocketGame : MonoBehaviour {
 
         print("    ============ data.guiCard ==============   " + data.guiCard.Count + " / " + data.guiCard[0]);
 
-        Game.MJMgr.cardHui = data.guiCard[0];     
+        Game.MJMgr.tmpHui = data.guiCard[0];
         //Game.MJMgr.Init();
         Game.Instance.Ting = false;
         //Game.IsBusy = false;
@@ -689,12 +689,6 @@ public partial class SocketGame : MonoBehaviour {
         int position = data.position;
         MJPlayer player = Game.MJMgr.GetPlayerByPosition(data.position);
         bool isMy = player.index == 0;
-
-        if(Game.MJMgr.cardHui!=-1)                   //根据传来的会牌值   判断是否要显示最后一张牌
-        {
-            MJCardGroup.ShowHuiCard(Game.MJMgr.cardHui);
-        }
-
         if (MJUtils.DragCard(data.action))
         {
             int card = data.cardValue[0];
