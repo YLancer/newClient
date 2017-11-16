@@ -97,10 +97,5 @@ public class PlayPageBase : UISceneBase
         detail.Text_Text = transform.Find("DumpBtn/Text").gameObject.GetComponent<Text>();
         detail.DumpBtn_Image = transform.Find("DumpBtn").gameObject.GetComponent<Image>();
         detail.DumpBtn_Button = transform.Find("DumpBtn").gameObject.GetComponent<Button>();
-
-        //À¶æ≈Á€ΩÁ√Ê
-        detail.ShuaiJiuYao_panel = transform.Find("ShuaiJiuYao_panel").gameObject.GetComponent<UIItem>();
-        detail.Text_tishi = transform.Find("ShuaiJiuYao_panel/Text_tishi").gameObject.GetComponent<Text>();
-        detail.marksure_Btn = transform.Find("ShuaiJiuYao_panel/marksure_Btn").gameObject.GetComponent<Button>();
     }
 }

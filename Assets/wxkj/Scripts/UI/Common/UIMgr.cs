@@ -60,6 +60,8 @@ public enum UIPage  // 加载UI界面
     UserInfoPage = 25,
     [Description("Prefabs/UI/HelpPage")]     //帮助的界面
     HelpPage = 26,
+    [Description("Prefabs/UI/ShuaiJiuYaoPage")]//甩九幺界面
+    JiuYaoPage = 31,
 }
 
 public class UIMgr : MonoBehaviour

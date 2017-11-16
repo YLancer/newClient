@@ -2,17 +2,14 @@
 using System.Collections;
 using System.Collections.Generic;
 
-public class MJEntity : MonoBehaviour {   
-    public bool isCardUp = false;//控制OnMouseDown
+public class MJEntity : MonoBehaviour {
+    public bool isCardUp = false;//控制OnMouseDown启用特殊功能
+    private bool isSelect = false;
+    public bool Select { get { return isSelect; } }
+    private bool isEnable = true;
     private static int id = 0;
     private int cardId;
-    public int CardId
-    {
-        get
-        {
-            return cardId;
-        }
-    }
+    public int CardId { get { return cardId; } }
 
     public int Card
     {
@@ -28,66 +25,66 @@ public class MJEntity : MonoBehaviour {
             cardId = value * 100000 + id;
         }
     }
-    PlayPage playPage;
-    private List<MJEntity> throwlist =new List<MJEntity>();
-    private List<int> throwcardPointlist = new List<int>();
-
-    void OnMouseDown()
-    {
-        playPage = FindObjectOfType<PlayPage>();
-        throwlist = GameObject.Find("Player0").GetComponentInChildren<HandCardLayout>().list;
-        throwcardPointlist= GameObject.Find("Player0").GetComponentInChildren<HandCardLayout>().HandCards;
-
-        if (Game.MJMgr.HangUp)
-        {
-            return;
-        }
-
-        if (!(IsMine() && IsHandCard()))
-        {
-            return;
-        }
-        if (Game.MJMgr.isShuaiJiuYao)
-        {
-            if(!isCardUp)
-            {
-                return;
-            }
-            if (playPage.CardList.Count > 2) 
-            {
-                playPage.throwCount = 1;
-                playPage.throwCardList.Add(this.Card);              
-                Destroy(this.gameObject, 0.1f);
-                throwlist.Remove(this);
-                throwcardPointlist.Remove(this.Card);
-                playPage.CalThrowZongShu();
-            }
-        }  
-        else if (MJUtils.DropCard())
-        {
-            playPage.throwCount = 0;
-            OnClickDrop();
-        }
-    }
 
     public bool IsMine()
     {
         MJPlayer player = this.GetComponentInParent<MJPlayer>();
-        if (null != player && player.index == 0)
-        {
-            return true;
-        }
-        return false;
+        return (null != player && player.index == 0);
     }
 
     public bool IsHandCard()
     {
         HandCardLayout layout = this.GetComponentInParent<HandCardLayout>();
-        if (null != layout)
+        return (null != layout);
+    }
+
+    void OnMouseDown()
+    {
+        if (Game.MJMgr.HangUp)
         {
-            return true;
+            return;
         }
-        return false;
+        if (!(IsMine() && IsHandCard()))
+        {
+            return;
+        }
+
+        if (isCardUp)
+        {
+            SetSelect(!isSelect);
+        }  
+        else if (MJUtils.DropCard())
+        {
+            OnClickDrop();
+        }
+    }
+
+    public void SetSelect(bool isSelect)
+    {
+        this.isSelect = isSelect;
+        if (isSelect)
+        {
+            transform.localPosition = new Vector3(transform.localPosition.x, transform.localPosition.y, 0.015f);
+        }
+        else
+        {
+            transform.localPosition = new Vector3(transform.localPosition.x, transform.localPosition.y, 0f);
+        }
+    }
+
+    public void SetEnable(bool enable)
+    {
+        this.isEnable = enable;
+
+        MaterialManager cardMaterial = GameObject.FindObjectOfType<MaterialManager>();
+        if(enable)
+        {
+            GetComponent<Renderer>().material = cardMaterial.myCardMatOn;
+        }
+        else
+        {
+            GetComponent<Renderer>().material = cardMaterial.myCardMatOff;
+        }
     }
 
     public void OnClickDrop()

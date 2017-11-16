@@ -92,9 +92,4 @@ public class PlayPageDetail
     public Image DumpBtn_Image;
     public Button DumpBtn_Button;
     public Text Text_Text;
-
-    //À¶æ≈Á€ΩÁ√Ê
-    public UIItem ShuaiJiuYao_panel;
-    public Text Text_tishi;
-    public Button marksure_Btn;
 }

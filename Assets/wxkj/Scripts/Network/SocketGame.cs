@@ -336,12 +336,6 @@ public partial class SocketGame : MonoBehaviour {
             if (null != player)
             {
                 player.isReady[response.phase] = (response.state == 1);
-                print("    --------------  wxd  ready " + response.state + " , " + response.phase); //TODO WXD get ready
-                foreach(var f in player.isReady)
-                {
-                    print(" for : " + f);
-                }
-                print("-----------------------------------");
                 EventDispatcher.DispatchEvent(MessageCommand.MJ_UpdatePlayPage);
             }
         }
@@ -351,21 +345,17 @@ public partial class SocketGame : MonoBehaviour {
         }
     }
 
-    void OnAllReadySyn(PacketBase msg)
+    void OnAllReadySyn(PacketBase msg)//所有人都入座准备完毕
     {
-        DoREADYL(1, 1);
+        DoREADYL(1, 1); //自动完成第一阶段的准备，用来自动跳过第一阶段。第一阶段用来在发牌之前的操作，如抢地主，下嘴等。
     }
 
-    void OnStartDealSyn(PacketBase msg)
+    void OnStartDealSyn(PacketBase msg)//进入发牌阶段。表示可以进入第二阶段。第二阶段用来做看到牌了之后的操作，如选缺门，换3张，甩九幺。
     {
-        print("   -------   OnStartDealSyn");
-        Game.MJMgr.isShuaiJiuYao = true;
     }
 
-    void OnStartGamePlaySyn(PacketBase msg)
+    void OnStartGamePlaySyn(PacketBase msg)//进入正式游戏阶段
     {
-        print("   -------   OnStartGamePlaySyn");
-        Game.MJMgr.isShuaiJiuYao = false;
     }
 
     public void DoBack2HallRequest()
@@ -607,11 +597,6 @@ public partial class SocketGame : MonoBehaviour {
     string[] strs = new string[] { "东", "南", "西", "北" };
     public void OnGameOperPlayerActionNotify(GameOperPlayerActionNotify data)
     {
-        if (RoomMgr.actionNotify != null && ((RoomMgr.actionNotify.actions & MJUtils.ACT_SHUAIJIUYAO) != 0)) //TODO WXD 额外添加甩九幺标记，防止被覆盖。
-        {
-            data.actions |= MJUtils.ACT_SHUAIJIUYAO;
-        }
-
         RoomMgr.actionNotify = data;
 
         int position = data.position;
@@ -688,6 +673,7 @@ public partial class SocketGame : MonoBehaviour {
         str += ActionsStrOne(MJUtils.ACT_DRAG_CARD, "摸牌", action);
         str += ActionsStrOne(MJUtils.ACT_TING_PENG, "碰听", action);
         str += ActionsStrOne(MJUtils.ACT_TING_ZHIDUI, "支对听", action);
+        str += ActionsStrOne(MJUtils.ACT_SHUAIJIUYAO, "甩九幺", action);
         if (str.Length > 1)
         {
             str = str.Substring(0, str.Length - 1);
@@ -811,14 +797,7 @@ public partial class SocketGame : MonoBehaviour {
 
     public void DoDropCard(int card)
     {
-        //if (Game.MJMgr.Ting)
-        //{
-        //    DoGameOperPlayerActionSyn(MJUtils.ACT_DROP_CARD | MJUtils.ACT_TING, card);
-        //}
-        //else
-        {
-            DoGameOperPlayerActionSyn(MJUtils.ACT_DROP_CARD, card);
-        }
+        DoGameOperPlayerActionSyn(MJUtils.ACT_DROP_CARD, card);
     }
 
     public void DoChi(int card1, int card2)
@@ -1096,7 +1075,7 @@ public partial class SocketGame : MonoBehaviour {
                     HuEffectScene = "hzmtf_EF";
                     break;
                 }
-            //case MJUtils.HU_Hu:
+            //case MJUtils.HU_Hu: //TODO 为什么屏蔽了?
             //    {
             //        Game.SoundManager.PlayEffect(26);
             //        HuEffectUI = "huUI_EF";
