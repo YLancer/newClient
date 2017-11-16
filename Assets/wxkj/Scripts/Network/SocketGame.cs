@@ -949,8 +949,18 @@ public partial class SocketGame : MonoBehaviour {
         }
 
         MJPlayer player = Game.MJMgr.GetPlayerByPosition(data.position);
-        MjData pData = Game.MJMgr.MjData[data.position];
         bool isMy = player.index == 0;
+
+        if (data.resultType == MJUtils.HU_ShouPao)//收炮提前判断。只放特效，不用记录数据。
+        {
+            Game.SoundManager.PlayEffect(28);
+            GameObject eff = Game.PoolManager.EffectPool.Spawn("shandian_EF");
+            eff.transform.position = Game.MJMgr.LastDropCard.transform.position;
+            Game.PoolManager.EffectPool.Despawn(eff, 5);
+            player.MJHand.PlayShouPao(data.card, isMy);
+            return;
+        }
+
         List<GameOperPlayerSettle> list = data.detail;
         foreach (GameOperPlayerSettle s in list)
         {
@@ -966,14 +976,6 @@ public partial class SocketGame : MonoBehaviour {
         if (zimo)
         {
             PlayZimoHu(player, data);
-        }
-        else if ((RoomMgr.huSyn.winType & MJUtils.HU_ShouPao) != 0)
-        {
-            Game.SoundManager.PlayEffect(28);
-            GameObject eff = Game.PoolManager.EffectPool.Spawn("shandian_EF");
-            eff.transform.position = Game.MJMgr.LastDropCard.transform.position;
-            Game.PoolManager.EffectPool.Despawn(eff, 5);           
-            player.MJHand.PlayShouPao(data.card, isMy);
         }
         else
         {
