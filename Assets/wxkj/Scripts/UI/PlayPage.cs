@@ -79,6 +79,7 @@ public class PlayPage : PlayPageBase
 
     public override void OnSceneOpened(params object[] sceneData)
     {
+        Game.SocketGame.DoREADYL(1, 0);
         base.OnSceneOpened(sceneData);
 
         EventDispatcher.AddEventListener(MessageCommand.MJ_UpdatePlayPage, SetupUI);
@@ -208,7 +209,6 @@ public class PlayPage : PlayPageBase
     public override void OnSceneActivated(params object[] sceneData)
     {
         base.OnSceneActivated(sceneData);
-        Game.SocketGame.DoREADYL(1, 0);
 
         //Game.Instance.state = GameState.Playing;
 
