@@ -62,8 +62,8 @@ public class HandCardLayout : MonoBehaviour {
         {
             pos = newPos.localPosition;
         }
-        //child.transform.localPosition = pos + Vector3.right * width;
-        child.transform.localPosition = Vector3.zero;
+        child.transform.localPosition = pos + Vector3.right * width;
+        //child.transform.localPosition = Vector3.zero;
 
         MJEntity entity = child.GetComponent<MJEntity>();
         entity.Card = card;

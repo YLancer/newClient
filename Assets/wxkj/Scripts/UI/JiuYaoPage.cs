@@ -106,5 +106,6 @@ public class JiuYaoPage : JiuYaoPageBase
         Game.SocketGame.DoGameOperPlayerActionSyn(MJUtils.ACT_SHUAIJIUYAO, throwList.ToArray());
         CancelInvoke("OnBackPressed");
         OnBackPressed();
+        detail.Text_tishi.text = "";
     }
 }
