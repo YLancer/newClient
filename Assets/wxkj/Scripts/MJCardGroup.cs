@@ -234,9 +234,10 @@ public class MJCardGroup : MonoBehaviour {
     {
         var lastGroup = Game.MJMgr.cardGroups[firstGroupIndex];
         Debug.Assert(lastGroup.list.Count >= 0);
-
+        GameObject child= Game.PoolManager.CardPool.Spawn(cardPoint.ToString());
+        child.transform.position = Vector3.zero;
         Transform cardHui = lastGroup.list[lastGroup.list.Count - 2];
-        cardHui.GetComponent<MeshFilter>().mesh = Game.PoolManager.CardPool.Spawn(cardPoint.ToString()).GetComponent<MeshFilter>().mesh;
+        cardHui.GetComponent<MeshFilter>().mesh = child.GetComponent<MeshFilter>().mesh;
         cardHui.transform.rotation = Quaternion.Euler(new Vector3(-180, 0, 0));
     }
 

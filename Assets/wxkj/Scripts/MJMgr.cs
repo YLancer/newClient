@@ -254,11 +254,11 @@ public class MJMgr : MonoBehaviour {
         {
             Game.UIMgr.PushScene(UIPage.JiuYaoPage);
         }
-        //else //跳过界面，直接准备完成
-        //{
-        //    Game.SocketGame.DoREADYL(1, 2);
-        //}
-        
+        else //跳过界面，直接准备完成
+        {
+            Game.SocketGame.DoREADYL(1, 2);
+        }
+
         if (tmpHui != -1)                   //根据传来的会牌值   判断是否要显示最后一张牌
         {
             cardHui = tmpHui;

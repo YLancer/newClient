@@ -50,6 +50,7 @@ public class JiuYaoPage : JiuYaoPageBase
             MJEntity cardObj = handCardList[i];
             int cardPoint = cardObj.Card;
             if (cardPoint % 8 == 1 || cardPoint > 48)
+            //if(true)
             {
                 cardObj.isCardUp = true;
                 cardObj.SetSelect(true);
@@ -68,6 +69,7 @@ public class JiuYaoPage : JiuYaoPageBase
             MJEntity cardObj = handCardList[i];
             int cardPoint = cardObj.Card;
             if (cardPoint % 8 == 1 || cardPoint > 48)
+            //if (true)
             {
                 cardObj.isCardUp = false;
                 cardObj.SetSelect(false);

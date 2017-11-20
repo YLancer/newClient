@@ -10,7 +10,7 @@ public class HandCardLayout : MonoBehaviour {
     public List<MJEntity> list = new List<MJEntity>();
     public List<int> HandCards = new List<int>();
 
-    public float width = 7.4f;
+    public float width = 7.4f;  //-0.0295f
     private MJEntity last;
 
     public void PlayHu()
@@ -85,10 +85,26 @@ public class HandCardLayout : MonoBehaviour {
         child.transform.localRotation = Quaternion.identity;
         Transform newPos = FindRightCard();
         Vector3 pos = Vector3.zero;
+        print(" >>>>>>.newPos  111 <<<<<<" + newPos.localPosition.x);
         if (null != newPos)
         {
-            pos = newPos.localPosition;
+            if(newPos.localPosition.x > -0.04f  && newPos.localPosition.x < 0.01f)
+            {
+                pos = new Vector3( newPos.localPosition.x - 0.0885f,0,0);
+                print(" >>>>>>.newPos  1-222222 <<<<<<" + newPos.localPosition.x);
+            }
+            else if(newPos.localPosition.x > 0.013f)
+            {
+                pos = new Vector3(newPos.localPosition.x - 0.177f, 0, 0);
+                print(" >>>>>>.newPos  1-333333 <<<<<<" + newPos.localPosition.x);
+            }
+            else
+            {
+                pos = newPos.localPosition;
+                print(" >>>>>>.newPos  1-444444 <<<<<<" + newPos.localPosition.x);
+            }
         }
+        
         child.transform.localPosition = pos + Vector3.right * width * 1.5f;
 
         last = child.GetComponent<MJEntity>();

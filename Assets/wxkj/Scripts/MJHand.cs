@@ -300,7 +300,6 @@ public class MJHand : MonoBehaviour
         else if(type == 2)
         {
             //检验手中有没有card牌
-            player.handCardLayout.RemoveCard(cardG);
             bool isHandCard = false;
             List<int> pengGangCard  = player.handCardLayout.HandCards;
             for (int i = 0; i < pengGangCard.Count; i++)
@@ -311,10 +310,10 @@ public class MJHand : MonoBehaviour
                     break;
                 }
             }
-            if(!isHandCard)
-            {
-                return;
-            }
+            //if(!isHandCard)
+            //{
+            //    return;
+            //}
 
             //检验门前牌中有没有card碰牌
             int cnt = 0;
@@ -326,23 +325,26 @@ public class MJHand : MonoBehaviour
                     cnt++;
                 }
             }
-            if(cnt != 3)
-            {
-                return;
-            }
+            //if(cnt != 3)
+            //{
+            //    return;
+            //}
 
             //往碰牌里补杠
+           
             if (isMy)
             {
                 player.tableCardLayout.AddCard(cardG);
+                player.handCardLayout.RemoveCard(cardG);
             }
             else
             {
-                player.dropCardLayout.RemoveLast();
-                player.tableCardLayout.AddCard(cardG); 
+                player.tableCardLayout.AddCard(cardG);
+                player.handCardLayout.DropCard();
             }
-            player.tableCardLayout.tableCardDoSort();            
-            player.tableCardLayout.LineUp();
+            //缺补杠的排序 
+            //player.tableCardLayout.tableCardDoSort();            
+            //player.tableCardLayout.LineUp();
         }
         else if (type == 3)
         {
@@ -447,21 +449,36 @@ public class MJHand : MonoBehaviour
     // 甩九幺牌消失
     internal void PlayShuaiJiuYao(int[] list, bool isMy)
     {
-        var handCardLayout = Game.MJMgr.MyPlayer.handCardLayout;
-        for (int i = 0; i < list.Length; i++) //可以利用有序数组优化成一次for
+        if (isMy)
         {
-            for (int j = 0; j < handCardLayout.list.Count; j++)
+            for (int i = 0; i < list.Length; i++) //可以利用有序数组优化成一次for
             {
-                var card = handCardLayout.list[j];
-                if (card.Card == list[i])
+                for (int j = 0; j < player.handCardLayout.list.Count; j++)
                 {
-                    handCardLayout.list.Remove(card);
-                    Destroy(card.gameObject);//需参照出牌的地方，做这里的删除。
-                    break;
+                    var card = player.handCardLayout.list[j];
+                    if (card.Card == list[i])
+                    {
+                        player.handCardLayout.RemoveCard(card.Card);
+                        GameObject child = Game.PoolManager.CardPool.Spawn(card.Card.ToString());
+                        child.transform.position = Vector3.zero;
+                        player.jiuYaoCardLayout.AddCard(card.Card);
+                        Destroy(card.gameObject);//需参照出牌的地方，做这里的删除。
+                        break;
+                    }
                 }
             }
         }
-        handCardLayout.LineUp(true);
+        else
+        {
+            for (int i = 0; i < list.Length; i++)
+            {
+                player.handCardLayout.RemoveCardAt(i);
+                GameObject child = Game.PoolManager.CardPool.Spawn(list[i].ToString());
+                child.transform.position = Vector3.zero;
+                player.jiuYaoCardLayout.AddCard(list[i]);
+            }
+        }
+        player.handCardLayout.LineUp();
     }
 
     public void Bao(int dice, int oldBao)
