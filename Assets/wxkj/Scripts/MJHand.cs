@@ -316,35 +316,43 @@ public class MJHand : MonoBehaviour
             //}
 
             //检验门前牌中有没有card碰牌
-            int cnt = 0;
+            //int cnt = 0;
             List<int> pengCard = player.tableCardLayout.TableCards;
-            for (int i = 0; i < pengCard.Count; i++)
-            {
-                if (pengCard[i] == cardG)
-                {
-                    cnt++;
-                }
-            }
-            //if(cnt != 3)
+            //for (int i = 0; i < pengCard.Count; i++)
+            //{
+            //    if (pengCard[i] == cardG)
+            //    {
+            //        cnt++;
+            //    }
+            //}
+            //if (cnt != 3)
             //{
             //    return;
             //}
 
-            //往碰牌里补杠
-           
+            //往碰牌里补杠 补杠牌的位置
+            int index = 0;
+            for (int i = 0; i < pengCard.Count; i++)
+            {
+                if (pengCard[i] == cardG)
+                {
+                    index = i;
+                    break;
+                }
+            }
+            player.tableCardLayout.InsertCard(index, cardG);
+            //player.tableCardLayout.AddCard(cardG);
             if (isMy)
             {
-                player.tableCardLayout.AddCard(cardG);
+                //player.tableCardLayout.AddCard(cardG);
                 player.handCardLayout.RemoveCard(cardG);
             }
             else
             {
-                player.tableCardLayout.AddCard(cardG);
+                //player.tableCardLayout.AddCard(cardG);
                 player.handCardLayout.DropCard();
             }
-            //缺补杠的排序 
-            //player.tableCardLayout.tableCardDoSort();            
-            //player.tableCardLayout.LineUp();
+ 
         }
         else if (type == 3)
         {

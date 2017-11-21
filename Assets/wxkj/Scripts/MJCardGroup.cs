@@ -238,7 +238,14 @@ public class MJCardGroup : MonoBehaviour {
         child.transform.position = Vector3.zero;
         Transform cardHui = lastGroup.list[lastGroup.list.Count - 2];
         cardHui.GetComponent<MeshFilter>().mesh = child.GetComponent<MeshFilter>().mesh;
-        cardHui.transform.rotation = Quaternion.Euler(new Vector3(-180, 0, 0));
+        if(System.Math.Abs(this.transform.localPosition.y)== 90)
+        {
+            cardHui.transform.localRotation = Quaternion.Euler(new Vector3(90, 0, 0));
+        }
+        else
+        {
+            cardHui.transform.localRotation = Quaternion.Euler(new Vector3(180, 0, 0));
+        }
     }
 
     internal static void DragBaoCard(int dice = -1)

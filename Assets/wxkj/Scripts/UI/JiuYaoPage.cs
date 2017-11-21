@@ -110,4 +110,5 @@ public class JiuYaoPage : JiuYaoPageBase
         OnBackPressed();
         detail.Text_tishi.text = "";
     }
+
 }

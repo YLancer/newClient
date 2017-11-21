@@ -85,12 +85,11 @@ public class HandCardLayout : MonoBehaviour {
         child.transform.localRotation = Quaternion.identity;
         Transform newPos = FindRightCard();
         Vector3 pos = Vector3.zero;
-        print(" >>>>>>.newPos  111 <<<<<<" + newPos.localPosition.x);
         if (null != newPos)
         {
             if(newPos.localPosition.x > -0.04f  && newPos.localPosition.x < 0.01f)
             {
-                pos = new Vector3( newPos.localPosition.x - 0.0885f,0,0);
+                pos = new Vector3( newPos.localPosition.x - 0.04425f,0,0);
                 print(" >>>>>>.newPos  1-222222 <<<<<<" + newPos.localPosition.x);
             }
             else if(newPos.localPosition.x > 0.013f)

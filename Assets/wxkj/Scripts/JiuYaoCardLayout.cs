@@ -1,52 +1,34 @@
 ﻿using UnityEngine;
 using System.Collections.Generic;
+using DG.Tweening;
 
-public class TableCardLayout : MonoBehaviour
+public class JiuYaoCardLayout : MonoBehaviour
 {
     public float width = 7.1f;
     public float height = 5.02f;
-    public int row = 2;      //行
-    public int col = 18;     //每行放的总数
-    public MJEntity last; 
-    public List<int> TableCards = new List<int>();
+    public int row = 2;
+    public int col = 18;
+    public GameObject last;
+    public List<int> JiuYaoCards = new List<int>();
+    //public List<int> DropCards = new List<int>();
 
-    public void LineUp()
+    private void LineUp()
     {
         for (int j = 0; j < row; j++)
         {
             for (int i = 0; i < col; i++)
             {
+
                 int index = j * col + i;
                 if (index < this.transform.childCount)
                 {
                     Transform trans = this.transform.GetChild(index);
-                    trans.localPosition = Vector3.right * width * i + Vector3.forward * height * j;
+                    trans.localPosition = Vector3.left * width * i + Vector3.forward * height * j;
                     trans.localRotation = Quaternion.identity;
                     trans.localScale = Vector3.one;
                 }
             }
         }
-    }
-
-    //补杠的牌需要插入一个值
-    public void InsertCard(int index,int card)
-    {
-        GameObject child = Game.PoolManager.CardPool.Spawn(card.ToString());
-        if (null == child)
-        {
-            Debug.LogWarningFormat("AddCard error card:{0}", card);
-            return;
-        }
-        child.transform.SetParent(this.transform);
-        child.transform.SetSiblingIndex(index);
-        child.transform.localScale = Vector3.one;
-        child.transform.localRotation = Quaternion.identity;
-        //MJEntity entity = child.GetComponent<MJEntity>();
-        LineUp();
-
-        last = child.GetComponent<MJEntity>(); 
-
-        TableCards.Insert(index, card);
     }
 
     public void Clear()
@@ -56,14 +38,14 @@ public class TableCardLayout : MonoBehaviour
             Transform child = this.transform.GetChild(0);
             Game.PoolManager.CardPool.Despawn(child.gameObject);
         }
-
-        TableCards.Clear();
+        JiuYaoCards.Clear();
     }
+
 
     public void AddCard(int card)
     {
         GameObject child = Game.PoolManager.CardPool.Spawn(card.ToString());
-        if(null == child)
+        if (null == child)
         {
             Debug.LogWarningFormat("AddCard error card:{0}", card);
             return;
@@ -74,8 +56,15 @@ public class TableCardLayout : MonoBehaviour
         //MJEntity entity = child.GetComponent<MJEntity>();
         LineUp();
 
-        last = child.GetComponent<MJEntity>(); ;
+        last = child;
 
-        TableCards.Add(card);
+        JiuYaoCards.Add(card);
+    }
+
+    public void RemoveLast()
+    {
+        Game.MJMgr.targetFlag.gameObject.SetActive(false);
+
+        Game.PoolManager.CardPool.Despawn(last);
     }
 }
