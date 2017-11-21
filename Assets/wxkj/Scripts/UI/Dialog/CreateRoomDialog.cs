@@ -110,7 +110,7 @@ public class CreateRoomDialog : CreateRoomDialogBase
         bool is2Player = detail.PlayerNum2_Jiuyao.IsSelected;
         int vipRoomType = is2Player ? 2 : 4;
         int quanNum = detail.Round4_Jiuyao.IsSelected ? 1 : 2;
-        int wanfa = MJUtils.MODE_SHUAIJIUYAO | MJUtils.MODE_SHOUPAO | MJUtils.MODE_FENGPAI | MJUtils.MODE_CHI;  
+        int wanfa = MJUtils.MODE_SHUAIJIUYAO | MJUtils.MODE_SHOUPAO | MJUtils.MODE_FENGPAI | MJUtils.MODE_CHI | MJUtils.MODE_SEVENPAIR;
         //if (detail.Mode0_OneColorTrain_Jiuyao.IsSelected)
         //{
         //    wanfa = wanfa | MJUtils.MODE_ONECOLORTRAIN;
@@ -135,7 +135,7 @@ public class CreateRoomDialog : CreateRoomDialogBase
         bool is2Player = detail.PlayerNum2_Tuidaohu.IsSelected;
         int vipRoomType = is2Player ? 2 : 4;
         int quanNum = detail.Round4_Tuidaohu.IsSelected ? 1 : 2;
-        int wanfa = 0;
+        int wanfa = MJUtils.MODE_SEVENPAIR;
         if (detail.Mode0_Fengpai_Tuidaohu.IsSelected)
         {
             wanfa = wanfa | MJUtils.MODE_FENGPAI;
