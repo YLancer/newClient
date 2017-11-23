@@ -48,6 +48,8 @@ public class JiuYaoPage : JiuYaoPageBase
         for (int i = 0; i < handCardList.Count; i++)
         {
             MJEntity cardObj = handCardList[i];
+            cardObj.reSetPoisiton -= Game.MJMgr.MyPlayer.handCardLayout.cardSelect;
+            cardObj.onSendMessage -= Game.MJMgr.MyPlayer.handCardLayout.cardPlay;
             int cardPoint = cardObj.Card;
             if (cardPoint % 8 == 1 || cardPoint > 48)
             //if(true)
@@ -67,6 +69,8 @@ public class JiuYaoPage : JiuYaoPageBase
         for (int i = 0; i < handCardList.Count; i++)
         {
             MJEntity cardObj = handCardList[i];
+            cardObj.reSetPoisiton += Game.MJMgr.MyPlayer.handCardLayout.cardSelect;
+            cardObj.onSendMessage += Game.MJMgr.MyPlayer.handCardLayout.cardPlay;
             int cardPoint = cardObj.Card;
             if (cardPoint % 8 == 1 || cardPoint > 48)
             //if (true)

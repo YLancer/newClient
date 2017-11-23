@@ -88,10 +88,12 @@ public class CreateRoomDialog : CreateRoomDialogBase
         {
             wanfa = wanfa | MJUtils.MODE_BAOTING;
         }
-        if (detail.Mode3_CheckBoxSub.IsSelected)
+        if (detail.Mode3_Zimohu_Jinchang.IsSelected)
         {
             wanfa = wanfa | MJUtils.MODE_ZIMOHU;
         }
+
+        print( "  final wanfa " + wanfa + "  btn  " + detail.Mode3_CheckBoxSub.IsSelected);
 
         Game.SocketGame.DoCreateVipRoom(vipRoomType, quanNum, wanfa, (result) =>{
             OnBackPressed();
@@ -110,11 +112,11 @@ public class CreateRoomDialog : CreateRoomDialogBase
         bool is2Player = detail.PlayerNum2_Jiuyao.IsSelected;
         int vipRoomType = is2Player ? 2 : 4;
         int quanNum = detail.Round4_Jiuyao.IsSelected ? 1 : 2;
-        int wanfa = MJUtils.MODE_SHUAIJIUYAO | MJUtils.MODE_SHOUPAO | MJUtils.MODE_FENGPAI | MJUtils.MODE_CHI | MJUtils.MODE_SEVENPAIR;
-        //if (detail.Mode0_OneColorTrain_Jiuyao.IsSelected)
-        //{
-        //    wanfa = wanfa | MJUtils.MODE_ONECOLORTRAIN;
-        //}
+        int wanfa = MJUtils.MODE_SHUAIJIUYAO | MJUtils.MODE_FENGPAI | MJUtils.MODE_CHI | MJUtils.MODE_SEVENPAIR;
+        if (detail.Mode0_OneColorTrain_Jiuyao.IsSelected)
+        {
+            wanfa = wanfa | MJUtils.MODE_SHOUPAO;
+        }
 
         Game.SocketGame.DoCreateVipRoom(vipRoomType, quanNum, wanfa, (result) => {
             OnBackPressed();

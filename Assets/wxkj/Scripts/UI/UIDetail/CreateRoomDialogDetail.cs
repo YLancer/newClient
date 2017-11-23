@@ -45,7 +45,7 @@ public class CreateRoomDialogDetail
     public CheckBoxSub Round4_Jiuyao;
     public CheckBoxSub Round8_Jiuyao;
     public GridLayoutGroup ModeGrid_Jiuyao;
-    public CheckBoxSub Mode0_OneColorTrain_Jiuyao;    //清一色、一条龙
+    public CheckBoxSub Mode0_OneColorTrain_Jiuyao;    //清一色、一条龙 ---->  改成自摸胡
     public Image CreateButton_JiuyaoImage;
     public Button CreateButton_JiuyaoButton;
     //推倒胡麻将可选择项

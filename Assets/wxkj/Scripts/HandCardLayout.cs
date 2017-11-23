@@ -30,6 +30,8 @@ public class HandCardLayout : MonoBehaviour {
             MJEntity trans = list[0];
             list.RemoveAt(0);
             Game.PoolManager.CardPool.Despawn(trans.gameObject);
+            trans.reSetPoisiton -= cardSelect;
+            trans.onSendMessage -= cardPlay;
         }
 
         HandCards.Clear();
@@ -76,6 +78,9 @@ public class HandCardLayout : MonoBehaviour {
         {
             entity.transform.DOLocalRotate(new Vector3(90, 0, 0), 0.3f).From();
         }
+        // TODO     手组上增加的每张牌，上下可选择
+        child.GetComponent<MJEntity>().reSetPoisiton += cardSelect;
+        child.GetComponent<MJEntity>().onSendMessage += cardPlay;
     }
 
     public Vector3 DragCard(int card, GameObject child)
@@ -306,4 +311,34 @@ public class HandCardLayout : MonoBehaviour {
             list[1].transform.localPosition += new Vector3(0, 0, -0.009f);
         }
     }
+
+    public void cardSelect(MJEntity card)      // 一张牌抬起  其他牌落下
+    {
+        for (int i = 0; i < list.Count; i++)
+        {
+            list[i].SetSelect(false);
+        }
+        if (card != null)
+        {
+            card.SetSelect(true);
+        }
+    }
+
+    public void cardPlay(MJEntity card)        //打出牌
+    {
+        card.reSetPoisiton -= cardSelect;
+        card.onSendMessage -= cardPlay;
+        print(" +++++++++++++++++ " + card); 
+        list.Remove(card);
+        HandCards.Remove(card.Card);
+        card.transform.position  = Vector3.zero;
+        //if(card.transform.position.x == 0 )
+        //{
+        //    Destroy(card);
+        //}
+        LineUp();
+
+    }
+
+
 }

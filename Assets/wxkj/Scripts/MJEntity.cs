@@ -1,6 +1,8 @@
 ﻿using UnityEngine;
 using System.Collections;
 using System.Collections.Generic;
+using UnityEngine.EventSystems;
+using System;
 
 public class MJEntity : MonoBehaviour {
     public bool isCardUp = false;//控制OnMouseDown启用特殊功能
@@ -37,8 +39,12 @@ public class MJEntity : MonoBehaviour {
         HandCardLayout layout = this.GetComponentInParent<HandCardLayout>();
         return (null != layout);
     }
+    //  麻将上下可选择  TODO
+    public delegate void EventHandler(MJEntity card);
+    public event EventHandler reSetPoisiton;
+    public event EventHandler onSendMessage;
 
-    void OnMouseDown()
+    void OnMouseDown()                                //按下
     {
         if (Game.MJMgr.HangUp)
         {
@@ -54,8 +60,32 @@ public class MJEntity : MonoBehaviour {
             SetSelect(!isSelect);
         }  
         else if (MJUtils.DropCard())
+        {   
+            if (isSelect == false)
+            {
+                isSelect = true;
+                this.transform.localPosition = transform.localPosition;
+            }
+            else
+            {
+                if (onSendMessage != null)     //发送消息
+                {
+                    onSendMessage(this.GetComponent<MJEntity>());
+                    OnClickDrop();
+                }
+            }
+        }
+    }
+
+    private void OnMouseUp()      //按下之后的弹起来
+    {
+        if ( !isEnable)
         {
-            OnClickDrop();
+            return;
+        }
+        if (reSetPoisiton != null)
+        {
+            reSetPoisiton(this.GetComponent<MJEntity>());
         }
     }
 

@@ -59,6 +59,11 @@ public class PlayPage : PlayPageBase
         detail.SelectPanel_UIItem.gameObject.SetActive(false);
     }
 
+    private void OnEnable()
+    {
+        Game.SocketGame.DoREADYL(1, 0);
+    }
+
     private void OnClickDumpBtn()
     {
         Game.SocketGame.DoDump();
@@ -79,7 +84,6 @@ public class PlayPage : PlayPageBase
 
     public override void OnSceneOpened(params object[] sceneData)
     {
-        Game.SocketGame.DoREADYL(1, 0);
         base.OnSceneOpened(sceneData);
 
         EventDispatcher.AddEventListener(MessageCommand.MJ_UpdatePlayPage, SetupUI);
@@ -230,7 +234,7 @@ public class PlayPage : PlayPageBase
             detail.GameRoundButton_Button.gameObject.SetActive(true);
             int quanNum = RoomMgr.GetQuanNum();
             int totalQuan = RoomMgr.GetTotalQuan();
-            detail.GameRoundText_Text.text = string.Format("{0}/{1}{2}", quanNum, totalQuan, RoomMgr.IsVip2Room() ? "局" : "圈");
+            detail.GameRoundText_Text.text = string.Format("{0}/{1}{2}", quanNum, totalQuan, "局");
 
             bool isWaitting = Game.Instance.state == GameState.Waitting;
             detail.WXButton_Button.gameObject.SetActive(isWaitting);
@@ -572,10 +576,12 @@ public class PlayPage : PlayPageBase
 
     public void ShouImageHui()                                 //根据传来的会牌值   决定是否显示会牌图片
     {
+        print("   shou image  " + Game.MJMgr.cardHui);
         if(Game.MJMgr.cardHui!=-1)
         {
             GameObject hui = PrefabUtils.GetPrefab(Game.MJMgr.cardHui.ToString(), MyPrefabType.MJ);
             detail.Image_Hui.sprite = hui.transform.FindChild("Image").GetComponent<Image>().sprite;
+            detail.Image_Hui.gameObject.SetActive(true);
             detail.Image_BG.gameObject.SetActive(true);
         }
         else

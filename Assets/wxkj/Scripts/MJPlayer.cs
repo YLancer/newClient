@@ -32,6 +32,11 @@ public class MJPlayer : MonoBehaviour {
             Transform old = baoRoot.GetChild(0);
             Game.PoolManager.CardPool.Despawn(old.gameObject);
         }
+        for(int i=0; i<handCardLayout.list.Count;i++)
+        {
+            handCardLayout.list[i].reSetPoisiton -= handCardLayout.cardSelect;
+            handCardLayout.list[i].onSendMessage -= handCardLayout.cardPlay;
+        }
     }
     
 	public MJPlayer NextPlayer
@@ -81,6 +86,9 @@ public class MJPlayer : MonoBehaviour {
 
         Vector3 pos = handCardLayout.DragCard(card, child);
         EventDispatcher.DispatchEvent(MessageCommand.MJ_UpdatePlayPage);
+        // TODO  摸的每张牌，上下可选择
+        child.GetComponent<MJEntity>().reSetPoisiton += handCardLayout.cardSelect;
+        child.GetComponent<MJEntity>().onSendMessage += handCardLayout.cardPlay;
         return pos;
     }
 
