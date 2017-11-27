@@ -92,4 +92,8 @@ public class PlayPageDetail
     public Image DumpBtn_Image;
     public Button DumpBtn_Button;
     public Text Text_Text;
+    //新增房间创建时，准备按钮
+    public Image GameReady_Image;
+    public Button GameReady_Button;
+    public Text GameReady_Text;
 }

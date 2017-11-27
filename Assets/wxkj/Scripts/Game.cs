@@ -14,8 +14,9 @@ public enum GameState
     Login = 1,
     Hall = 2,
     Waitting = 3,
-    Playing = 4,
-    Finish = 5,
+    Ready = 4,
+    Playing = 5,
+    Finish = 6,
 }
 public class Game : MonoBehaviour
 {
@@ -309,18 +310,6 @@ public class Game : MonoBehaviour
 
     public static void ShowLogin()
     {
-        //Game.LoadingPage.Show(LoadPageType.ProgressBar);
-        //Game.LoadingPage.UpdateLoading(0.05f, "加载中。。。");
-        //Game.DelayLoop(10, 0.1f, (index) =>
-        //{
-        //    Game.LoadingPage.UpdateLoading(index / 10f, "加载中。。。");
-
-        //    if (index >= 9)
-        //    {
-        //        Game.LoadingPage.Hide();
-        //        Game.UIMgr.PushScene(UIPage.LoginPage);
-        //    }
-        //});
         Game.UIMgr.PushScene(UIPage.LoginPage);
     }
 
@@ -369,7 +358,6 @@ public class Game : MonoBehaviour
             this.coins = response.coin;
             this.cards = response.fanka;
             this.face = response.headImg;
-            //this.sex = response.sex;//性别 值为1时是男性，值为2时是女性，值为0时是未知
             this.sex = IconManager.GetSexByFace(response.sex, response.headImg);
             this.continueWinCount = response.continueWinCount;
             this.totalGameCount = response.totalGameCount;
@@ -402,11 +390,6 @@ public class Game : MonoBehaviour
         }
     }
 
-    // Use this for initialization
-    //	void Start () {
-    //        Game.UIMgr.ResetToHomeScreen();
-    //	}
-
     void OnApplicationQuit()
     {
         GDM.SaveAll();
@@ -419,7 +402,7 @@ public class Game : MonoBehaviour
 
     void OnApplicationPause(bool pauseStatus)
     {
-        if (Game.Instance.state == GameState.Waitting || Game.Instance.state == GameState.Playing)
+        if (Game.Instance.state == GameState.Waitting || Game.Instance.state == GameState.Ready || Game.Instance.state == GameState.Playing)
         {
             //print("====>><OnApplicationPause>" + pauseStatus);
             if (pauseStatus)
@@ -533,6 +516,7 @@ public class Game : MonoBehaviour
         Instance.score = 0;
         Instance.state = GameState.Hall;
         Instance.Ting = false;   // 是否已经听
+        Instance.Gang = false;
     }
 
     public static void OnServerChangeSyn(PacketBase msg)

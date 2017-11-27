@@ -138,7 +138,7 @@ public class MJCardGroup : MonoBehaviour {
         list.Add(child.transform);
     }
 
-    public static void TryDragCard(bool countdown = true)
+    public static void TryDragCard(bool countdown = true) //countdown表示要不要减剩余牌数。
     {
         MJCardGroup group = Game.MJMgr.ActiveGroup;
         if (Game.Instance.Gang == true)

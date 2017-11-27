@@ -335,6 +335,10 @@ public partial class SocketGame : MonoBehaviour {
             Player player = Game.MJMgr.GetPlayerById(response.playerId);
             if (null != player)
             {
+                if (Game.IsSelf(response.playerId) && response.state == 1 && response.phase == 0)  //严格判断
+                {
+                    Game.Instance.state = GameState.Ready;
+                }
                 player.isReady[response.phase] = (response.state == 1);
                 EventDispatcher.DispatchEvent(MessageCommand.MJ_UpdatePlayPage);
             }
@@ -510,14 +514,14 @@ public partial class SocketGame : MonoBehaviour {
             {
                 int sCard = hc.handCards[i];
                 player.handCardLayout.AddCard(sCard);
-                MJCardGroup.TryDragCard(countdown:false); //重现现场的时候的摸牌不减牌数，下同。
+                MJCardGroup.TryDragCard();
             }
 
             for (int i = 0; i < hc.cardsBefore.Count; i++)
             {
                 int sCard = hc.cardsBefore[i];
                 player.dropCardLayout.AddCard(sCard);
-                MJCardGroup.TryDragCard(countdown: false);
+                MJCardGroup.TryDragCard();
             }
 
             for (int i = 0; i < hc.downCards.Count; i++)
@@ -533,12 +537,12 @@ public partial class SocketGame : MonoBehaviour {
                     player.tableCardLayout.AddCard(card1);
                     player.tableCardLayout.AddCard(card1);
 
-                    MJCardGroup.TryDragCard(countdown: false);
-                    MJCardGroup.TryDragCard(countdown: false);
-                    MJCardGroup.TryDragCard(countdown: false);
-                    MJCardGroup.TryDragCard(countdown: false);
+                    MJCardGroup.TryDragCard();
+                    MJCardGroup.TryDragCard();
+                    MJCardGroup.TryDragCard();
+                    MJCardGroup.TryDragCard();
                     Game.Instance.Gang = true;
-                    MJCardGroup.TryDragCard(countdown: false);//杠摸
+                    MJCardGroup.TryDragCard();//杠摸
                 }
                 else
                 {
@@ -546,9 +550,9 @@ public partial class SocketGame : MonoBehaviour {
                     player.tableCardLayout.AddCard(card2);
                     player.tableCardLayout.AddCard(card3);
 
-                    MJCardGroup.TryDragCard(countdown: false);
-                    MJCardGroup.TryDragCard(countdown: false);
-                    MJCardGroup.TryDragCard(countdown: false);
+                    MJCardGroup.TryDragCard();
+                    MJCardGroup.TryDragCard();
+                    MJCardGroup.TryDragCard();
                 }
             }
         }

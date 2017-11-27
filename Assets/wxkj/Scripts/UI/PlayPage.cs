@@ -38,6 +38,9 @@ public class PlayPage : PlayPageBase
         detail.ZhiduiButton_Button.onClick.AddListener(OnClickZhiduiBtn);
         detail.HuButton_Button.onClick.AddListener(OnClickHuBtn);               //胡牌
 
+        detail.GameReady_Button.onClick.AddListener(OnClickGameReadyBtn);  //游戏准备按钮
+        //detail.GameReady_Button.gameObject.SetActive(false);
+
         detail.CancelButton_Button.onClick.AddListener(OnClickCancelBtn);
         detail.CancelHangUpBtn_Button.onClick.AddListener(OnClickCancelHangUpBtn);
         detail.DumpBtn_Button.onClick.AddListener(OnClickDumpBtn);
@@ -61,7 +64,10 @@ public class PlayPage : PlayPageBase
 
     private void OnEnable()
     {
-        Game.SocketGame.DoREADYL(1, 0);
+        if (!RoomMgr.IsVipRoom()) //非vip房间要自动准备
+        {
+            Game.SocketGame.DoREADYL(1, 0);
+        }
     }
 
     private void OnClickDumpBtn()
@@ -237,13 +243,16 @@ public class PlayPage : PlayPageBase
             detail.GameRoundText_Text.text = string.Format("{0}/{1}{2}", quanNum, totalQuan, "局");
 
             bool isWaitting = Game.Instance.state == GameState.Waitting;
-            detail.WXButton_Button.gameObject.SetActive(isWaitting);
+            detail.GameReady_Button.gameObject.SetActive(isWaitting);
+            bool isReady = Game.Instance.state == GameState.Ready;
+            detail.WXButton_Button.gameObject.SetActive(isWaitting || isReady);
         }
         else
         {
             detail.GameRoundButton_Button.gameObject.SetActive(false);
             detail.DismissButton_Button.gameObject.SetActive(false);
             detail.WXButton_Button.gameObject.SetActive(false);
+            detail.GameReady_Button.gameObject.SetActive(false);
         }
 
         OnUpdateCtrlPanel();
@@ -461,6 +470,11 @@ public class PlayPage : PlayPageBase
         {
             OnClickPengBtn();
         }
+    }
+    // 准备按钮触发事件
+    void OnClickGameReadyBtn()
+    {
+        Game.SocketGame.DoREADYL(1, 0);
     }
 
     void OnClickZhiduiBtn()

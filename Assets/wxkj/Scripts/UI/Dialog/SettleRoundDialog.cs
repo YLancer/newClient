@@ -29,7 +29,7 @@ public class SettleRoundDialog : SettleRoundDialogBase
         {
             if (Game.UIMgr.IsSceneActive(UIPage.PlayPage))
             {
-                Game.SocketGame.DoREADYL(1, 0);
+                Game.SocketGame.DoREADYL(1, 0);//TODO wxd click back 为什么要ready
             }
         }
         OnBackPressed();

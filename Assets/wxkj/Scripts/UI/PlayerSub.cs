@@ -13,8 +13,8 @@ public class PlayerSub : PlayerSubBase
         if (player != null)
         {
             gameObject.SetActive(true);
-            //detail.Ready_Text.text = player.isReady ? "" : "未准备";
-            
+            //detail.Ready_Text.text = player.isReady[0] ? "已准备" : "未准备";
+
             if (player.offline)
             {
                 detail.AwayFlag_Image.gameObject.SetActive(false);

@@ -97,5 +97,9 @@ public class PlayPageBase : UISceneBase
         detail.Text_Text = transform.Find("DumpBtn/Text").gameObject.GetComponent<Text>();
         detail.DumpBtn_Image = transform.Find("DumpBtn").gameObject.GetComponent<Image>();
         detail.DumpBtn_Button = transform.Find("DumpBtn").gameObject.GetComponent<Button>();
+
+        detail.GameReady_Image= transform.Find("GameReady").gameObject.GetComponent<Image>();
+        detail.GameReady_Button = transform.Find("GameReady").gameObject.GetComponent<Button>();
+        detail.GameReady_Text = transform.Find("GameReady/Text_GameReady").gameObject.GetComponent<Text>();
     }
 }
