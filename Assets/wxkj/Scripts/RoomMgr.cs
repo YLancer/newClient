@@ -11,7 +11,7 @@ public class RoomMgr {
     public static GameOperPlayerHuSyn huSyn;
     public static GameOperFinalSettleSyn finalSettleSyn;
 
-    public static bool IsSingeRoom()
+    public static bool IsSingeRoom()  // 单机房
     {
         if(playerGamingSyn == null)
         {
@@ -21,7 +21,7 @@ public class RoomMgr {
         return (playerGamingSyn.matchId == MatchType.G_DQMJ_MATCH_SINGLE.ToString());
     }
 
-    public static bool IsVipRoom()
+    public static bool IsVipRoom()  // VIP房
     {
         if (playerGamingSyn == null)
         {
@@ -32,7 +32,7 @@ public class RoomMgr {
         return playerGamingSyn.matchId == MatchType.G_DQMJ_MATCH_4VIP.ToString() || playerGamingSyn.matchId == MatchType.G_DQMJ_MATCH_2VIP.ToString();
     }
 
-    public static bool IsNormalRoom()
+    public static bool IsNormalRoom()   // 金币房
     {
         if (IsVipRoom())
         {
@@ -47,7 +47,7 @@ public class RoomMgr {
         return true;
     }
 
-    public static bool IsVip2Room()
+    public static bool IsVip2Room()    // 2人VIP房
     {
         if (playerGamingSyn == null)
         {

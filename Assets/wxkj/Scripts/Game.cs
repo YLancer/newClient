@@ -8,15 +8,15 @@ using packet.game;
 using packet.rank;
 using DG.Tweening;
 
+
 public enum GameState
 {
     Null = 0,
     Login = 1,
     Hall = 2,
     Waitting = 3,
-    Ready = 4,
     Playing = 5,
-    Finish = 6,
+    Finish = 7,
 }
 public class Game : MonoBehaviour
 {
@@ -240,7 +240,6 @@ public class Game : MonoBehaviour
     #endregion
     //public int FrameRate = 40;
     #region property
-    public float score;
     public int cards;
     public int coins;
     public string nickname;
@@ -248,6 +247,7 @@ public class Game : MonoBehaviour
     public int sex;
 
     public GameState state = GameState.Null;
+    public bool isUnReady = true;  //是否还没准备。
     public bool Ting = false;   // 是否已经听
     public bool Gang = false;   //是否杠了
 
@@ -362,6 +362,7 @@ public class Game : MonoBehaviour
             this.continueWinCount = response.continueWinCount;
             this.totalGameCount = response.totalGameCount;
             this.winRate = (float)response.winRate;
+            print(" this  ip " + ip);
             this.ip = response.ip;
             this.maxFanType = response.maxFanType;
             this.handcard = response.handcard;
@@ -402,7 +403,7 @@ public class Game : MonoBehaviour
 
     void OnApplicationPause(bool pauseStatus)
     {
-        if (Game.Instance.state == GameState.Waitting || Game.Instance.state == GameState.Ready || Game.Instance.state == GameState.Playing)
+        if (Game.Instance.state == GameState.Waitting || Game.Instance.state == GameState.Playing)
         {
             //print("====>><OnApplicationPause>" + pauseStatus);
             if (pauseStatus)
@@ -513,8 +514,8 @@ public class Game : MonoBehaviour
 
     public static void Reset()
     {
-        Instance.score = 0;
         Instance.state = GameState.Hall;
+        Instance.isUnReady = true;
         Instance.Ting = false;   // 是否已经听
         Instance.Gang = false;
     }

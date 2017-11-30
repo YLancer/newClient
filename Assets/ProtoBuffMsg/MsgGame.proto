@@ -84,6 +84,7 @@ message PlayerSitSyn {
 	optional sint32 sex = 8; //性别
 	optional sint32 score = 9; //积分
 	optional int32 away = 10; //1 离开 0非离开
+	optional string ip = 11; //ip
 }
 
 //推送玩家离开桌子消息

@@ -23,4 +23,11 @@ public class PlayerSubDetail
     public ContentSizeFitter Word_ContentSizeFitter;
     public Image AwayFlag_Image;
 
+    public Button Icon_Button;
+    public Image userInfo_image;
+    public Button userInfo_Button;
+    public Text Text_IP;
+    public Text Text_uuid;
+    public Text Text_nickname;
+
 }

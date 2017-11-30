@@ -34,7 +34,7 @@ public class JiuYaoPage : JiuYaoPageBase
     {
         base.OnSceneActivated(sceneData);
         handCardList = Game.MJMgr.MyPlayer.handCardLayout.list;
-        Invoke("OnBackPressed", 12f);//TODO wxd 临时处理
+        Invoke("OnBackPressed", 60f);//TODO wxd 临时处理
         SetupUI();
     }
 

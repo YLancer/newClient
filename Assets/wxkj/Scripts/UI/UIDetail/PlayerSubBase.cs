@@ -26,5 +26,11 @@ public class PlayerSubBase : UISubBase
         detail.WordRoot_ContentSizeFitter = transform.Find("WordRoot").gameObject.GetComponent<ContentSizeFitter>();
         detail.AwayFlag_Image = transform.Find("AwayFlag").gameObject.GetComponent<Image>();
 
+        detail.Icon_Button = transform.Find("Icon").gameObject.GetComponent<Button>();
+        detail.userInfo_image = transform.Find("userInfo").gameObject.GetComponent<Image>();
+        detail.userInfo_Button = transform.Find("userInfo").gameObject.GetComponent<Button>();
+        detail.Text_IP = transform.Find("userInfo/Text_IP").gameObject.GetComponent<Text>();
+        detail.Text_uuid= transform.Find("userInfo/Text_uuid").gameObject.GetComponent<Text>();
+        detail.Text_nickname=transform.Find("userInfo/Text_nickname").gameObject.GetComponent<Text>();
     }
 }

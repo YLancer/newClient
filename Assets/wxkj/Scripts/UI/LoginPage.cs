@@ -15,6 +15,7 @@ public class LoginPage : LoginPageBase
     public string message;
     private string username = "";
     private string password = "";
+    private string ip = "";
 
     public void OnEnable()
     {
@@ -118,8 +119,6 @@ public class LoginPage : LoginPageBase
     {
         base.OnSceneOpened(sceneData);
         Game.SocketHall.AddEventListener(PacketType.LoginRequest, OnLogin);  //回调登录信息
-                                                                             // Game.AndroidUtil.m_kActOnWeChatLogin += OnWeChatLogin;  //注册微信登录方法
-
     }
 
     public override void OnSceneClosed()
@@ -137,13 +136,11 @@ public class LoginPage : LoginPageBase
 
     void OnClickWX()
     {
+        if (!detail.WXToggle.isOn)  return;
         loginType = 3;
         Game.SoundManager.PlayClick();
-        //shareSdk.GetUserInfo(PlatformType.WeChat);
         text.text += "登录中";
         shareSdk.Authorize(PlatformType.WeChat);
-        
-
     }
 
     //微信成功登陆回调
@@ -161,10 +158,12 @@ public class LoginPage : LoginPageBase
                 //Wechatloginfo.unionid = (string)data["unionid"];
                 Wechatloginfo.province = (string)data["province"];
                 Wechatloginfo.city = (string)data["city"];
+                Wechatloginfo.IP = Game.SocketHall.getIpAddress();              //获取ip地址
                 Debug.Log("Wechatloginfo.openid" + Wechatloginfo.openid + "Wechatloginfo.nickName" + Wechatloginfo.nickname + "city" + Wechatloginfo.city);
                 username = (string)data["openid"]; //oppenid
                 Hashtable authinfo = shareSdk.GetAuthInfo(PlatformType.WeChat);
                 password = (string)authinfo["token"]; //token
+                ip = Game.SocketHall.getIpAddress();              //获取ip地址
                 print("ranger****username" + username + "password" + password);
                 //发送到服务器
                 //Game.SocketHall.LoginMsg((string)data["openid"], (string)data["unionid"], loginType);
@@ -190,7 +189,7 @@ public class LoginPage : LoginPageBase
     {
         if (Game.SocketHall.SocketNetTools.Connected)
         {
-            Game.SocketHall.LoginMsg(username, password, loginType);
+            Game.SocketHall.LoginMsg(username, password, ip, loginType);
         }
         else
         {
@@ -217,29 +216,13 @@ public class LoginPage : LoginPageBase
 
     }
 
-    //void doWXLogin()
-    //{
-    //    text.text += loginInfo.nickname + loginInfo.openid + "5";
-    //    print("   doWXLogin  " + loginInfo.nickname + "  connect " + Game.SocketHall.SocketNetTools.Connected);
-    //    if (Game.SocketHall.SocketNetTools.Connected && loginInfo != null)
-    //    {
-    //        Game.SocketHall.WXLoginMsg(loginInfo, loginType);
-    //    }
-    //    else
-    //    {
-    //        Game.SocketHall.SocketNetTools.OnConnect -= OnConnect;
-    //        Game.SocketHall.SocketNetTools.OnConnect += OnConnect;
-    //        Game.InitHallSocket(GlobalConfig.address);
-    //    }
-    //}
-
     void OnConnect()
     {
         Game.SocketHall.SocketNetTools.OnConnect -= OnConnect;
 
         if (Game.SocketHall.SocketNetTools.Connected)
         {
-            Game.SocketHall.LoginMsg(username, password, loginType);
+            Game.SocketHall.LoginMsg(username, password, ip, loginType);
         }
         else
         {

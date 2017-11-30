@@ -11,6 +11,7 @@ public class AccountLoginPage : AccountLoginPageBase
     private int loginType = 2;
     private string username = "kane";
     private string password = "";
+    private string ip = "";
     private bool isLogin = true;
     public override void InitializeScene()
     {
@@ -125,9 +126,11 @@ public class AccountLoginPage : AccountLoginPageBase
     {
         //Game.LoadingPage.Show(LoadPageType.LoopCircle);
 
+        ip = Game.SocketHall.getIpAddress();
+
         if (Game.SocketHall.SocketNetTools.Connected)
         {
-            Game.SocketHall.LoginMsg(username, password, loginType);
+            Game.SocketHall.LoginMsg(username, password, ip, loginType);
         }
         else
         {
@@ -145,7 +148,7 @@ public class AccountLoginPage : AccountLoginPageBase
         {
             if (isLogin)
             {
-                Game.SocketHall.LoginMsg(username, password, loginType);
+                Game.SocketHall.LoginMsg(username, password, ip, loginType);
             }
             else
             {

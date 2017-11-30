@@ -11,5 +11,11 @@ public class LoginPageDetail
     public Image AccountButton_Image;
     public Button AccountButton_Button;
 
+    public Toggle WXToggle;
+    public Image Background;
+    public Image Checkmark;
+    public Image text_image;
+    public Text text_uesr;
+
     //public ShareSDK ShareSDK;
 }

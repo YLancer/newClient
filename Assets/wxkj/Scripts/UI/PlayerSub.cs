@@ -47,6 +47,9 @@ public class PlayerSub : PlayerSubBase
             detail.WordRoot_Text.gameObject.SetActive(showWord);
             detail.MoodRoot_UIItem.gameObject.SetActive(showMood);
 
+            detail.Icon_Button.onClick.AddListener(showUserInfo);
+            detail.userInfo_Button.onClick.AddListener(closeUserInfo);
+
             bool isActivePlayer = Game.MJMgr.ActivePosition == player.position;
             //
             if(null == eff)
@@ -108,5 +111,19 @@ public class PlayerSub : PlayerSubBase
             showWord = false;
             detail.WordRoot_Text.gameObject.SetActive(showWord);
         });
+    }
+
+     void  showUserInfo()
+    {
+        Player player =this.data.player;
+        detail.userInfo_image.gameObject.SetActive(true);
+        detail.Text_IP.text = "IP:" + player.ip;
+        detail.Text_uuid.text = "ID:"+ player.playerId ;
+        detail.Text_nickname.text = "昵称:" +  player.nickName;
+    }
+
+    void closeUserInfo()
+    {
+        detail.userInfo_image.gameObject.SetActive(false);
     }
 }

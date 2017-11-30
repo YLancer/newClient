@@ -38,7 +38,19 @@ public class SettleRoundDialog : SettleRoundDialogBase
     private void OnClickContinue()  // 继续游戏的按钮  
     {
         Game.SoundManager.PlayClick();
-        Game.SocketGame.DoREADYL(1, 0);
+        //Game.SocketGame.DoREADYL(1, 0);
+
+
+        //if (!RoomMgr.IsVipRoom()) //非vip房间要自动准备
+        //{
+            Game.MJMgr.Clear();
+            Game.Instance.isUnReady = true;
+            EventDispatcher.DispatchEvent(MessageCommand.MJ_UpdatePlayPage);
+        //}
+        //else
+        //{
+        //    Game.SocketGame.DoREADYL(1, 0);
+        //}
         OnBackPressed();
     }
 

@@ -16,7 +16,7 @@ public class SettleDialog : SettleDialogBase
         detail.BackButton_Button.onClick.AddListener(() =>
         {
             Game.SoundManager.PlayClose();
-            Game.Instance.state = GameState.Hall;
+            Game.Reset();
             OnBackPressed();
         });
     }

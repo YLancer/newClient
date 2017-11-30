@@ -19,8 +19,8 @@ public class PlayPage : PlayPageBase
         players.Add(detail.PlayerSub2_PlayerSub);
         players.Add(detail.PlayerSub3_PlayerSub);
 
-        detail.ExitButton_Button.onClick.AddListener(OnBackPressed);
-        detail.DismissButton_Button.onClick.AddListener(OnClickDismissBtn);
+        detail.ExitButton_Button.onClick.AddListener(OnBackPressed);            //退出按钮
+        detail.DismissButton_Button.onClick.AddListener(OnClickDismissBtn);     //解散按钮
         detail.SettingButton_Button.onClick.AddListener(OnClickSettingBtn);
 
         detail.PopupButton_Button.onClick.AddListener(OnClickOpenPopupMenu);
@@ -119,34 +119,44 @@ public class PlayPage : PlayPageBase
         }
         else if (RoomMgr.IsVipRoom())
         {
-            if (Game.Instance.state == GameState.Playing)
+            #region  原退出按钮，在viproom中改成解散按钮
+            //if (Game.Instance.state == GameState.Playing)
+            //{
+            //    Action<bool> callback = (isOk) =>
+            //    {
+            //        if (isOk)
+            //        {
+            //            Game.SocketGame.DoAwayGameRequest();
+            //            //Game.UIMgr.PushScene(UIPage.MainPage);
+            //        }
+            //    };
+            //    Game.DialogMgr.PushDialog(UIDialog.DoubleBtnDialog, "已经开局！确定要退出吗？", "提示", callback);
+            //}
+            //else
+            //{
+            //    Action<bool> callback = (isOk) =>
+            //    {
+            //        if (isOk)
+            //        {
+            //            Game.SocketGame.DoExitGameRequest();
+            //        }
+            //        else
+            //        {
+            //            Game.SocketGame.DoAwayGameRequest();
+            //            //Game.UIMgr.PushScene(UIPage.MainPage);
+            //        }
+            //    };
+            //    Game.DialogMgr.PushDialog(UIDialog.DoubleBtnDialog, "你即将返回大厅，需要同时离开桌子吗？", "提示", callback);
+            //}
+#endregion  
+            Action<bool> callBack = (ok) =>
             {
-                Action<bool> callback = (isOk) =>
+                if (ok)
                 {
-                    if (isOk)
-                    {
-                        Game.SocketGame.DoAwayGameRequest();
-                        //Game.UIMgr.PushScene(UIPage.MainPage);
-                    }
-                };
-                Game.DialogMgr.PushDialog(UIDialog.DoubleBtnDialog, "已经开局！确定要退出吗？", "提示", callback);
-            }
-            else
-            {
-                Action<bool> callback = (isOk) =>
-                {
-                    if (isOk)
-                    {
-                        Game.SocketGame.DoExitGameRequest();
-                    }
-                    else
-                    {
-                        Game.SocketGame.DoAwayGameRequest();
-                        //Game.UIMgr.PushScene(UIPage.MainPage);
-                    }
-                };
-                Game.DialogMgr.PushDialog(UIDialog.DoubleBtnDialog, "你即将返回大厅，需要同时离开桌子吗？", "提示", callback);
-            }
+                    Game.SocketGame.DoDissmissVoteSyn(true);
+                }
+            };
+            Game.DialogMgr.PushDialog(UIDialog.DoubleBtnDialog, "确定申请解散房间吗？", "提示", callBack);
         }
         else
         {
@@ -236,16 +246,18 @@ public class PlayPage : PlayPageBase
 
         if (RoomMgr.IsVipRoom())
         {
-            detail.DismissButton_Button.gameObject.SetActive(true);
+            //detail.DismissButton_Button.gameObject.SetActive(true);
+            detail.DismissButton_Button.gameObject.SetActive(false);
             detail.GameRoundButton_Button.gameObject.SetActive(true);
             int quanNum = RoomMgr.GetQuanNum();
             int totalQuan = RoomMgr.GetTotalQuan();
             detail.GameRoundText_Text.text = string.Format("{0}/{1}{2}", quanNum, totalQuan, "局");
 
             bool isWaitting = Game.Instance.state == GameState.Waitting;
-            detail.GameReady_Button.gameObject.SetActive(isWaitting);
-            bool isReady = Game.Instance.state == GameState.Ready;
-            detail.WXButton_Button.gameObject.SetActive(isWaitting || isReady);
+            detail.WXButton_Button.gameObject.SetActive(isWaitting);
+
+            print("     update  ui -----  " + Game.Instance.isUnReady);
+            detail.GameReady_Button.gameObject.SetActive(Game.Instance.isUnReady);
         }
         else
         {

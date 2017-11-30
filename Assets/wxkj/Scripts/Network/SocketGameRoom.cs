@@ -239,7 +239,6 @@ public partial class SocketGame : MonoBehaviour {
             }
             else
             {
-
                 Player player = Game.MJMgr.GetPlayerById(response.playerId);
                 if (null != player)
                 {
@@ -258,6 +257,7 @@ public partial class SocketGame : MonoBehaviour {
     {
         if (msg.code == 0)
         {
+            //TODO wxd away的时候，game.Instance会reset。为什么comeback的时候不用还原。
             PlayerComebackSyn response = NetSerilizer.DeSerialize<PlayerComebackSyn>(msg.data);
             Player player = Game.MJMgr.GetPlayerById(response.playerId);
             if (null != player)

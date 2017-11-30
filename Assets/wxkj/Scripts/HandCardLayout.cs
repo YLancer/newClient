@@ -92,14 +92,14 @@ public class HandCardLayout : MonoBehaviour {
         Vector3 pos = Vector3.zero;
         if (null != newPos)
         {
-            if(newPos.localPosition.x > -0.04f  && newPos.localPosition.x < 0.01f)
+            if(newPos.localPosition.x > -0.1f  && newPos.localPosition.x < 0.01f)
             {
                 pos = new Vector3( newPos.localPosition.x - 0.04425f,0,0);
                 print(" >>>>>>.newPos  1-222222 <<<<<<" + newPos.localPosition.x);
             }
             else if(newPos.localPosition.x > 0.013f)
             {
-                pos = new Vector3(newPos.localPosition.x - 0.177f, 0, 0);
+                pos = new Vector3(newPos.localPosition.x - 0.13275f, 0, 0);
                 print(" >>>>>>.newPos  1-333333 <<<<<<" + newPos.localPosition.x);
             }
             else

@@ -15,4 +15,5 @@ public class Player
     public bool ting = false;
     public bool leave = false;  // 离开
     public int sex;
+    public string ip;
 }

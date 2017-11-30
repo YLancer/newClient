@@ -6,6 +6,9 @@ using packet.game;
 using packet.rank;
 using System;
 using UnityEngine.SceneManagement;
+using System.IO;
+using System.Net;
+using System.Text;
 
 public class SocketHall : MonoBehaviour {
     public string address = "";     //自有新地址
@@ -96,39 +99,37 @@ public class SocketHall : MonoBehaviour {
         SocketNetTools.RemoveEventListener((int)cmd, callback);
     }
 
-    public void LoginMsg(string username,string password,int type)
+    public void LoginMsg(string username, string password, string ip, int type)
     {
         PacketBase msg = new PacketBase() { packetType = PacketType.LoginRequest };
         //设备号  1:ios 2:android 3:winphon 4:other
         int deviceFlag = GlobalConfig.GetPlatformId;
-        LoginRequest request = new LoginRequest() { username = username, passward = password, type = type, version = GlobalConfig.GetVersion, deviceFlag= deviceFlag };
+        LoginRequest request = new LoginRequest() { username = username, passward = password, ip = ip, type = type, version = GlobalConfig.GetVersion, deviceFlag= deviceFlag };
         msg.data = NetSerilizer.Serialize(request);
         SocketNetTools.SendMsg(msg);
     }
 
-    public void WXLoginMsg(WeChatLoginInfo data, int type)
+    public string getIpAddress()         // 获取IP地址
     {
-        PacketBase msg = new PacketBase() { packetType = PacketType.LoginRequest };
-        //设备号  1:ios 2:android 3:winphon 4:other
-        int deviceFlag = GlobalConfig.GetPlatformId;
-        LoginRequest request = new LoginRequest()
+        string tempip = "";
+        try
         {
-            username = "",
-            passward = "",
-            type = type,
-            version = GlobalConfig.GetVersion,
-            deviceFlag = deviceFlag,
+            WebRequest wr = WebRequest.Create("http://1212.ip138.com/ic.asp");
+            Stream s = wr.GetResponse().GetResponseStream();
+            StreamReader sr = new StreamReader(s, Encoding.Default);
+            string all = sr.ReadToEnd(); //读取网站的数据
 
-            openid = data.openid,
-            nickname = data.nickname,
-            headimgurl = data.headimgurl,
-            unionid = data.unionid,
-            province = data.province,
-            city = data.city,
-            sex = data.sex,
-        };
-        msg.data = NetSerilizer.Serialize(request);
-        SocketNetTools.SendMsg(msg);
+            int start = all.IndexOf("[") + 1;
+            int end = all.IndexOf("]");
+            int count = end - start;
+            tempip = all.Substring(start, count);
+            sr.Close();
+            s.Close();
+        }
+        catch
+        {
+        }
+        return tempip;
     }
 
     public void DoRegistVistor()

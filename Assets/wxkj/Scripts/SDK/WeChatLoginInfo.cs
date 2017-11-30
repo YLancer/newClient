@@ -12,4 +12,6 @@ public class WeChatLoginInfo
     public string province;
     public string city;
     public int sex;
+
+    public string IP;     //ip地址
 }

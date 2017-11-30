@@ -480,7 +480,8 @@ public class MJHand : MonoBehaviour
         {
             for (int i = 0; i < list.Length; i++)
             {
-                player.handCardLayout.RemoveCardAt(i);
+                int index = UnityEngine.Random.Range(1, player.handCardLayout.list.Count);
+                player.handCardLayout.RemoveCardAt(index);
                 GameObject child = Game.PoolManager.CardPool.Spawn(list[i].ToString());
                 child.transform.position = Vector3.zero;
                 player.jiuYaoCardLayout.AddCard(list[i]);

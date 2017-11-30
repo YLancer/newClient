@@ -101,8 +101,7 @@ public partial class SocketGame : MonoBehaviour {
     {
         Game.MJMgr.Clear();
         RoomMgr.Reset();
-        Game.Instance.Ting = false;
-        Game.Instance.state = GameState.Hall;
+        Game.Reset();
         Game.UIMgr.PushScene(UIPage.MainPage);
     }
 
@@ -192,7 +191,6 @@ public partial class SocketGame : MonoBehaviour {
             Player player = new Player();
             player.position = response.position;
             player.playerId = response.playerId;
-            //player.sex = response.sex;
             player.sex = IconManager.GetSexByFace(response.sex, response.headImg);
             player.nickName = response.nickName;
             player.headImg = response.headImg;
@@ -201,6 +199,7 @@ public partial class SocketGame : MonoBehaviour {
             player.offline = (response.online == 0);
             player.isReady[0] = (response.state == 1);
             player.leave = (response.away == 1);
+            player.ip = response.ip;
 
             Game.MJMgr.MjData[player.position].player = player;
 
@@ -313,7 +312,7 @@ public partial class SocketGame : MonoBehaviour {
             Game.MJMgr.HangUp = false;
             Game.MJMgr.Clear();
             //RoomMgr.Reset();
-            Game.Instance.Ting = false;
+            Game.Reset(); //TODO wxd 注意，这里有Instance.state = Hall的赋值操作。
             Game.Instance.state = GameState.Waitting;
             Game.MJMgr.targetFlag.gameObject.SetActive(false);
         }
@@ -337,7 +336,7 @@ public partial class SocketGame : MonoBehaviour {
             {
                 if (Game.IsSelf(response.playerId) && response.state == 1 && response.phase == 0)  //严格判断
                 {
-                    Game.Instance.state = GameState.Ready;
+                    Game.Instance.isUnReady = false;
                 }
                 player.isReady[response.phase] = (response.state == 1);
                 EventDispatcher.DispatchEvent(MessageCommand.MJ_UpdatePlayPage);
@@ -1116,7 +1115,7 @@ public partial class SocketGame : MonoBehaviour {
 
     private void OnKickOutSyn(PacketBase msg)
     {
-        Game.Instance.state = GameState.Hall;
+        Game.Reset();
         Game.UIMgr.PushScene(UIPage.MainPage);
     }
 }
