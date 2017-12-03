@@ -57,7 +57,7 @@ public class JiuYaoCardLayout : MonoBehaviour
         LineUp();
 
         last = child;
-
+    
         JiuYaoCards.Add(card);
     }
 

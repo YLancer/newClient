@@ -7,8 +7,13 @@ public class TableCardLayout : MonoBehaviour
     public float height = 5.02f;
     public int row = 2;      //行
     public int col = 18;     //每行放的总数
-    public MJEntity last; 
+    public GameObject last; 
     public List<int> TableCards = new List<int>();
+
+    private void Update()
+    {
+        LineUp();
+    }
 
     public void LineUp()
     {
@@ -44,8 +49,8 @@ public class TableCardLayout : MonoBehaviour
         //MJEntity entity = child.GetComponent<MJEntity>();
         LineUp();
 
-        last = child.GetComponent<MJEntity>(); 
-
+        last = child;
+       
         TableCards.Insert(index, card);
     }
 
@@ -74,7 +79,7 @@ public class TableCardLayout : MonoBehaviour
         //MJEntity entity = child.GetComponent<MJEntity>();
         LineUp();
 
-        last = child.GetComponent<MJEntity>(); ;
+        last = child;
 
         TableCards.Add(card);
     }
