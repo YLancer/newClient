@@ -51,6 +51,14 @@ public class SettleRoundDialog : SettleRoundDialogBase
         //{
         //    Game.SocketGame.DoREADYL(1, 0);
         //}
+
+        if (RoomMgr.IsSingeRoom()  || RoomMgr.IsNormalRoom())
+        {
+            if (Game.UIMgr.IsSceneActive(UIPage.PlayPage))
+            {
+                Game.SocketGame.DoREADYL(1, 0);
+            }
+        }
         OnBackPressed();
     }
 
