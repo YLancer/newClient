@@ -100,7 +100,14 @@ public class JiuYaoPage : JiuYaoPageBase
 
         if (throwList.Count % 3 != 0)
         {
-            detail.Text_tishi.text = "选出的牌数不对，请选三张、六张或者九张";
+            string info = "要甩的牌是：";
+            for(int i = 0; i < throwList.Count; i++)
+            {
+                info += (throwList[i] + ", ");
+            }
+            info += "\n";
+            info += throwList.Count + "张不能甩，请选三张、六张或者九张";
+            detail.Text_tishi.text = throwList.Count + "张不能甩，请选三张、六张或者九张";
             detail.Text_tishi.color = Color.red;
             return;
         }
