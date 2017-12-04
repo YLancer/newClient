@@ -28,10 +28,10 @@ public class HandCardLayout : MonoBehaviour {
         while (list.Count > 0)
         {
             MJEntity trans = list[0];
-            list.RemoveAt(0);
-            Game.PoolManager.CardPool.Despawn(trans.gameObject);
             trans.reSetPoisiton -= cardSelect;
             trans.onSendMessage -= cardPlay;
+            list.RemoveAt(0);
+            Game.PoolManager.CardPool.Despawn(trans.gameObject);
         }
 
         HandCards.Clear();
@@ -147,6 +147,9 @@ public class HandCardLayout : MonoBehaviour {
             MJEntity trans = list[i];
             if (card == trans.Card)
             {
+                trans.reSetPoisiton -= cardSelect;
+                trans.onSendMessage -= cardPlay;
+
                 list.Remove(trans);
 
                 Game.PoolManager.CardPool.Despawn(trans.gameObject);
@@ -326,19 +329,5 @@ public class HandCardLayout : MonoBehaviour {
 
     public void cardPlay(MJEntity card)        //打出牌
     {
-        card.reSetPoisiton -= cardSelect;
-        card.onSendMessage -= cardPlay;
-        print(" +++++++++++++++++ " + card); 
-        list.Remove(card);
-        HandCards.Remove(card.Card);
-        card.transform.position  = Vector3.zero;
-        //if(card.transform.position.x == 0 )
-        //{
-        //    Destroy(card);
-        //}
-        LineUp();
-
     }
-
-
 }

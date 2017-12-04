@@ -50,17 +50,15 @@ public class JiuYaoPage : JiuYaoPageBase
             MJEntity cardObj = handCardList[i];
             int cardPoint = cardObj.Card;
             if (cardPoint % 8 == 1 || cardPoint > 48)
-            //if(true)
             {
                 cardObj.isCardUp = true;
                 cardObj.SetSelect(true);
             }
             else
             {
+                cardObj.SetSelect(false);
                 cardObj.SetEnable(false);
             }
-            cardObj.reSetPoisiton -= Game.MJMgr.MyPlayer.handCardLayout.cardSelect;
-            cardObj.onSendMessage -= Game.MJMgr.MyPlayer.handCardLayout.cardPlay;
         }
     }
 
@@ -73,15 +71,13 @@ public class JiuYaoPage : JiuYaoPageBase
             if (cardPoint % 8 == 1 || cardPoint > 48)
             //if (true)
             {
-                cardObj.isCardUp = false;
                 cardObj.SetSelect(false);
+                cardObj.isCardUp = false;
             }
             else
             {
                 cardObj.SetEnable(true);
             }
-            cardObj.reSetPoisiton += Game.MJMgr.MyPlayer.handCardLayout.cardSelect;
-            cardObj.onSendMessage += Game.MJMgr.MyPlayer.handCardLayout.cardPlay;
         }
     }
 
@@ -105,7 +101,7 @@ public class JiuYaoPage : JiuYaoPageBase
             {
                 info += (throwList[i] + ", ");
             }
-            info += "\n";
+            info += " - ";
             info += throwList.Count + "张不能甩，请选三张、六张或者九张";
             detail.Text_tishi.text = throwList.Count + "张不能甩，请选三张、六张或者九张";
             detail.Text_tishi.color = Color.red;

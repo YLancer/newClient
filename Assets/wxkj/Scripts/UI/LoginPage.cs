@@ -11,8 +11,6 @@ public class LoginPage : LoginPageBase
     private int loginType = 3;
     //private WeChatLoginInfo loginInfo = null;
     private ShareSDK shareSdk = null;
-    public Text text;
-    public string message;
     private string username = "";
     private string password = "";
     private string ip = "";
@@ -48,39 +46,30 @@ public class LoginPage : LoginPageBase
     {   //成功
         if (state == ResponseState.Success)
         {
-            message = ("share result :");
-            message = (MiniJSON.jsonEncode(result));
         }
         //失败
         else if (state == ResponseState.Fail)
         {
-            message = ("fail! error code = " + result["error_code"] + "; error msg = " + result["error_msg"]);
         }
         //关闭
         else if (state == ResponseState.Cancel)
         {
-            message = ("cancel !");
         }
     }
     void AuthResultHandler(int reqID, ResponseState state, PlatformType type, Hashtable result)
     {
         if (state == ResponseState.Success)
         {
-            message = ("authorize success !");
-
             //token = (string)result["token"];
             //授权成功的话，获取用户信息
             shareSdk.GetUserInfo(type);
         }
         else if (state == ResponseState.Fail)
         {
-            message = ("fail! error code = " + result["error_code"] + "; error msg = " + result["error_msg"]);
         }
         else if (state == ResponseState.Cancel)
         {
-            message = ("cancel !");
         }
-        text.text = message;
     }
     //获取用户信息
     void GetUserInfoResultHandler(int reqID, ResponseState state, PlatformType type, Hashtable result)
@@ -91,20 +80,15 @@ public class LoginPage : LoginPageBase
             switch (type)
             {
                 case PlatformType.WeChat:
-                    message = (MiniJSON.jsonEncode(result));  //Json
-
                     break;
             }
         }
         else if (state == ResponseState.Fail)
         {
-            message = ("fail! error code = " + result["error_code"] + "; error msg = " + result["error_msg"]);
         }
         else if (state == ResponseState.Cancel)
         {
-            message = ("cancel !");
         }
-        text.text += message;
     }
 
     public override void InitializeScene()
@@ -139,7 +123,6 @@ public class LoginPage : LoginPageBase
         if (!detail.WXToggle.isOn)  return;
         loginType = 3;
         Game.SoundManager.PlayClick();
-        text.text += "登录中";
         shareSdk.Authorize(PlatformType.WeChat);
     }
 

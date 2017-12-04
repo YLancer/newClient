@@ -54,19 +54,27 @@ public class MJEntity : MonoBehaviour {
         {
             return;
         }
+        if (!isEnable)
+        {
+            return;
+        }
 
         if (isCardUp)
         {
             SetSelect(!isSelect);
-        }  
-        else if (MJUtils.DropCard())
-        {   
-            if (isSelect == false)
+            return;
+        }
+
+        if (isSelect == false)
+        {
+            if (reSetPoisiton != null)
             {
-                isSelect = true;
-                this.transform.localPosition = transform.localPosition;
+                reSetPoisiton(this.GetComponent<MJEntity>());
             }
-            else
+        }
+        else
+        {
+            if (MJUtils.DropCard())
             {
                 if (onSendMessage != null)     //发送消息
                 {
@@ -74,18 +82,10 @@ public class MJEntity : MonoBehaviour {
                     OnClickDrop();
                 }
             }
-        }
-    }
-
-    private void OnMouseUp()      //按下之后的弹起来
-    {
-        if ( !isEnable)
-        {
-            return;
-        }
-        if (reSetPoisiton != null)
-        {
-            reSetPoisiton(this.GetComponent<MJEntity>());
+            else
+            {
+                SetSelect(false);
+            }
         }
     }
 
