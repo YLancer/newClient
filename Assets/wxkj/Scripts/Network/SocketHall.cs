@@ -249,6 +249,14 @@ public class SocketHall : MonoBehaviour {
         SocketNetTools.SendMsg(msg);
     }
 
+    public void DoShareRequest()
+    {
+        PacketBase msg = new PacketBase() { packetType = PacketType.ShareRequest };
+        ShareRequest request = new ShareRequest() {};
+        msg.data = NetSerilizer.Serialize(request);
+        SocketNetTools.SendMsg(msg);
+    }
+
     public void DoRoomConfigRequest()
     {
         PacketBase msg = new PacketBase() { packetType = PacketType.RoomConfigRequest };

@@ -14,6 +14,7 @@ enum PacketType
 	RegisterResponse = 1008;
 	UserInfoSyn = 1009; //用户属性发生变化
 	ModifyUserInfoRequest = 1010; //修改用户信息
+	ShareRequest = 1011; //用户分享
 	
 	//**********游戏相关*********//
 	EnrollRequest = 2001;	   //报名

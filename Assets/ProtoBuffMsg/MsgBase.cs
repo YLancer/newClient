@@ -51,8 +51,6 @@ namespace packet.msgbase
       { return global::ProtoBuf.Extensible.GetExtensionObject(ref extensionObject, createIfMissing); }
   }
   
-
-    //这个下面是全部的消息编号
     [global::ProtoBuf.ProtoContract(Name=@"PacketType")]
     public enum PacketType
     {
@@ -89,6 +87,9 @@ namespace packet.msgbase
             
       [global::ProtoBuf.ProtoEnum(Name=@"ModifyUserInfoRequest", Value=1010)]
       ModifyUserInfoRequest = 1010,
+            
+      [global::ProtoBuf.ProtoEnum(Name=@"ShareRequest", Value=1011)]
+      ShareRequest = 1011,
             
       [global::ProtoBuf.ProtoEnum(Name=@"EnrollRequest", Value=2001)]
       EnrollRequest = 2001,

@@ -267,6 +267,16 @@ namespace packet.user
       { return global::ProtoBuf.Extensible.GetExtensionObject(ref extensionObject, createIfMissing); }
   }
   
+  [global::System.Serializable, global::ProtoBuf.ProtoContract(Name=@"ShareRequest")]
+  public partial class ShareRequest : global::ProtoBuf.IExtensible
+  {
+    public ShareRequest() {}
+    
+    private global::ProtoBuf.IExtension extensionObject;
+    global::ProtoBuf.IExtension global::ProtoBuf.IExtensible.GetExtensionObject(bool createIfMissing)
+      { return global::ProtoBuf.Extensible.GetExtensionObject(ref extensionObject, createIfMissing); }
+  }
+  
   [global::System.Serializable, global::ProtoBuf.ProtoContract(Name=@"AuthResponse")]
   public partial class AuthResponse : global::ProtoBuf.IExtensible
   {

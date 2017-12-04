@@ -112,11 +112,6 @@ message PlayerExitSyn {
    required sint32 playerId = 1; //玩家id
 }
 
-message StartDealRequest{
-	required int32 position = 1; //位置
-	required int32 state = 2;//状态 0 取消准备，1准备
-}
-
 //换桌
 message ChangeDeskRequest {
 	required int32 playerId = 1; //id

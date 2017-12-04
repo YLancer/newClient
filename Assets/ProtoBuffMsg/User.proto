@@ -45,6 +45,11 @@ message AuthRequest
 	optional string version = 3; //客户端版本号
 }
 
+//玩家分享了连接
+message ShareRequest
+{
+}
+
 message AuthResponse
 {
 

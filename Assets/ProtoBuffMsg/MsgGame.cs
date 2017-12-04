@@ -518,30 +518,6 @@ namespace packet.game
       { return global::ProtoBuf.Extensible.GetExtensionObject(ref extensionObject, createIfMissing); }
   }
   
-  [global::System.Serializable, global::ProtoBuf.ProtoContract(Name=@"StartDealRequest")]
-  public partial class StartDealRequest : global::ProtoBuf.IExtensible
-  {
-    public StartDealRequest() {}
-    
-    private int _position;
-    [global::ProtoBuf.ProtoMember(1, IsRequired = true, Name=@"position", DataFormat = global::ProtoBuf.DataFormat.TwosComplement)]
-    public int position
-    {
-      get { return _position; }
-      set { _position = value; }
-    }
-    private int _state;
-    [global::ProtoBuf.ProtoMember(2, IsRequired = true, Name=@"state", DataFormat = global::ProtoBuf.DataFormat.TwosComplement)]
-    public int state
-    {
-      get { return _state; }
-      set { _state = value; }
-    }
-    private global::ProtoBuf.IExtension extensionObject;
-    global::ProtoBuf.IExtension global::ProtoBuf.IExtensible.GetExtensionObject(bool createIfMissing)
-      { return global::ProtoBuf.Extensible.GetExtensionObject(ref extensionObject, createIfMissing); }
-  }
-  
   [global::System.Serializable, global::ProtoBuf.ProtoContract(Name=@"ChangeDeskRequest")]
   public partial class ChangeDeskRequest : global::ProtoBuf.IExtensible
   {

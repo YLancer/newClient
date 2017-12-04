@@ -43,9 +43,11 @@ public class LoginPage : LoginPageBase
 
     }
     void ShareResultHandler(int reqID, ResponseState state, PlatformType type, Hashtable result)
-    {   //成功
+    {
+        //成功
         if (state == ResponseState.Success)
         {
+            Game.SocketHall.DoShareRequest();
         }
         //失败
         else if (state == ResponseState.Fail)
