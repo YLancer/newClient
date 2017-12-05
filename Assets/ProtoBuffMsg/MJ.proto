@@ -115,5 +115,6 @@ message PlayerFinalResult {
   optional sint32 moBaoCount = 9;
   optional sint32 baoZhongBaoCount = 10;
   optional sint32 kaiPaiZhaCount = 11;
-  optional bool roomOwner = 12; //是否是否房主
+  repeated sint32 eachScore = 12;
+  optional bool roomOwner = 13; //是否是否房主
 }

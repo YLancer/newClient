@@ -641,8 +641,15 @@ namespace packet.mj
       get { return _kaiPaiZhaCount; }
       set { _kaiPaiZhaCount = value; }
     }
+    private readonly global::System.Collections.Generic.List<int> _eachScore = new global::System.Collections.Generic.List<int>();
+    [global::ProtoBuf.ProtoMember(12, Name=@"eachScore", DataFormat = global::ProtoBuf.DataFormat.ZigZag)]
+    public global::System.Collections.Generic.List<int> eachScore
+    {
+      get { return _eachScore; }
+    }
+  
     private bool _roomOwner = default(bool);
-    [global::ProtoBuf.ProtoMember(12, IsRequired = false, Name=@"roomOwner", DataFormat = global::ProtoBuf.DataFormat.Default)]
+    [global::ProtoBuf.ProtoMember(13, IsRequired = false, Name=@"roomOwner", DataFormat = global::ProtoBuf.DataFormat.Default)]
     [global::System.ComponentModel.DefaultValue(default(bool))]
     public bool roomOwner
     {
