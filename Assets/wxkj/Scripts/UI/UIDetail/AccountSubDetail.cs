@@ -27,4 +27,5 @@ public class AccountSubDetail
     public GridLayoutGroup Content_GridLayoutGroup;
     public ContentSizeFitter Content_ContentSizeFitter;
     public InningRankSub InningRankSub;
+    public Image InningRankSub_image;
 }
