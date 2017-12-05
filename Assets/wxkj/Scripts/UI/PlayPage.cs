@@ -255,8 +255,7 @@ public class PlayPage : PlayPageBase
 
             bool isWaitting = Game.Instance.state == GameState.Waitting;
             detail.WXButton_Button.gameObject.SetActive(isWaitting);
-
-            print("     update  ui -----  " + Game.Instance.isUnReady);
+            
             detail.GameReady_Button.gameObject.SetActive(Game.Instance.isUnReady);
         }
         else

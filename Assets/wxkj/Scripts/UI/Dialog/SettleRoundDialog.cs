@@ -142,6 +142,8 @@ public class SettleRoundDialog : SettleRoundDialogBase
         {
             sub.detail.Fan_TextMeshProUGUI.text = string.Format("{0}分", settle.fanNum);
         }
+        Game.MJMgr.MjData[settle.position].player.coin = settle.coin;
+        Game.MJMgr.MjData[settle.position].player.score = settle.score;
 
         //sub.detail.ResultType_Text.text = settle.resultType.ToString();
 

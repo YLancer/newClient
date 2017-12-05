@@ -362,7 +362,6 @@ public class Game : MonoBehaviour
             this.continueWinCount = response.continueWinCount;
             this.totalGameCount = response.totalGameCount;
             this.winRate = (float)response.winRate;
-            print(" this  ip " + ip);
             this.ip = response.ip;
             this.maxFanType = response.maxFanType;
             this.handcard = response.handcard;
