@@ -97,7 +97,6 @@ public class AndroidUtil : MonoBehaviour
 
     public void OnShareClick(string roomId = null)
     {
-        print("!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!");
         ShareContent content = new ShareContent();
         string room = (roomId == null) ? "" : "房间号是：" + roomId;
         //这个地方要参考不同平台需要的参数    可以看ShareSDK提供的   分享内容参数表.docx
@@ -108,10 +107,22 @@ public class AndroidUtil : MonoBehaviour
 
         content.SetShareType(ContentType.Webpage);
 
-        //shareSdk.ShowPlatformList(null, content, 100, 100);                      //弹出分享菜单选择列表
-        // 改为下：shareSdk.ShowShareContentEditor(PlatformType.QQ, content);                 //指定平台直接分享
+        //指定平台直接分享
         shareSdk.ShowShareContentEditor(PlatformType.WeChat, content);
+    }
 
+
+    public void OnShareWeChatMoments()
+    {
+        ShareContent content = new ShareContent();
+        //这个地方要参考不同平台需要的参数    可以看ShareSDK提供的   分享内容参数表.docx
+        content.SetTitle("西凉麻将3D");                                            //分享标题
+        content.SetText("正宗金昌甩九幺——西凉3D麻将，你也来试试吧！" );                            //分享文字
+        content.SetImageUrl("http://pic.dafuvip.com/templates/majiang/images/bj-big.jpg");   //分享图片
+        content.SetUrl("http://www.dafuv.com/wyxlmj?view=1");                                    //分享网址
+        content.SetShareType(ContentType.Webpage);
+        //指定平台直接分享
+        shareSdk.ShowShareContentEditor(PlatformType.WeChatMoments, content);
     }
 
 

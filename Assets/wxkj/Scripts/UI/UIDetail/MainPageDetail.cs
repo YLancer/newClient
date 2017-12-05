@@ -47,5 +47,6 @@ public class MainPageDetail
     public Image RankSub_Image;
     public Button RankSub_Button;
     public RankSub RankSub_RankSub;
-
+    public Image share_qipao;
+    public Text Text_share;
 }
