@@ -23,5 +23,12 @@ public class AccountSubBase : UISubBase
         detail.RoomOwnerFlag_Image = transform.Find("RoomOwnerFlag").gameObject.GetComponent<Image>();
         detail.Score_TextMeshProUGUI = transform.Find("Score").gameObject.GetComponent<TextMeshProUGUI>();
 
+        detail.ScrollView_ScrollRect = transform.Find("AccountSub/Scroll View").gameObject.GetComponent<ScrollRect>();
+        detail.ScrollView_Image = transform.Find("AccountSub/Scroll View").gameObject.GetComponent<Image>();
+        detail.Viewport_Image = transform.Find("AccountSub/Scroll View/Viewport").gameObject.GetComponent<Image>();
+        detail.Viewport_Mask = transform.Find("AccountSub/Scroll View/Viewport").gameObject.GetComponent<Mask>();
+        detail.Content_GridLayoutGroup = transform.Find("AccountSub/Scroll View/Viewport/Content").gameObject.GetComponent<GridLayoutGroup>();
+        detail.Content_ContentSizeFitter = transform.Find("AccountSub/Scroll View/Viewport/Content").gameObject.GetComponent<ContentSizeFitter>();
+        detail.InningRankSub = transform.Find("AccountSub/InningRankSub").gameObject.GetComponent<InningRankSub>();
     }
 }

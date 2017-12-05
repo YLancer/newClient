@@ -60,6 +60,8 @@ public enum UIPage  // 加载UI界面
     UserInfoPage = 25,
     [Description("Prefabs/UI/HelpPage")]     //帮助的界面
     HelpPage = 26,
+    [Description("Prefabs/UI/SharePage")]// 分享界面：微信好友分享   朋友圈分享
+    SharePage = 27,
     [Description("Prefabs/UI/ShuaiJiuYaoPage")]//甩九幺界面
     JiuYaoPage = 31,
 }

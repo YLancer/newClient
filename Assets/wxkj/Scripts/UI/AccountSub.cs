@@ -2,6 +2,7 @@
 using System.Collections;
 using System;
 using packet.mj;
+using System.Collections.Generic;
 
 public class AccountSub : AccountSubBase
 {
@@ -23,5 +24,23 @@ public class AccountSub : AccountSubBase
 
         detail.WinFlag_Image.gameObject.SetActive(maxHu > 0 && result.huCount >= maxHu);
         detail.PaoFlag_Image.gameObject.SetActive(maxPao > 0 && result.paoCount >= maxPao);
+
+        List<int> list = new List<int>();
+        list.Add(4);
+        list.Add(-4);
+        list.Add(106);
+        list.Add(402);
+        list.Add(174);
+        list.Add(478);
+        list.Add(424);
+        list.Add(-64);
+        list.Add(1564);
+        PrefabUtils.ClearChild(detail.Content_GridLayoutGroup);
+        for(int i = 0; i < list.Count; i++)
+        {
+            GameObject child = AddChild(detail.Content_GridLayoutGroup,detail.InningRankSub);
+            InningRankSub Inningsub = child.GetComponent<InningRankSub>();
+            Inningsub.SetValue(list[i], i);
+        }
     }
 }

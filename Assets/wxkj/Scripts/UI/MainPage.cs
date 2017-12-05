@@ -56,10 +56,8 @@ public class MainPage : MainPageBase
 
     private void OnClickShare()
     {
-        print(" 分享功能 》》》》》》》》》" );
         Game.SoundManager.PlayClick();
-        Game.AndroidUtil.OnShareClick();
-        //Game.AndroidUtil.Share();
+        Game.UIMgr.PushScene(UIPage.SharePage);      //分享按钮显示一个界面：好友分享；朋友圈分享
     }
 
     private void OnClickSetting()
@@ -267,10 +265,25 @@ public class MainPage : MainPageBase
         }
     }
 
+    private void Start()
+    {
+        InvokeRepeating("ChageTextOfShare", 0.5f, 1f);
+    }
+
     void Update()
     {
         //Update_FlowLight();
         Update_Marquee();
+    }
+
+    void ChageTextOfShare()
+    {
+        detail.Text_share.color = new Color(0,0,0);
+        float r = UnityEngine.Random.value;
+        float g = UnityEngine.Random.value;
+        float b = UnityEngine.Random.value;
+        detail.Text_share.color = new Color(r, g, b);
+     
     }
 
     void Update_Marquee()

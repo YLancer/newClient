@@ -51,5 +51,7 @@ public class MainPageBase : UISceneBase
         detail.RankSub_Button = transform.Find("Left/RankSub").gameObject.GetComponent<Button>();
         detail.RankSub_RankSub = transform.Find("Left/RankSub").gameObject.GetComponent<RankSub>();
 
+        detail.share_qipao = transform.Find("Bottom/Share_qipao").gameObject.GetComponent<Image>();
+        detail.Text_share = transform.Find("Bottom/Share_qipao/Text_share").gameObject.GetComponent<Text>();
     }
 }

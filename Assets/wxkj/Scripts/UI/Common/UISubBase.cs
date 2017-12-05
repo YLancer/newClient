@@ -9,4 +9,10 @@ public class UISubBase : MonoBehaviour
     {
 
     }
+
+    public GameObject AddChild(MonoBehaviour parent, MonoBehaviour prefab)
+    {
+        return PrefabUtils.AddChild(parent, prefab);
+    }
+
 }
