@@ -14,8 +14,14 @@ public class LoginPageDetail
     public Toggle WXToggle;
     public Image Background;
     public Image Checkmark;
+
+    public Button Deal;
     public Image text_image;
     public Text text_uesr;
-
-    //public ShareSDK ShareSDK;
+    public Image Deal_image;
+    public Image BG;
+    public Button close;
+    public ScrollRect ScrollView;
+    public Image Viewport;
+    public Text Context;
 }
