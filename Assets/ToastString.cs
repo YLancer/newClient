@@ -10,6 +10,7 @@ using UnityEngine;
 /// </summary>
 public static class ToastString
 {
+#if UNITY_ANDROID
     /// <summary>
     /// Show String as Toast
     /// </summary>
@@ -17,7 +18,6 @@ public static class ToastString
     /// <param name="activity">Activity.</param>
     public static void showAsToast(this string text, AndroidJavaObject activity = null)
     {
-#if UNITY_ANDROID
         Debug.Log(text);
         if(activity == null)
         {

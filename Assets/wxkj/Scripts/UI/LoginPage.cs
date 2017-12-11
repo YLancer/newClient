@@ -5,6 +5,9 @@ using packet.user;
 using packet.game;
 using cn.sharesdk.unity3d;
 using UnityEngine.UI;
+using UnityEngine.Experimental.Networking;
+using System.Text;
+
 public class LoginPage : LoginPageBase
 {
     //登录类型 1 游客  2 用户名密码 3微信 4QQ
@@ -120,12 +123,55 @@ public class LoginPage : LoginPageBase
         Application.Quit();
     }
 
+    IEnumerator TestWWW()
+    {
+        byte[] byteArray = Encoding.UTF8.GetBytes("{\"notifyUrl\":\"www.google.com\"}");
+        WWWForm form = new WWWForm();
+        form.AddField("amount", 100);
+        form.AddField("orderNo", "1");
+        form.AddField("channel", 7002);
+        form.AddField("timePaid", "100000");
+        form.AddField("mchNo", "123456");
+        form.AddField("body", "testpay");
+        form.AddField("description", "testpay2");
+        form.AddField("subject", "testpay3");
+        form.AddField("extra", "{\"notifyUrl\":\"www.google.com\"}");
+        //form.AddBinaryData("extra", byteArray);
+        form.AddField("version", "2.0");
+        form.AddField("sign", "00");
+
+        UnityWebRequest ww = new UnityWebRequest();
+        WWW www = new WWW("https://tapi.pay.jommytech.com/applyPay", form);
+        yield return www;
+        if (!string.IsNullOrEmpty(www.error))
+        {
+            print(" ERROR: - " + www.error);
+        }
+        else
+        {
+            if (www.responseHeaders.ContainsKey("STATUS"))
+            {
+                print(" HEAD: - " + www.responseHeaders["STATUS"]);
+                if(www.responseHeaders["STATUS"] == "HTTP/1.1 200 OK")
+                {
+                    print(" MSG: - " + www.text);
+                }
+            }
+        }
+    }
+
     void OnClickWX()
     {
+        StartCoroutine(TestWWW());
         if (!detail.WXToggle.isOn)  return;
         loginType = 3;
         Game.SoundManager.PlayClick();
-        shareSdk.Authorize(PlatformType.WeChat);
+        //shareSdk.Authorize(PlatformType.WeChat);
+    }
+
+    public void PluginCallBack(string text)
+    {
+        text.showAsToast();
     }
 
     //微信成功登陆回调
