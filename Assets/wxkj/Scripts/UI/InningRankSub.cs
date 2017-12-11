@@ -10,5 +10,14 @@ public class InningRankSub : InningRankSubBase
     {
         detail.rank.text = InningRank.ToString();
         detail.score.text = score.ToString();
+
+        if(score >=0)
+        {
+            detail.score.color = Color.green;
+        }
+        else
+        {
+            detail.score.color = Color.red;
+        }
     }
 }

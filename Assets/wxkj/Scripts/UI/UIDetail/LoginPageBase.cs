@@ -17,9 +17,15 @@ public class LoginPageBase : UISceneBase
         detail.WXToggle = transform.Find("Toggle").gameObject.GetComponent<Toggle>();
         detail.Background= transform.Find("Toggle/Background").gameObject.GetComponent<Image>();
         detail.Checkmark= transform.Find("Toggle/Background/Checkmark").gameObject.GetComponent<Image>();
-        detail.text_image = transform.Find("Toggle/text_image").gameObject.GetComponent<Image>();
-        detail.text_uesr= transform.Find("Toggle/text_uesr").gameObject.GetComponent<Text>();
 
-        //detail.ShareSDK =  GameObject .Find("ShardSDK").GetComponent<ShareSDK>();
+        detail.Deal= transform.Find("Deal").gameObject.GetComponent<Button>();
+        detail.text_image = transform.Find("Deal/text_image").gameObject.GetComponent<Image>();
+        detail.text_uesr = transform.Find("Deal/text_uesr").gameObject.GetComponent<Text>();
+        detail.Deal_image = transform.Find("Deal_image").gameObject.GetComponent<Image>();
+        detail.BG= transform.Find("Deal_image/BG").gameObject.GetComponent<Image>();
+        detail.close =transform.Find("Deal_image/close").gameObject.GetComponent<Button>();
+        detail.ScrollView= transform.Find("Deal_image/Scroll View").gameObject.GetComponent<ScrollRect>();
+        detail.Viewport= transform.Find("Deal_image/Scroll View/Viewport").gameObject.GetComponent<Image>();
+        detail.Context= transform.Find("Deal_image/Scroll View/Viewport/Content").gameObject.GetComponent<Text>();
     }
 }

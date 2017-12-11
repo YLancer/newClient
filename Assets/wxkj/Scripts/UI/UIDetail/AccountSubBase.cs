@@ -30,5 +30,6 @@ public class AccountSubBase : UISubBase
         detail.Content_GridLayoutGroup = transform.Find("AccountSub/Scroll View/Viewport/Content").gameObject.GetComponent<GridLayoutGroup>();
         detail.Content_ContentSizeFitter = transform.Find("AccountSub/Scroll View/Viewport/Content").gameObject.GetComponent<ContentSizeFitter>();
         detail.InningRankSub = transform.Find("AccountSub/InningRankSub").gameObject.GetComponent<InningRankSub>();
+        detail.InningRankSub_image = transform.Find("AccountSub/InningRankSub").gameObject.GetComponent<Image>();
     }
 }

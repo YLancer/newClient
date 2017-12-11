@@ -93,6 +93,7 @@ public class NoticeActivePage : NoticeActivePageBase
             else
             {
                 detail.NoticeSub_NoticeSub.detail.ContentText_Text.text = msg.notice;
+                //detail.NoticeSub_NoticeSub.detail.ContentText_Text.text ="西凉3D麻将已上线";
             }
         }
     }

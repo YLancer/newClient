@@ -1,6 +1,7 @@
 using UnityEngine;
 using UnityEngine.UI;
 using System.Collections;
+using System.Collections.Generic;
 using TMPro;
 
 [System.Serializable]
@@ -60,4 +61,36 @@ public class CreateRoomDialogDetail
     public CheckBoxSub Mode3_Zimohu_Tuidaohu;       //自摸胡
     public Image CreateButton_TuidaohuImage;
     public Button CreateButton_TuidaohuButton;
+
+
+    //客户另类创建房间需求的选择项
+    //金昌麻将
+    public CheckBoxSub Num2_jinchang;
+    public CheckBoxSub Num4_jinchang;
+    public GameObject Num2_jinchang_Select_2;
+    public CheckBoxSub Num2_Round8_jinchang;
+    public CheckBoxSub Num2_Round16_jinchang;
+    public GameObject Num4_jinchang_Select_4;
+    public CheckBoxSub Num4_Round8_jinchang;
+    public CheckBoxSub Num4_Round16_jinchang;
+
+    //九幺麻将
+    public CheckBoxSub Num2_jiuyao;
+    public CheckBoxSub Num4_jiuyao;
+    public GameObject Num2_jiuyao_Select_2;
+    public CheckBoxSub Num2_Round8_jiuyao;
+    public CheckBoxSub Num2_Round16_jiuyao;
+    public GameObject Num4_jiuyao_Select_4;
+    public CheckBoxSub Num4_Round8_jiuyao;
+    public CheckBoxSub Num4_Round16_jiuyao;
+
+    //推倒胡
+    public CheckBoxSub Num2_tuidaohu;
+    public CheckBoxSub Num4_tuidaohu;
+    public GameObject Num2_tuidaohu_Select_2;
+    public CheckBoxSub Num2_Round8_tuidaohu;
+    public CheckBoxSub Num2_Round16_tuidaohu;
+    public GameObject Num4_tuidaohu_Select_4;
+    public CheckBoxSub Num4_Round8_tuidaohu;
+    public CheckBoxSub Num4_Round16_tuidaohu;
 }

@@ -267,24 +267,31 @@ public class MainPage : MainPageBase
 
     private void Start()
     {
-        InvokeRepeating("ChageTextOfShare", 0.5f, 1f);
+        if(IsScreenActivated ==true)
+        {
+            InvokeRepeating("ChageTextOfShare", 0.5f, 1f);
+        }
+    }
+
+    void ChageTextOfShare()
+    {
+        float r = UnityEngine.Random.value;
+        float g = UnityEngine.Random.value;
+        float b = UnityEngine.Random.value;
+        detail.Text_share.color = new Color(r, g, b);
     }
 
     void Update()
     {
         //Update_FlowLight();
-        Update_Marquee();
+   
+        if (IsScreenActivated == true)
+        {
+            Update_Marquee();
+        }
     }
 
-    void ChageTextOfShare()
-    {
-        detail.Text_share.color = new Color(0,0,0);
-        float r = UnityEngine.Random.value;
-        float g = UnityEngine.Random.value;
-        float b = UnityEngine.Random.value;
-        detail.Text_share.color = new Color(r, g, b);
-     
-    }
+
 
     void Update_Marquee()
     {

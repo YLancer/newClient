@@ -454,6 +454,7 @@ public class MJHand : MonoBehaviour
         eff.transform.position = pos;
         Game.PoolManager.EffectPool.Despawn(eff, 3);
     }
+
     // 甩九幺牌消失
     internal void PlayShuaiJiuYao(int[] list, bool isMy)
     {

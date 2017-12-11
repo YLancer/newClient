@@ -5,9 +5,9 @@ using packet.user;
 using packet.game;
 using cn.sharesdk.unity3d;
 using UnityEngine.UI;
+using System;
 using UnityEngine.Experimental.Networking;
 using System.Text;
-
 public class LoginPage : LoginPageBase
 {
     //登录类型 1 游客  2 用户名密码 3微信 4QQ
@@ -102,6 +102,17 @@ public class LoginPage : LoginPageBase
 
         detail.WxButton_Button.onClick.AddListener(OnClickWX);  //微信登录点击事件
         detail.AccountButton_Button.onClick.AddListener(OnClickAccount);  //账号登录点击事件
+        detail.Deal.onClick.AddListener(OnClickDeal);
+        detail.close.onClick.AddListener(OnCloseDeal);
+    }
+
+    private void OnClickDeal()
+    {
+        detail.Deal_image.gameObject.SetActive(true);
+    }
+    private void OnCloseDeal()
+    {
+        detail.Deal_image.gameObject.SetActive(false);
     }
 
     public override void OnSceneOpened(params object[] sceneData)
