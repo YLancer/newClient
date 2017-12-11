@@ -1,5 +1,7 @@
 ﻿using UnityEngine;
 using System.Collections;
+using UnityEngine.UI;
+using System;
 
 public class CreateRoomDialog : CreateRoomDialogBase
 {
@@ -10,9 +12,59 @@ public class CreateRoomDialog : CreateRoomDialogBase
         detail.CreateButton_Button.onClick.AddListener(OnClickCreate);
 
         detail.CloseButton_XiliangButton.onClick.AddListener(OnBackPressed);
+
         detail.CreateButton_JinchangButton.onClick.AddListener(OnJinChangClickCreate);
         detail.CreateButton_JiuyaoButton.onClick.AddListener(OnJiuYaoClickCreate);
         detail.CreateButton_TuidaohuButton.onClick.AddListener(OnTuiDaoHuClickCreate);
+    }
+
+    private void Update()
+    {
+        OnShow_jinchang();
+        OnShow_jiuyao();
+        OnShow_tuidaohu();
+    }
+
+    private void OnShow_jinchang()
+    {
+        if(detail.Toggle_2.isOn)
+        {
+            detail.Select_2.gameObject.SetActive(true);
+            detail.Select_4.gameObject.SetActive(false);
+        }
+        else if (detail.Toggle_4.isOn)
+        {
+            detail.Select_4.gameObject.SetActive(true);
+            detail.Select_2.gameObject.SetActive(false);
+        }
+    }
+
+    private void OnShow_jiuyao()
+    {
+        if (detail.Toggle2_jiuyaoToggle.isOn)
+        {
+            detail.Select_2_jiuyao.gameObject.SetActive(true);
+            detail.Select_4_jiuyao.gameObject.SetActive(false);
+        }
+        else if (detail.Toggle4_jiuyaoToggle.isOn)
+        {
+            detail.Select_4_jiuyao.gameObject.SetActive(true);
+            detail.Select_2_jiuyao.gameObject.SetActive(false);
+        }
+    }
+
+    private void OnShow_tuidaohu()
+    {
+        if (detail.Toggle2_tuidaohu.isOn)
+        {
+            detail.Select_2_tuidaohu.gameObject.SetActive(true);
+            detail.Select_4_tuidaohu.gameObject.SetActive(false);
+        }
+        else if (detail.Toggle4_tuidaohuToggle.isOn)
+        {
+            detail.Select_4_tuidaohu.gameObject.SetActive(true);
+            detail.Select_2_tuidaohu.gameObject.SetActive(false);
+        }
     }
 
     private void OnClickCreate()  
@@ -72,9 +124,30 @@ public class CreateRoomDialog : CreateRoomDialogBase
     private void OnJinChangClickCreate()  // 创建金昌麻将房间
     {
         Game.SoundManager.PlayClick();
-        bool is2Player = detail.PlayerNum2_Jinchang.IsSelected;
-        int vipRoomType = is2Player ? 2 : 4;
-        int quanNum = detail.Round4_Jinchang.IsSelected ? 1 : 2;
+        int vipRoomType = 0;
+        int quanNum = 0;
+        //bool is2Player = detail.PlayerNum2_Jinchang.IsSelected;
+        //int vipRoomType = is2Player ? 2 : 4;
+        //int quanNum = detail.Round4_Jinchang.IsSelected ? 1 : 2;  消耗房卡数量
+        if (detail.Toggle_2.isOn) {
+            vipRoomType = 2;
+            if (detail.Toggle2_Round8.isOn){
+                quanNum = 7;
+            }
+            else if (detail.Toggle2_Round16.isOn){
+                quanNum = 14;
+            }
+        }
+        else if (detail.Toggle_4.isOn){
+            vipRoomType = 4;
+            if (detail.Toggle4_Round8.isOn){
+                quanNum = 5;
+            }
+            else if (detail.Toggle4_Round16.isOn){
+                quanNum = 10;
+            }
+        }
+
         int wanfa = MJUtils.MODE_CHI;
         if (detail.Mode0_Fengpai_Jinchang.IsSelected)
         {
@@ -109,9 +182,35 @@ public class CreateRoomDialog : CreateRoomDialogBase
     private void OnJiuYaoClickCreate()  // 创建九幺麻将房间
     {
         Game.SoundManager.PlayClick();
-        bool is2Player = detail.PlayerNum2_Jiuyao.IsSelected;
-        int vipRoomType = is2Player ? 2 : 4;
-        int quanNum = detail.Round4_Jiuyao.IsSelected ? 1 : 2;
+        //bool is2Player = detail.PlayerNum2_Jiuyao.IsSelected;
+        //int vipRoomType = is2Player ? 2 : 4;
+        //int quanNum = detail.Round4_Jiuyao.IsSelected ? 1 : 2;
+        int vipRoomType = 0;
+        int quanNum = 0;
+        if (detail.Toggle2_jiuyaoToggle.isOn)
+        {
+            vipRoomType = 2;
+            if (detail.Round8_shuaijiuyao.isOn)
+            {
+                quanNum = 7;
+            }
+            else if (detail.Round16_shuaijiuyao.isOn)
+            {
+                quanNum = 14;
+            }
+        }
+        else if (detail.Toggle4_jiuyaoToggle.isOn)
+        {
+            vipRoomType = 4;
+            if (detail.Toggle4_Round8_shuaijiuyao.isOn)
+            {
+                quanNum = 5;
+            }
+            else if (detail.Toggle4_Round16_shuaijiuyao.isOn)
+            {
+                quanNum = 10;
+            }
+        }
         int wanfa = MJUtils.MODE_SHUAIJIUYAO | MJUtils.MODE_FENGPAI | MJUtils.MODE_CHI | MJUtils.MODE_SEVENPAIR;
         if (detail.Mode0_OneColorTrain_Jiuyao.IsSelected)
         {
@@ -134,9 +233,35 @@ public class CreateRoomDialog : CreateRoomDialogBase
     private void OnTuiDaoHuClickCreate()  // 创建推倒胡麻将房间
     {
         Game.SoundManager.PlayClick();
-        bool is2Player = detail.PlayerNum2_Tuidaohu.IsSelected;
-        int vipRoomType = is2Player ? 2 : 4;
-        int quanNum = detail.Round4_Tuidaohu.IsSelected ? 1 : 2;
+        //bool is2Player = detail.PlayerNum2_Tuidaohu.IsSelected;
+        //int vipRoomType = is2Player ? 2 : 4;
+        //int quanNum = detail.Round4_Tuidaohu.IsSelected ? 1 : 2;
+        int vipRoomType = 0;
+        int quanNum = 0;
+        if (detail.Toggle2_tuidaohu.isOn)
+        {
+            vipRoomType = 2;
+            if (detail.Round8_tuidaohu.isOn)
+            {
+                quanNum = 7;
+            }
+            else if (detail.Round16_tuidaohu.isOn)
+            {
+                quanNum = 14;
+            }
+        }
+        else if (detail.Toggle4_tuidaohuToggle.isOn)
+        {
+            vipRoomType = 4;
+            if (detail.Toggle4_Round8_tuidaohu.isOn)
+            {
+                quanNum = 5;
+            }
+            else if (detail.Toggle4_Round16_tuidaohu.isOn)
+            {
+                quanNum = 10;
+            }
+        }
         int wanfa = MJUtils.MODE_SEVENPAIR;
         if (detail.Mode0_Fengpai_Tuidaohu.IsSelected)
         {
