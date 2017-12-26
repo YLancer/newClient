@@ -311,7 +311,7 @@ public class MainPage : MainPageBase
                     pos.x = 300;
                     rectTrans.anchoredPosition = pos;
                     float s = 300 + rectTrans.sizeDelta.x;
-                    float t = s / 100;
+                    float t = s / 50;
 
                     rectTrans.DOKill();
                     rectTrans.DOLocalMoveX(-s, t).SetEase(Ease.Linear).OnComplete(() =>
