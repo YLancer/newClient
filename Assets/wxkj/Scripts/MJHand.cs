@@ -262,6 +262,8 @@ public class MJHand : MonoBehaviour
     internal void PlayTingLiang(int card, bool isMy) //tingliang #3 收到亮牌同步协议，展示亮的牌。
     {
         print("   show  ting  liang  " + card);
+        
+        player.liangCardLayout.AddCard(card);
     }
 
     /// <summary>

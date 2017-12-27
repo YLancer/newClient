@@ -10,6 +10,7 @@ public class MJPlayer : MonoBehaviour {
 	public TableCardLayout tableCardLayout;
     public ShouPaoCardLayout shouPaoCardLayout;
     public JiuYaoCardLayout jiuYaoCardLayout;
+    public LiangCardLayout liangCardLayout;
     public Transform baoRoot;
     public Transform EffectPos;
     public MJHand MJHand;
@@ -26,6 +27,7 @@ public class MJPlayer : MonoBehaviour {
 
         shouPaoCardLayout.Clear();
         jiuYaoCardLayout.Clear();
+        liangCardLayout.Clear();
 
         if (baoRoot.childCount > 0)
         {

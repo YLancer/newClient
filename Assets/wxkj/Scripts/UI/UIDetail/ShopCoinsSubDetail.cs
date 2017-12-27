@@ -3,6 +3,7 @@ using UnityEngine.UI;
 using System.Collections;
 using TMPro;
 
+
 [System.Serializable]
 public class ShopCoinsSubDetail
 {

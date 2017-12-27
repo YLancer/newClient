@@ -335,6 +335,7 @@ public class PlayPage : PlayPageBase
     void SetTingLiangUI() //tingliang #1 初始化亮牌界面。
     {
         //1.显示提示
+        detail.LiangtTiShi.gameObject.SetActive(TingLiangFlag);
         //2.高亮手牌 并 重新绑定麻将事件
         PopingCard();
     }
@@ -356,6 +357,7 @@ public class PlayPage : PlayPageBase
     private void ResetCard()
     {
         TingLiangFlag = false;
+        detail.LiangtTiShi.gameObject.SetActive(TingLiangFlag);
         var handCardList = Game.MJMgr.MyPlayer.handCardLayout.list;
         for (int i = 0; i < handCardList.Count; i++)
         {

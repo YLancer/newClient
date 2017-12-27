@@ -96,4 +96,8 @@ public class PlayPageDetail
     public Image GameReady_Image;
     public Button GameReady_Button;
     public Text GameReady_Text;
+
+    public Image LiangtTiShi;
+    public Image BG;
+    public Text text_tishi;
 }
