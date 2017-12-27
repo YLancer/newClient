@@ -9,6 +9,7 @@ using UnityEngine.EventSystems;
 public class PlayPage : PlayPageBase
 {
     private List<PlayerSub> players = new List<PlayerSub>();
+    private bool TingLiangFlag = false;
 
     public override void InitializeScene()
     {
@@ -313,10 +314,15 @@ public class PlayPage : PlayPageBase
         detail.TingChiButton_Button.gameObject.SetActive(tingChi);
         detail.TingPengButton_Button.gameObject.SetActive(tingPeng);
         detail.ZhiduiButton_Button.gameObject.SetActive(tingZhidui);
-        
+
+        print( "   ================  update ui  " + tingLiang + " , " + TingLiangFlag);
         if (tingLiang) //tingliang #0 按原本架构进入UI刷新。
         {
+            TingLiangFlag = true;
             SetTingLiangUI();
+        } else if(TingLiangFlag) // 保证界面会注销。
+        {
+            ResetCard();
         }
         
         if (chu && Game.Instance.Ting)
@@ -336,12 +342,6 @@ public class PlayPage : PlayPageBase
     private void PopingCard()
     {
         var handCardList = Game.MJMgr.MyPlayer.handCardLayout.list;
-        print("   ------- ting list  " + RoomMgr.actionNotify.tingList.Count);
-        foreach(var obj in RoomMgr.actionNotify.tingList)
-        {
-            print("  for  " + obj);
-        }
-        print("   ------- ting list  end ");
         for (int i = 0; i < handCardList.Count; i++)
         {
             MJEntity cardObj = handCardList[i];
@@ -355,6 +355,7 @@ public class PlayPage : PlayPageBase
 
     private void ResetCard()
     {
+        TingLiangFlag = false;
         var handCardList = Game.MJMgr.MyPlayer.handCardLayout.list;
         for (int i = 0; i < handCardList.Count; i++)
         {
