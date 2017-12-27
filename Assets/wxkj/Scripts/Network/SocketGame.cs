@@ -671,6 +671,7 @@ public partial class SocketGame : MonoBehaviour {
         str += ActionsStrOne(MJUtils.ACT_DROP_CARD, "出", action);
         str += ActionsStrOne(MJUtils.ACT_HU, "胡", action);
         str += ActionsStrOne(MJUtils.ACT_TING, "听", action);
+        str += ActionsStrOne(MJUtils.ACT_TING_LIANG, "听亮", action);
         str += ActionsStrOne(MJUtils.ACT_PASS, "过", action);
         str += ActionsStrOne(MJUtils.ACT_TING_CHI, "吃听", action);
         str += ActionsStrOne(MJUtils.ACT_DRAG_CARD, "摸牌", action);
@@ -733,6 +734,10 @@ public partial class SocketGame : MonoBehaviour {
         else if (MJUtils.Ting(data.action))
         {
             player.MJHand.PlayTing(isMy);
+        }
+        else if (MJUtils.TingLiang(data.action))
+        {
+            player.MJHand.PlayTingLiang(data.cardValue[0], isMy);
         }
         else if (MJUtils.TingPeng(data.action))
         {
@@ -849,6 +854,11 @@ public partial class SocketGame : MonoBehaviour {
     public void DoTing(int card = -1)
     {
         DoGameOperPlayerActionSyn(MJUtils.ACT_TING, card);
+    }
+
+    public void DoTingLiang(int card)
+    {
+        DoGameOperPlayerActionSyn(MJUtils.ACT_TING_LIANG, card);
     }
 
     public void DoPass()

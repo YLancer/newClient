@@ -329,5 +329,6 @@ public class HandCardLayout : MonoBehaviour {
 
     public void cardPlay(MJEntity card)        //打出牌
     {
+        card.OnClickDrop();
     }
 }

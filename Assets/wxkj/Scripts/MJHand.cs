@@ -259,6 +259,11 @@ public class MJHand : MonoBehaviour
         EventDispatcher.DispatchEvent(MessageCommand.PlayEffect, position, "tingUI_EF");
     }
 
+    internal void PlayTingLiang(int card, bool isMy) //tingliang #3 收到亮牌同步协议，展示亮的牌。
+    {
+        print("   show  ting  liang  " + card);
+    }
+
     /// <summary>
     /// 杠牌桌面上卡牌的动作和播放动画  TODO
     /// </summary>
@@ -271,10 +276,10 @@ public class MJHand : MonoBehaviour
 
         if ( type==1 )
         {
-            player.tableCardLayout.AddCard(cardG);
-            player.tableCardLayout.AddCard(cardG);
-            player.tableCardLayout.AddCard(cardG);
-            player.tableCardLayout.AddCard(cardG);
+            player.tableCardLayout.AddCard(cardG, true);
+            player.tableCardLayout.AddCard(cardG, true);
+            player.tableCardLayout.AddCard(cardG, true);
+            player.tableCardLayout.AddCard(cardG, true);
 
             if (!isMy)
             {

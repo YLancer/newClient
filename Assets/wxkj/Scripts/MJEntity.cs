@@ -43,6 +43,7 @@ public class MJEntity : MonoBehaviour {
     public delegate void EventHandler(MJEntity card);
     public event EventHandler reSetPoisiton;
     public event EventHandler onSendMessage;
+    public EventHandler tingLiangSendMessage;//TODO 因为不知道如何备份清空onSendMessage，将onSendMessage垄断成我的专属方法，所以用个新事件来独断这个event。
 
     void OnMouseDown()                                //按下
     {
@@ -74,11 +75,16 @@ public class MJEntity : MonoBehaviour {
         }
         else
         {
-            if (MJUtils.DropCard())
+            if (MJUtils.DropCard() || MJUtils.TingLiang())
             {
-                if (onSendMessage != null)     //发送消息
+                print("  drop card  " + tingLiangSendMessage);
+                if(tingLiangSendMessage != null && MJUtils.TingLiang())
+                {
+                    tingLiangSendMessage(this.GetComponent<MJEntity>());
+                } else if (onSendMessage != null)     //发送消息
                 {
                     onSendMessage(this.GetComponent<MJEntity>());
+                } else {
                     OnClickDrop();
                 }
             }

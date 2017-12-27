@@ -14,7 +14,8 @@ public class MJUtils
     public const int ACT_DROP_CARD = 0x20;              // 出牌
     public const int ACT_HU = 0x40;                     // 胡牌
     public const int ACT_TING = 0x80;                   // 听牌
-    public const int ACT_PASS = 0x100;                   // 取消（过）
+    public const int ACT_PASS = 0x100;                  // 取消（过）
+    public const int ACT_TING_LIANG = 0x200;            // 听后的亮牌操作
     //public const int ACT_DROP_CARD_AUTO_TING = 0x400;   // 听牌后自动出牌
     //public const int ACT_DROPED = 0x8000;               // 已出
     public const int ACT_TING_CHI = 0x40000;            // 吃听
@@ -113,6 +114,11 @@ public class MJUtils
     public static bool Ting(int actions = -1)
     {
         return CanAct(ACT_TING, actions);
+    }
+
+    public static bool TingLiang(int actions = -1)
+    {
+        return CanAct(ACT_TING_LIANG, actions);
     }
     //胡我写的
     public static bool Hu(int actions =-1)

@@ -295,6 +295,7 @@ public class PlayPage : PlayPageBase
         bool zhigang = MJUtils.ZhiGang();
         bool hu = MJUtils.Hu();
         bool ting = MJUtils.Ting();
+        bool tingLiang = MJUtils.TingLiang();
         bool tingChi = MJUtils.TingChi();
         bool tingPeng = MJUtils.TingPeng();
         bool tingZhidui = MJUtils.TingZhidui();
@@ -313,11 +314,64 @@ public class PlayPage : PlayPageBase
         detail.TingPengButton_Button.gameObject.SetActive(tingPeng);
         detail.ZhiduiButton_Button.gameObject.SetActive(tingZhidui);
         
+        if (tingLiang) //tingliang #0 按原本架构进入UI刷新。
+        {
+            SetTingLiangUI();
+        }
+        
         if (chu && Game.Instance.Ting)
         {
             Game.MaterialManager.TurnOffHandCard();
         }
     }
+
+#region ============= 听亮牌部分 =============
+    void SetTingLiangUI() //tingliang #1 初始化亮牌界面。
+    {
+        //1.显示提示
+        //2.高亮手牌 并 重新绑定麻将事件
+        PopingCard();
+    }
+
+    private void PopingCard()
+    {
+        var handCardList = Game.MJMgr.MyPlayer.handCardLayout.list;
+        print("   ------- ting list  " + RoomMgr.actionNotify.tingList.Count);
+        foreach(var obj in RoomMgr.actionNotify.tingList)
+        {
+            print("  for  " + obj);
+        }
+        print("   ------- ting list  end ");
+        for (int i = 0; i < handCardList.Count; i++)
+        {
+            MJEntity cardObj = handCardList[i];
+            cardObj.SetSelect(false);
+            cardObj.tingLiangSendMessage = OnCardChoose; //这里的注册没有去做保证释放，可能有残留的危险。
+            int cardPoint = cardObj.Card;
+            bool isEnable = RoomMgr.actionNotify.tingList.Count == 0?true:RoomMgr.actionNotify.tingList.Contains(cardPoint);
+            cardObj.SetEnable(isEnable);
+        }
+    }
+
+    private void ResetCard()
+    {
+        var handCardList = Game.MJMgr.MyPlayer.handCardLayout.list;
+        for (int i = 0; i < handCardList.Count; i++)
+        {
+            MJEntity cardObj = handCardList[i];
+            cardObj.tingLiangSendMessage = null;
+            cardObj.SetSelect(false);
+            cardObj.SetEnable(true);
+        }
+    }
+    
+    public void OnCardChoose(MJEntity card) //tingliang #2 选定要亮的牌并发送。
+    {
+        Game.SoundManager.PlayClick();
+        Game.MJMgr.MyPlayer.TingLiang(card.Card);
+        ResetCard();
+    }
+#endregion
 
     void OnClickPassBtn()
     {

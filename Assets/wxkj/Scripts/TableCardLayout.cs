@@ -26,7 +26,7 @@ public class TableCardLayout : MonoBehaviour
                 {
                     Transform trans = this.transform.GetChild(index);
                     trans.localPosition = Vector3.right * width * i + Vector3.forward * height * j;
-                    trans.localRotation = Quaternion.identity;
+                    //trans.localRotation = Quaternion.identity;
                     trans.localScale = Vector3.one;
                 }
             }
@@ -65,7 +65,7 @@ public class TableCardLayout : MonoBehaviour
         TableCards.Clear();
     }
 
-    public void AddCard(int card)
+    public void AddCard(int card, bool isFaceDown = false)
     {
         GameObject child = Game.PoolManager.CardPool.Spawn(card.ToString());
         if(null == child)
@@ -75,7 +75,15 @@ public class TableCardLayout : MonoBehaviour
         }
         child.transform.SetParent(this.transform);
         child.transform.localScale = Vector3.one;
-        child.transform.localRotation = Quaternion.identity;
+        print("   add card  isdonw" + isFaceDown);
+        if (isFaceDown)
+        {
+            child.transform.localRotation = Quaternion.Euler(180, 0, 0);
+        }
+        else
+        {
+            child.transform.localRotation = Quaternion.identity;
+        }
         //MJEntity entity = child.GetComponent<MJEntity>();
         LineUp();
 

@@ -146,6 +146,14 @@ public class MJPlayer : MonoBehaviour {
         }
     }
 
+    public void TingLiang(int card)
+    {
+        if(MJUtils.TingLiang())
+        {
+            Game.SocketGame.DoTingLiang(card);
+        }
+    }
+
     public void Hu()
 	{
         if (MJUtils.Hu())
