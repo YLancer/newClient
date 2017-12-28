@@ -68,9 +68,12 @@ public class LoginPage : LoginPageBase
             //token = (string)result["token"];
             //授权成功的话，获取用户信息
             shareSdk.GetUserInfo(type);
+            //text.tishi ="正在授权";
         }
         else if (state == ResponseState.Fail)
         {
+            //text.tishi =" 授权失败";
+            print("fail! throwable stack = " + result["stack"] + "; error msg = " + result["msg"]);
         }
         else if (state == ResponseState.Cancel)
         {
@@ -173,11 +176,11 @@ public class LoginPage : LoginPageBase
 
     void OnClickWX()
     {
-        StartCoroutine(TestWWW());
+        //StartCoroutine(TestWWW());
         if (!detail.WXToggle.isOn)  return;
         loginType = 3;
         Game.SoundManager.PlayClick();
-        //shareSdk.Authorize(PlatformType.WeChat);
+        shareSdk.Authorize(PlatformType.WeChat);
     }
 
     public void PluginCallBack(string text)
