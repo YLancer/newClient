@@ -17,9 +17,9 @@ public class AccountLoginPage : AccountLoginPageBase
     {
         base.InitializeScene();
         detail.CloseButton_Button.onClick.AddListener(OnBackPressed);
-        detail.LoginButton_Button.onClick.AddListener(OnClickLogin);
-        detail.RegistButton_Button.onClick.AddListener(OnClickRegist);
-        detail.VisitorButton_Button.onClick.AddListener(OnClickVisitor);
+        detail.LoginButton_Button.onClick.AddListener(OnClickLogin);  // 账号登录   
+        detail.RegistButton_Button.onClick.AddListener(OnClickRegist); // 注册账号
+        detail.VisitorButton_Button.onClick.AddListener(OnClickVisitor); // 游客登录
     }
 
     public override void OnSceneOpened(params object[] sceneData)
@@ -125,10 +125,10 @@ public class AccountLoginPage : AccountLoginPageBase
     void doLogin()
     {
         //Game.LoadingPage.Show(LoadPageType.LoopCircle);
-
         ip = Game.SocketHall.getIpAddress();
-
-        if (Game.SocketHall.SocketNetTools.Connected)
+        //GameData data = GDM.getSaveAbleData<GameData>();
+        //data.agreement = detail.Agree_CheckBoxSub.IsSelected;
+        if (Game.SocketHall.SocketNetTools.Connected)   // &&  data.agreement==true   同意协议才能登录游戏
         {
             Game.SocketHall.LoginMsg(username, password, ip, loginType);
         }

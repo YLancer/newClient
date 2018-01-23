@@ -32,8 +32,17 @@ public class NetClient
         buffer = new byte[size];
         receiveCache = new List<byte>();
 
-        IPAddress[] adds = Dns.GetHostAddresses(address);
+        //判断网络情况  进行链接
+        //if (Application.internetReachability == NetworkReachability.NotReachable)
+        //{
+        //    Debug.Log("没有网络！");
+        //    client = null;
+        //    return;
+        //}
+        //else if (Application.internetReachability == NetworkReachability.ReachableViaLocalAreaNetwork ||
+        //    Application.internetReachability == NetworkReachability.ReachableViaCarrierDataNetwork) {
 
+        IPAddress[] adds = Dns.GetHostAddresses(address);
         if (adds[0].AddressFamily == AddressFamily.InterNetworkV6)
         {
             Debug.Log("Connect InterNetworkV6");
@@ -44,7 +53,7 @@ public class NetClient
             Debug.Log("Connect InterNetwork");
             client = new Socket(AddressFamily.InterNetwork, SocketType.Stream, ProtocolType.Tcp);
         }
-
+        //}
         IAsyncResult result = client.BeginConnect(adds, port, AsyncAccept2, client);
         //IAsyncResult result = client.BeginConnect(IPAddress.Parse(address), port, AsyncAccept2, client);
 
@@ -54,7 +63,7 @@ public class NetClient
 
     private IEnumerator waitConnection(IAsyncResult result)
     {
-        WaitForSeconds wait = new WaitForSeconds(.2f);
+        WaitForSeconds wait = new WaitForSeconds(0.2f);
         while (!result.IsCompleted)
         {
             yield return wait;
