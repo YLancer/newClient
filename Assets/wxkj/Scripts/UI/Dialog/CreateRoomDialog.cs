@@ -149,7 +149,6 @@ public class CreateRoomDialog : CreateRoomDialogBase
                 quanNum = 10;
             }
         }
-        print("+++++++++++++++<<<<<<<<<<<<<<<<<>>>>>>>>>>>>>>>>>" + quanNum);
         int wanfa = MJUtils.MODE_CHI;
         if (detail.Mode0_Fengpai_Jinchang.IsSelected)
         {
@@ -213,7 +212,6 @@ public class CreateRoomDialog : CreateRoomDialogBase
                 quanNum = 10;
             }
         }
-        print("+++++++++++++++<<<<<<<<<<<<<<<<<>>>>>>>>>>>>>>>>>" + quanNum);
         int wanfa = MJUtils.MODE_SHUAIJIUYAO | MJUtils.MODE_FENGPAI | MJUtils.MODE_CHI | MJUtils.MODE_SEVENPAIR;
         if (detail.Mode0_OneColorTrain_Jiuyao.IsSelected)
         {
@@ -265,7 +263,6 @@ public class CreateRoomDialog : CreateRoomDialogBase
                 quanNum = 10;
             }
         }
-        print("+++++++++++++++<<<<<<<<<<<<<<<<<>>>>>>>>>>>>>>>>>" + quanNum);
         int wanfa = MJUtils.MODE_SEVENPAIR;
         if (detail.Mode0_Fengpai_Tuidaohu.IsSelected)
         {

@@ -25,7 +25,8 @@ public class LoadMgr : MonoBehaviour {
             }
             else
             {
-                int prg = (int)(async.progress * 100);
+                int prg = (int)(async.progress * 100) + 12 ;
+                if (prg > 100) prg = 100;
                 UpdateLoading(async.progress, string.Format("加载中。。。{0}%", prg));
             }
         }

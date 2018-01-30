@@ -9,7 +9,7 @@ public class AccountLoginPage : AccountLoginPageBase
 {
     //登录类型 1 游客  2 用户名密码 3微信 4QQ
     private int loginType = 2;
-    private string username = "kane";
+    private string username = "";
     private string password = "";
     private string ip = "";
     private bool isLogin = true;
@@ -49,12 +49,16 @@ public class AccountLoginPage : AccountLoginPageBase
     private void OnClickLogin()
     {
         Game.SoundManager.PlayClick();
-        isLogin = true;
-        Game.SocketHall.loginType = 2;
-        Game.SocketHall.username = detail.Username_InputField.text;
-        Game.SocketHall.password = detail.Password_InputField.text;
-        SavePassword();
-        Game.SocketHall.doLogin();
+        if(detail.Agree_CheckBoxSub.IsSelected ==true)
+        {
+            isLogin = true;
+            Game.SocketHall.loginType = 2;
+            Game.SocketHall.username = detail.Username_InputField.text;
+            Game.SocketHall.password = detail.Password_InputField.text;
+            SavePassword();
+            Game.SocketHall.doLogin();
+        }
+        
     }
 
     private void OnClickVisitor()
@@ -168,11 +172,10 @@ public class AccountLoginPage : AccountLoginPageBase
         GameData data = GDM.getSaveAbleData<GameData>();
         data.savePswd = detail.SavePassword_CheckBoxSub.IsSelected;
         data.agreement = detail.Agree_CheckBoxSub.IsSelected;
-
         if (data.savePswd)
         {
-            data.username = username;
-            data.password = password;
+            data.username = Game.SocketHall.username;
+            data.password = Game.SocketHall.password;
         }
         else
         {

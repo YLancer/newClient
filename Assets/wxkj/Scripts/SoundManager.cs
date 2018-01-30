@@ -111,6 +111,11 @@ public class SoundManager : MonoBehaviour {
         PlayRandom(GetSoundsFiles(position).huSounds);
     }
 
+    public void PlayDianPao(int position)      //点炮声音   -lan
+    {
+        PlayRandom(GetSoundsFiles(position).dianPaoSounds);
+    }
+
     public void PlayHuanBao(int position)
     {
         PlayRandom(GetSoundsFiles(position).huanBaoSounds);

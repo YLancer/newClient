@@ -11,6 +11,7 @@ public class SoundsFiles : MonoBehaviour {
     public AudioClip[] gangSound;
 
     public AudioClip[] huSounds;
+    public AudioClip[] dianPaoSounds;
     public AudioClip[] zimoSounds;
     public AudioClip[] baozbaoSounds;
     public AudioClip[] pengTingSounds;
