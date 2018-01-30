@@ -133,7 +133,10 @@ public partial class SocketGame : MonoBehaviour {
     {
         if (SocketNetTools.Connected)
         {
-            Auth(Game.Instance.playerId, Game.Instance.token);
+            if (Game.Instance.playerId != -1 && Game.Instance.token != "")
+            {
+                Auth(Game.Instance.playerId, Game.Instance.token);
+            }
         }
         else
         {

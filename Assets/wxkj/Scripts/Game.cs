@@ -402,18 +402,65 @@ public class Game : MonoBehaviour
 
     void OnApplicationPause(bool pauseStatus)
     {
-        if (Game.Instance.state == GameState.Waitting || Game.Instance.state == GameState.Playing)
+        //if (Game.Instance.state == GameState.Waitting || Game.Instance.state == GameState.Playing)
+        //{
+        //    //print("====>><OnApplicationPause>" + pauseStatus);
+        //    if (pauseStatus)
+        //    {
+        //        Game.SocketGame.DoAwayGameRequest();
+        //    }
+        //    else
+        //    {
+        //        Game.SocketGame.DoBackGameRequest();
+        //    }
+        //}
+    }
+    private float timeAll = 0;
+    void FixedUpdate()
+    {
+        //每隔一秒检测是否掉线
+        timeAll += Time.deltaTime;
+        if (timeAll > 1)
         {
-            //print("====>><OnApplicationPause>" + pauseStatus);
-            if (pauseStatus)
-            {
-                Game.SocketGame.DoAwayGameRequest();
-            }
-            else
-            {
-                Game.SocketGame.DoBackGameRequest();
-            }
+            timeAll = 0;
+            IsConnet();
         }
+
+    }
+    public void IsConnet()
+    {
+
+        if (!Game.SocketHall.SocketNetTools.Connected)
+        {
+            Debug.Log("大厅服务器未连接");
+            //if (!Game.DialogMgr.IsDialogActive)
+            //{
+            //    Game.DialogMgr.PushDialogImmediately(UIDialog.LoadmsgDialog, "服务器连接中...");
+            //}
+            Game.InitHallSocket(GlobalConfig.address);
+        }
+        if (!Game.SocketGame.SocketNetTools.Connected)
+        {
+            Debug.Log("游戏服务器未连接");
+            //if (!Game.DialogMgr.IsDialogActive)
+            //{
+            //    Game.DialogMgr.PushDialogImmediately(UIDialog.LoadmsgDialog, "服务器连接中...");
+            //}
+            Game.InitGameSocket("61.160.247.95:7000");
+        }
+        if (!Game.SocketMsg.SocketNetTools.Connected)
+        {
+            Debug.Log("消息服务器未连接");
+            //if (!Game.DialogMgr.IsDialogActive)
+            //{
+            //    Game.DialogMgr.PushDialogImmediately(UIDialog.LoadmsgDialog, "服务器连接中...");
+            //}
+            Game.InitMsgSocket("61.160.247.95:4000");
+        }
+
+
+        //Game.InitMsgSocket("39.106.115.145:4000");
+        //Game.InitGameSocket("39.106.115.145:7000");
     }
 
     public static void DelayWaitForEndOfFrame(System.Action callback)

@@ -121,13 +121,13 @@ public class LoginPage : LoginPageBase
     public override void OnSceneOpened(params object[] sceneData)
     {
         base.OnSceneOpened(sceneData);
-        Game.SocketHall.AddEventListener(PacketType.LoginRequest, OnLogin);  //回调登录信息
+        //Game.SocketHall.AddEventListener(PacketType.LoginRequest, OnLogin);  //回调登录信息
     }
 
     public override void OnSceneClosed()
     {
         base.OnSceneClosed();
-        Game.SocketHall.RemoveEventListener(PacketType.LoginRequest, OnLogin);
+        //Game.SocketHall.RemoveEventListener(PacketType.LoginRequest, OnLogin);
         // Game.AndroidUtil.m_kActOnWeChatLogin -= OnWeChatLogin;
     }
 
@@ -205,10 +205,12 @@ public class LoginPage : LoginPageBase
                 Wechatloginfo.city = (string)data["city"];
                 Wechatloginfo.IP = Game.SocketHall.getIpAddress();              //获取ip地址
                 Debug.Log("Wechatloginfo.openid" + Wechatloginfo.openid + "Wechatloginfo.nickName" + Wechatloginfo.nickname + "city" + Wechatloginfo.city);
-                username = (string)data["openid"]; //oppenid
+                Game.SocketHall.username = (string)data["openid"]; //oppenid
                 Hashtable authinfo = shareSdk.GetAuthInfo(PlatformType.WeChat);
-                password = (string)authinfo["token"]; //token
-                ip = Game.SocketHall.getIpAddress();              //获取ip地址
+                Game.SocketHall.password = (string)authinfo["token"]; //token
+                Game.SocketHall.ip = Game.SocketHall.getIpAddress();
+                Game.SocketHall.loginType = 3;
+                //获取ip地址
                 print("ranger****username" + username + "password" + password);
                 //发送到服务器
                 //Game.SocketHall.LoginMsg((string)data["openid"], (string)data["unionid"], loginType);
@@ -216,7 +218,7 @@ public class LoginPage : LoginPageBase
 
                 //跳转界面
                 //Game.UIMgr.PushScene(UIPage.MainPage);
-                doLogin();
+                Game.SocketHall.doLogin();
             }
             catch (System.Exception e)
             {

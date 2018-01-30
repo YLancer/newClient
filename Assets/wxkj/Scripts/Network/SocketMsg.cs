@@ -64,7 +64,11 @@ public class SocketMsg : MonoBehaviour
     {
         if (SocketNetTools.Connected)
         {
-            Auth(Game.Instance.playerId, Game.Instance.token);
+            if (Game.Instance.playerId != -1 && Game.Instance.token != "")
+            {
+                Auth(Game.Instance.playerId, Game.Instance.token);
+            }
+            //Auth(Game.Instance.playerId, Game.Instance.token);
         }
         else
         {
@@ -72,7 +76,7 @@ public class SocketMsg : MonoBehaviour
         }
     }
 
-    private void Auth(int userId, string token)
+    public void Auth(int userId, string token)
     {
         PacketBase msg = new PacketBase() { packetType = PacketType.AuthRequest };
         AuthRequest request = new AuthRequest() { userId = userId, token = token, version = GlobalConfig.GetVersion };

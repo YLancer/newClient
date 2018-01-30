@@ -17,6 +17,10 @@ public class SocketHall : MonoBehaviour {
     public bool NeedAuth = false;
 
     public SocketNetTools SocketNetTools;
+    public string username = "";
+    public string password = "";
+    public string ip = "";
+    public int loginType = 3;
 
     void Start()
     {
@@ -24,6 +28,7 @@ public class SocketHall : MonoBehaviour {
         //AddEventListener(PacketType.RoomResultResponse, OnRoomResultResponse);
         AddEventListener(PacketType.LogoutSyn, OnLogoutSyn);
         AddEventListener(PacketType.ServerChangeSyn, Game.OnServerChangeSyn);
+        AddEventListener(PacketType.LoginRequest, OnLogin); 
 
         SocketNetTools.OnConnect -= OnConnect;
         SocketNetTools.OnConnect += OnConnect;
@@ -35,8 +40,68 @@ public class SocketHall : MonoBehaviour {
         //RemoveEventListener(PacketType.RoomResultResponse, OnRoomResultResponse);
         RemoveEventListener(PacketType.LogoutSyn, OnLogoutSyn);
         RemoveEventListener(PacketType.ServerChangeSyn, Game.OnServerChangeSyn);
-    }
+        RemoveEventListener(PacketType.LoginRequest, OnLogin);
 
+    }
+    public void doLogin()
+    {
+        if (Game.SocketHall.SocketNetTools.Connected)
+        {
+            LoginMsg(username, password, ip, loginType);
+        }
+        else
+        {
+            //Game.SocketHall.SocketNetTools.OnConnect -= OnConnect;
+            //Game.SocketHall.SocketNetTools.OnConnect += OnConnect;
+            Game.InitHallSocket(GlobalConfig.address);
+        }
+    }
+    void OnLogin(PacketBase msg)
+    {
+        //Game.LoadingPage.Hide();
+        if (msg.code == 0)
+        {
+            //GDM.Save(SAVE_DATA_TYPE.GameData);
+
+            LoginResponse response = NetSerilizer.DeSerialize<LoginResponse>(msg.data);
+            Game.Instance.playerId = response.userId;
+            Game.Instance.token = response.token;
+
+            //Game.InitHallSocket(response.hallServerAddr);
+            //Game.InitMsgSocket(response.msgServerAddr);
+            //Game.InitGameSocket(response.gameServerAddr);
+            if (Game.SocketMsg.SocketNetTools.Connected)
+            {
+                Game.SocketMsg.Auth(Game.Instance.playerId, Game.Instance.token);
+            }
+            else
+            {
+                Game.InitMsgSocket(response.msgServerAddr);
+            }
+            if (Game.SocketGame.SocketNetTools.Connected)
+            {
+                Game.SocketGame.Auth(Game.Instance.playerId, Game.Instance.token);
+            }
+            else
+            {
+                Game.InitGameSocket(response.gameServerAddr);
+            }
+
+            //EventDispatcher.DispatchEvent(MessageCommand.LoginSucess);
+
+            //Game.StateMachine.SetNext(Game.StateMachine.MenuState);
+            Game.Reset();
+
+            Game.SocketHall.DoRoomConfigRequest();
+            //Game.SocketHall.DoRankRequest();
+
+            Game.UIMgr.PushScene(UIPage.MainPage);
+        }
+        else
+        {
+            Game.DialogMgr.PushDialog(UIDialog.SingleBtnDialog, msg.msg);
+        }
+    }
     void OnConnect()
     {
         if (SocketNetTools.Connected)
@@ -45,6 +110,10 @@ public class SocketHall : MonoBehaviour {
             {
                 NeedAuth = false;
                 Auth(Game.Instance.playerId, Game.Instance.token);
+            }
+            if (username != "" && password != "")
+            {
+                LoginMsg(username, password, ip, loginType);
             }
         }
         else

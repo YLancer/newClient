@@ -25,15 +25,15 @@ public class AccountLoginPage : AccountLoginPageBase
     public override void OnSceneOpened(params object[] sceneData)
     {
         base.OnSceneOpened(sceneData);
-        Game.SocketHall.AddEventListener(PacketType.LoginRequest, OnLogin);
-        Game.SocketHall.AddEventListener(PacketType.VistorRegisterResponse, OnVistorRegister);
+        //Game.SocketHall.AddEventListener(PacketType.LoginRequest, OnLogin);
+        //Game.SocketHall.AddEventListener(PacketType.VistorRegisterResponse, OnVistorRegister);
     }
 
     public override void OnSceneClosed()
     {
         base.OnSceneClosed();
-        Game.SocketHall.RemoveEventListener(PacketType.LoginRequest, OnLogin);
-        Game.SocketHall.RemoveEventListener(PacketType.VistorRegisterResponse, OnVistorRegister);
+        //Game.SocketHall.RemoveEventListener(PacketType.LoginRequest, OnLogin);
+        //Game.SocketHall.RemoveEventListener(PacketType.VistorRegisterResponse, OnVistorRegister);
     }
 
     public override void OnSceneActivated(params object[] sceneData)
@@ -50,11 +50,11 @@ public class AccountLoginPage : AccountLoginPageBase
     {
         Game.SoundManager.PlayClick();
         isLogin = true;
-        loginType = 2;
-        username = detail.Username_InputField.text;
-        password = detail.Password_InputField.text;
+        Game.SocketHall.loginType = 2;
+        Game.SocketHall.username = detail.Username_InputField.text;
+        Game.SocketHall.password = detail.Password_InputField.text;
         SavePassword();
-        doLogin();
+        Game.SocketHall.doLogin();
     }
 
     private void OnClickVisitor()
