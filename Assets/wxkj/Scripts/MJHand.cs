@@ -415,7 +415,7 @@ public class MJHand : MonoBehaviour
     }
     
 
-    // 玩家收炮阶段，桌面上卡牌的动作
+    // 玩家收炮阶段，桌面上卡牌的动作   TODO  修改声音
     internal void PlayShouPao(int cardSP, bool isMy)
     {
         Game.SoundManager.PlayHu(position);
