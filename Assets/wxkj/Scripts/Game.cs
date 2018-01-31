@@ -7,7 +7,7 @@ using System.Collections.Generic;
 using packet.game;
 using packet.rank;
 using DG.Tweening;
-
+using System;
 
 public enum GameState
 {
@@ -399,21 +399,48 @@ public class Game : MonoBehaviour
     //{
     //    print("====>><OnApplicationFocus>" + hasFocus);
     //}
-
+    DateTime pauseTime;
     void OnApplicationPause(bool pauseStatus)
     {
-        //if (Game.Instance.state == GameState.Waitting || Game.Instance.state == GameState.Playing)
-        //{
-        //    //print("====>><OnApplicationPause>" + pauseStatus);
-        //    if (pauseStatus)
-        //    {
-        //        Game.SocketGame.DoAwayGameRequest();
-        //    }
-        //    else
-        //    {
-        //        Game.SocketGame.DoBackGameRequest();
-        //    }
-        //}
+
+        //print("====>><OnApplicationPause>" + pauseStatus);
+        if (pauseStatus)
+        {
+            pauseTime = DateTime.Now;
+            if (Game.Instance.state == GameState.Waitting || Game.Instance.state == GameState.Playing)
+            {
+                //Game.SocketGame.DoAwayGameRequest();
+                //Game.MJMgr.Clear();
+                //Game.MJMgr.MjDataClear();
+            }
+            if (Game.Instance.state == GameState.Hall)
+            {
+
+            }
+        }
+        else
+        {
+            if (pauseTime != null)
+            {
+                TimeSpan timeSpan = DateTime.Now - pauseTime;
+                if (timeSpan.TotalSeconds > 120)
+                {
+                    Debug.Log("超过2分钟断开所有连接");
+                    Game.SocketGame.SocketNetTools.StopClient();
+                    Game.SocketHall.SocketNetTools.StopClient();
+                    Game.SocketMsg.SocketNetTools.StopClient();
+                }
+                else
+                {
+                    if (Game.Instance.state == GameState.Waitting || Game.Instance.state == GameState.Playing)
+                    {
+                        //Game.SocketGame.DoBackGameRequest();
+                        //Game.SocketGame.DoPlayerGamingSynInquire();
+                        Game.UIMgr.PushScene(UIPage.PlayPage);
+                    }
+                }
+            }
+        }
     }
     private float timeAll = 0;
     void FixedUpdate()
