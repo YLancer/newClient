@@ -438,9 +438,9 @@ public partial class SocketGame : MonoBehaviour {
 
         Game.MJMgr.CardLeft = data.cardLeft;
 
-        print("    ============ data.guiCard ==============   " + data.guiCard.Count + " / " + data.guiCard[0]);
+        print("    ============ data.guiCard ==============   " + data.guiCards.Count + " / " + data.guiCards[0]);
 
-        Game.MJMgr.tmpHui = data.guiCard[0];
+        Game.MJMgr.tmpHui = data.guiCards[0];
         //Game.MJMgr.Init();
         Game.Instance.Ting = false;
         //Game.IsBusy = false;
@@ -504,13 +504,15 @@ public partial class SocketGame : MonoBehaviour {
     {
         foreach (GameOperHandCardSyn hc in handCards)
         {
-            Debug.LogFormat("===CardSyn: {0} HandCard[{1}],DropCards[{2}],TableCards[{3}],reconnect:{4}", strs[hc.position], ToStr(hc.handCards), ToStr(hc.cardsBefore), ToStr(hc.downCards, true), true);
+            Debug.LogFormat("===CardSyn: {0} HandCard[{1}],DropCards[{2}],TableCards[{3}],reconnect:{4},jiuyaocards{5}", strs[hc.position], ToStr(hc.handCards), ToStr(hc.cardsBefore), ToStr(hc.downCards, true), true, ToStr(hc.yaojiuCards));
             MJPlayer player = Game.MJMgr.GetPlayerByPosition(hc.position);
 
             player.dropCardLayout.Clear();
             player.tableCardLayout.Clear();
             player.handCardLayout.Clear();
             player.handCardLayout.PlayDefault();
+            player.jiuYaoCardLayout.Clear();
+           
 
             for (int i = 0; i < hc.handCards.Count; i++)
             {
@@ -523,6 +525,12 @@ public partial class SocketGame : MonoBehaviour {
             {
                 int sCard = hc.cardsBefore[i];
                 player.dropCardLayout.AddCard(sCard);
+                MJCardGroup.TryDragCard();
+            }
+            for (int i = 0; i < hc.yaojiuCards.Count; i++)
+            {
+                int sCard = hc.yaojiuCards[i];
+                player.jiuYaoCardLayout.AddCard(sCard);
                 MJCardGroup.TryDragCard();
             }
 
