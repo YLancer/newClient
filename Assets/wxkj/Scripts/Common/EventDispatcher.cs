@@ -29,6 +29,7 @@ public enum MessageCommand
     Chat = 7001,
     PlayEffect = 8001,
     //PopQueue = 8101,
+    TingLiangEnd=9001,
 }
 
 public delegate void MyEventHandler(params object[] objs);

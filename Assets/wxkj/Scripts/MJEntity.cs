@@ -40,10 +40,10 @@ public class MJEntity : MonoBehaviour {
         return (null != layout);
     }
     //  麻将上下可选择  TODO
-    public delegate void EventHandler(MJEntity card);
-    public event EventHandler reSetPoisiton;
-    public event EventHandler onSendMessage;
-    public EventHandler tingLiangSendMessage;//TODO 因为不知道如何备份清空onSendMessage，将onSendMessage垄断成我的专属方法，所以用个新事件来独断这个event。
+    //public delegate void EventHandler(MJEntity card);
+    //public event EventHandler reSetPoisiton;
+    //public event EventHandler onSendMessage;
+    //public EventHandler tingLiangSendMessage;//TODO 因为不知道如何备份清空onSendMessage，将onSendMessage垄断成我的专属方法，所以用个新事件来独断这个event。
 
     void OnMouseDown()                                //按下
     {
@@ -68,30 +68,46 @@ public class MJEntity : MonoBehaviour {
 
         if (isSelect == false)
         {
-            if (reSetPoisiton != null)
+            foreach (MJEntity me in Game.MJMgr.MyPlayer.handCardLayout.list)
             {
-                reSetPoisiton(this.GetComponent<MJEntity>());
+                if (me.isSelect)
+                {
+                    me.SetSelect(false);
+                }
             }
+            //if (reSetPoisiton != null)
+            //{
+            //    reSetPoisiton(this.GetComponent<MJEntity>());
+            //isSelect = true;
+            SetSelect(true);
+            //}
         }
         else
         {
-            if (MJUtils.DropCard() || MJUtils.TingLiang())
+            if (MJUtils.DropCard())
             {
-                print("  drop card  " + tingLiangSendMessage);
-                if(tingLiangSendMessage != null && MJUtils.TingLiang())
-                {
-                    tingLiangSendMessage(this.GetComponent<MJEntity>());
-                } else if (onSendMessage != null)     //发送消息
-                {
-                    onSendMessage(this.GetComponent<MJEntity>());
-                } else {
+                Debug.Log("  drop card----------------  " + Card);
+                //if(tingLiangSendMessage != null && MJUtils.TingLiang())
+                //{
+                //    tingLiangSendMessage(this.GetComponent<MJEntity>());
+                //} else if (onSendMessage != null)     //发送消息
+                //{
+                //    onSendMessage(this.GetComponent<MJEntity>());
+                //} else {
                     OnClickDrop();
-                }
+                //}
             }
-            else
+            if(MJUtils.TingLiang())
             {
-                SetSelect(false);
+                Debug.Log("  tingliang card----------------  " + Card);
+                Game.SoundManager.PlayClick();
+                //Game.MJMgr.MyPlayer.TingLiang(Card);
+                Game.SocketGame.DoTingLiang(Card);
+                EventDispatcher.DispatchEvent(MessageCommand.TingLiangEnd);
             }
+            isSelect = false;
+            //SetSelect(false);
+
         }
     }
 

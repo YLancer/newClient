@@ -98,7 +98,8 @@ public class PlayPage : PlayPageBase
         EventDispatcher.AddEventListener(MessageCommand.MJ_UpdateCtrlPanel, OnUpdateCtrlPanel);
         EventDispatcher.AddEventListener(MessageCommand.Chat, OnChat);
         EventDispatcher.AddEventListener(MessageCommand.PlayEffect, OnPlayEffect);
-        
+        EventDispatcher.AddEventListener(MessageCommand.TingLiangEnd, ResetCard);
+
     }
 
     public override void OnSceneClosed()
@@ -109,6 +110,7 @@ public class PlayPage : PlayPageBase
         EventDispatcher.RemoveEventListener(MessageCommand.MJ_UpdateCtrlPanel, OnUpdateCtrlPanel);
         EventDispatcher.RemoveEventListener(MessageCommand.Chat, OnChat);
         EventDispatcher.RemoveEventListener(MessageCommand.PlayEffect, OnPlayEffect);
+        EventDispatcher.RemoveEventListener(MessageCommand.TingLiangEnd, ResetCard);
     }
 
     public override void OnBackPressed()
@@ -318,6 +320,7 @@ public class PlayPage : PlayPageBase
         print( "   ================  update ui  " + tingLiang + " , " + TingLiangFlag);
         if (tingLiang) //tingliang #0 按原本架构进入UI刷新。
         {
+            Debug.Log("收到听亮消息，需打出亮牌");
             TingLiangFlag = true;
             SetTingLiangUI();
         } else if(TingLiangFlag) // 保证界面会注销。
@@ -347,14 +350,14 @@ public class PlayPage : PlayPageBase
         {
             MJEntity cardObj = handCardList[i];
             cardObj.SetSelect(false);
-            cardObj.tingLiangSendMessage = OnCardChoose; //这里的注册没有去做保证释放，可能有残留的危险。
+            //cardObj.tingLiangSendMessage = OnCardChoose; //这里的注册没有去做保证释放，可能有残留的危险。
             int cardPoint = cardObj.Card;
             bool isEnable = RoomMgr.actionNotify.tingList.Count == 0?true:RoomMgr.actionNotify.tingList.Contains(cardPoint);
             cardObj.SetEnable(isEnable);
         }
     }
 
-    private void ResetCard()
+    private void ResetCard(params object[] args)
     {
         TingLiangFlag = false;
         detail.LiangtTiShi.gameObject.SetActive(TingLiangFlag);
@@ -362,7 +365,7 @@ public class PlayPage : PlayPageBase
         for (int i = 0; i < handCardList.Count; i++)
         {
             MJEntity cardObj = handCardList[i];
-            cardObj.tingLiangSendMessage = null;
+            //cardObj.tingLiangSendMessage = null;
             cardObj.SetSelect(false);
             cardObj.SetEnable(true);
         }
